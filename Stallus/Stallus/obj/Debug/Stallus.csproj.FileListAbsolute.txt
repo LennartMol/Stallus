@@ -1,0 +1,10 @@
+D:\HBO\PTT\Stallus\Stallus\Stallus\bin\Debug\Stallus.exe.config
+D:\HBO\PTT\Stallus\Stallus\Stallus\bin\Debug\Stallus.exe
+D:\HBO\PTT\Stallus\Stallus\Stallus\bin\Debug\Stallus.pdb
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.csprojAssemblyReference.cache
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.Form1.resources
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.Properties.Resources.resources
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.GenerateResource.cache
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.CoreCompileInputs.cache
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.exe
+D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.pdb

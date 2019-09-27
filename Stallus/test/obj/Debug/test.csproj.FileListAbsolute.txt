@@ -1,0 +1,15 @@
+D:\HBO\PTT\Stallus\Stallus\test\bin\Debug\test.exe.config
+D:\HBO\PTT\Stallus\Stallus\test\bin\Debug\test.exe
+D:\HBO\PTT\Stallus\Stallus\test\bin\Debug\test.pdb
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.csprojAssemblyReference.cache
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\MainWindow.g.cs
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\App.g.cs
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test_MarkupCompile.cache
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test_MarkupCompile.lref
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\MainWindow.baml
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.g.resources
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.Properties.Resources.resources
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.csproj.GenerateResource.cache
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.csproj.CoreCompileInputs.cache
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.exe
+D:\HBO\PTT\Stallus\Stallus\test\obj\Debug\test.pdb
