@@ -1,6 +1,6 @@
 ﻿namespace Stallus
 {
-    partial class Form1
+    partial class ApplicationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,13 +36,13 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lSaldo = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.rb5 = new System.Windows.Forms.RadioButton();
-            this.rb10 = new System.Windows.Forms.RadioButton();
-            this.rb15 = new System.Windows.Forms.RadioButton();
             this.rb20 = new System.Windows.Forms.RadioButton();
+            this.rb15 = new System.Windows.Forms.RadioButton();
+            this.rb10 = new System.Windows.Forms.RadioButton();
+            this.rb5 = new System.Windows.Forms.RadioButton();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lSaldo = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -134,63 +134,6 @@
             this.tabPage2.Text = "Saldo";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 45);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 17);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Saldo:";
-            // 
-            // lSaldo
-            // 
-            this.lSaldo.AutoSize = true;
-            this.lSaldo.Location = new System.Drawing.Point(58, 45);
-            this.lSaldo.Name = "lSaldo";
-            this.lSaldo.Size = new System.Drawing.Size(16, 17);
-            this.lSaldo.TabIndex = 1;
-            this.lSaldo.Text = "0";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(9, 220);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(103, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Raise saldo";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // rb5
-            // 
-            this.rb5.AutoSize = true;
-            this.rb5.Location = new System.Drawing.Point(9, 112);
-            this.rb5.Name = "rb5";
-            this.rb5.Size = new System.Drawing.Size(58, 21);
-            this.rb5.TabIndex = 3;
-            this.rb5.Text = "€ 5,-";
-            this.rb5.UseVisualStyleBackColor = true;
-            // 
-            // rb10
-            // 
-            this.rb10.AutoSize = true;
-            this.rb10.Location = new System.Drawing.Point(9, 139);
-            this.rb10.Name = "rb10";
-            this.rb10.Size = new System.Drawing.Size(66, 21);
-            this.rb10.TabIndex = 4;
-            this.rb10.Text = "€ 10,-";
-            this.rb10.UseVisualStyleBackColor = true;
-            // 
-            // rb15
-            // 
-            this.rb15.AutoSize = true;
-            this.rb15.Location = new System.Drawing.Point(9, 166);
-            this.rb15.Name = "rb15";
-            this.rb15.Size = new System.Drawing.Size(66, 21);
-            this.rb15.TabIndex = 5;
-            this.rb15.Text = "€ 15,-";
-            this.rb15.UseVisualStyleBackColor = true;
-            // 
             // rb20
             // 
             this.rb20.AutoSize = true;
@@ -202,6 +145,64 @@
             this.rb20.TabStop = true;
             this.rb20.Text = "€ 20,-";
             this.rb20.UseVisualStyleBackColor = true;
+            // 
+            // rb15
+            // 
+            this.rb15.AutoSize = true;
+            this.rb15.Location = new System.Drawing.Point(9, 166);
+            this.rb15.Name = "rb15";
+            this.rb15.Size = new System.Drawing.Size(66, 21);
+            this.rb15.TabIndex = 5;
+            this.rb15.Text = "€ 15,-";
+            this.rb15.UseVisualStyleBackColor = true;
+            // 
+            // rb10
+            // 
+            this.rb10.AutoSize = true;
+            this.rb10.Location = new System.Drawing.Point(9, 139);
+            this.rb10.Name = "rb10";
+            this.rb10.Size = new System.Drawing.Size(66, 21);
+            this.rb10.TabIndex = 4;
+            this.rb10.Text = "€ 10,-";
+            this.rb10.UseVisualStyleBackColor = true;
+            // 
+            // rb5
+            // 
+            this.rb5.AutoSize = true;
+            this.rb5.Location = new System.Drawing.Point(9, 112);
+            this.rb5.Name = "rb5";
+            this.rb5.Size = new System.Drawing.Size(58, 21);
+            this.rb5.TabIndex = 3;
+            this.rb5.Text = "€ 5,-";
+            this.rb5.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.Location = new System.Drawing.Point(9, 220);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 27);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Raise balance";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // lSaldo
+            // 
+            this.lSaldo.AutoSize = true;
+            this.lSaldo.Location = new System.Drawing.Point(58, 45);
+            this.lSaldo.Name = "lSaldo";
+            this.lSaldo.Size = new System.Drawing.Size(16, 17);
+            this.lSaldo.TabIndex = 1;
+            this.lSaldo.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 45);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(48, 17);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Saldo:";
             // 
             // Form1
             // 

@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace Stallus
 {
-    public partial class Form1 : Form
+    public partial class LoginForm : Form
     {
-        public Form1()
+        public LoginForm()
         {
             InitializeComponent();
+        }
+
+        private void BtOpenApplication_Click(object sender, EventArgs e)
+        {
+            ApplicationForm app = new ApplicationForm();
+            this.Hide();
+            app.ShowDialog();
         }
     }
 }

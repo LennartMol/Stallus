@@ -8,3 +8,14 @@ D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.GenerateResource.cac
 D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.CoreCompileInputs.cache
 D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.exe
 D:\HBO\PTT\Stallus\Stallus\Stallus\obj\Debug\Stallus.pdb
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\bin\Debug\Stallus.exe.config
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\bin\Debug\Stallus.exe
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\bin\Debug\Stallus.pdb
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.csprojAssemblyReference.cache
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.ApplicationForm.resources
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.LoginForm.resources
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.Properties.Resources.resources
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.GenerateResource.cache
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.CoreCompileInputs.cache
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.exe
+C:\Users\menno\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.pdb
