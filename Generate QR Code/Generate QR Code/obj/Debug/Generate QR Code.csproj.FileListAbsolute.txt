@@ -1,0 +1,13 @@
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.exe.config
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.pdb
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\bin\Debug\QRCoder.dll
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\bin\Debug\System.Drawing.Common.dll
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csprojAssemblyReference.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate_QR_Code.Form1.resources
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate_QR_Code.Properties.Resources.resources
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.GenerateResource.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.CoreCompileInputs.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.CopyComplete
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.pdb
