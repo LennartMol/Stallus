@@ -1,0 +1,17 @@
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\StallusUnitTest.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\StallusUnitTest.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Stallus.exe
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Stallus.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Stallus.exe.config
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csprojAssemblyReference.cache
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csproj.CoreCompileInputs.cache
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csproj.CopyComplete
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.pdb
