@@ -185,6 +185,7 @@
             this.button1.TabIndex = 2;
             this.button1.Text = "Raise balance";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // lSaldo
             // 
@@ -204,13 +205,13 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Saldo:";
             // 
-            // Form1
+            // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tabControl1);
-            this.Name = "Form1";
+            this.Name = "ApplicationForm";
             this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
