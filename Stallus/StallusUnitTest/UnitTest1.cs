@@ -11,10 +11,10 @@ namespace StallusUnitTest
         public void Default_Constructor_Customer()
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
-            Customer customer = new Customer("Hans", dateTime, 1, "hansdv@gmail.com", 10);
+            Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
+            Customer customer = new Customer("Hans", "ww", dateTime, "hansdv@gmail.com", 10, address);
             Assert.AreEqual("Hans", customer.Name);
             Assert.AreEqual(dateTime, customer.DateOfBirth);
-            Assert.AreEqual(1, customer.CustomerId);
             Assert.AreEqual("hansdv@gmail.com", customer.Email);
             Assert.AreEqual(10, customer.Balance);
         }
