@@ -1,15 +1,24 @@
+const int bounceTime = 300;
+unsigned long lastBounceTime = 0;
+bool bicycleOnStand = false;
+unsigned long moment = 0;
+
 void DetectBicycle()
 {
-  // read the state of the pushbutton value:
-  buttonState = digitalRead(buttonPin);
+  if (digitalRead(buttonPin) == true) {
+    if ((millis() - lastBounceTime) > bounceTime) {
+      lastBounceTime = millis();
+      moment = millis() + 5000;
+      TakeAction();
+    }
+  }
+}
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (buttonState == HIGH)
-  {
-    Serial.println("HIGH");
-
-  } else
-  {
-    Serial.println("LOW");
+void TakeAction() {
+  while (true) {
+    if (millis() > moment && !bicycleOnStand) {
+      bicycleOnStand = true;
+      Serial.println("#BICYCLE_ONLOCK%");
+    }    
   }
 }
