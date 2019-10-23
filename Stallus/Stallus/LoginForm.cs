@@ -19,9 +19,19 @@ namespace Stallus
 
         private void BtOpenApplication_Click(object sender, EventArgs e)
         {
-            ApplicationForm app = new ApplicationForm();
+            //ApplicationForm app = new ApplicationForm();
+            Form popupp = new Form();
+            PictureBox pb = new PictureBox();
+            pb.Image = Image.FromFile("C:/Users/mpcme/OneDrive/Afbeeldingen/Shrek.JPG");
+            pb.Location = new Point(5, 5);
+            pb.Width = 200;
+            pb.Height = 200;
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            popupp.Controls.Add(pb);
+            popupp.ShowDialog();
+            
             this.Hide();
-            app.ShowDialog();
+           // app.ShowDialog();
         }
     }
 }
