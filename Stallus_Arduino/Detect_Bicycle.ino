@@ -2,23 +2,31 @@ const int bounceTime = 300;
 unsigned long lastBounceTime = 0;
 bool bicycleOnStand = false;
 unsigned long moment = 0;
+int currentState = 0;
+int previousState = 0;
+long pressedDown;
+long wait = 5000;
 
 void DetectBicycle()
 {
-  if (digitalRead(buttonPin) == true) {
-    if ((millis() - lastBounceTime) > bounceTime) {
-      lastBounceTime = millis();
-      moment = millis() + 5000;
-      TakeAction();
-    }
+  currentState = digitalRead(buttonPin);
+  if(currentState != previousState && digitalRead(buttonPin) == HIGH){
+    Serial.println("down");
+    pressedDown = millis();
   }
+  
+  if(currentState == previousState && digitalRead(buttonPin) == LOW){
+    Serial.println("up");
+    pressedDown = millis();
+  }
+  
+  if((millis() - pressedDown) > wait){
+    TakeAction();
+  }
+  previousState = currentState;
+  Serial.println(millis() - pressedDown);
 }
 
 void TakeAction() {
-  while (true) {
-    if (millis() > moment && !bicycleOnStand) {
-      bicycleOnStand = true;
-      Serial.println("#BICYCLE_ONLOCK%");
-    }    
-  }
+  Serial.println("close");
 }

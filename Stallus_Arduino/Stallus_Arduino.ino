@@ -6,12 +6,12 @@ int pos = 0;    // variable to store the servo position
 const int buttonPin = 2;     // the number of the pushbutton pin
 
 // variables will change:
-int buttonState = 0;         // variable for reading the pushbutton status
+//int buttonState = 0;         // variable for reading the pushbutton status
 
 void setup() {
   // put your setup code here, to run once:4
   pinMode(buttonPin, INPUT);
-  myservo.attach(8);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(8);  // attaches the servo on pin 8 to the servo object
   Serial.setTimeout(20);
   Serial.begin(9600);
 }
