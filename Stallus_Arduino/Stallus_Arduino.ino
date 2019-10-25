@@ -4,6 +4,8 @@ Servo myservo;  // create servo object to control a servo
 
 int pos = 0;    // variable to store the servo position
 const int buttonPin = 2;     // the number of the pushbutton pin
+bool isLocked = false;
+long pressedDown;
 
 // variables will change:
 //int buttonState = 0;         // variable for reading the pushbutton status
