@@ -19,19 +19,36 @@ namespace Stallus
 
         private void BtOpenApplication_Click(object sender, EventArgs e)
         {
-            //ApplicationForm app = new ApplicationForm();
             Form popupp = new Form();
+            popupp.Text = "Qr code";
             PictureBox pb = new PictureBox();
             pb.Image = Image.FromFile("C:/Users/mpcme/OneDrive/Afbeeldingen/Shrek.JPG");
-            pb.Location = new Point(5, 5);
-            pb.Width = 200;
-            pb.Height = 200;
+            pb.Location = new Point(25, 25);
+            Size pictureBoxSize = new Size(300, 300);
+            pb.Size = pictureBoxSize;
+            Size formSize = new Size(365, 385);
+            popupp.Size = formSize;
             pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            
             popupp.Controls.Add(pb);
             popupp.ShowDialog();
-            
-            this.Hide();
-           // app.ShowDialog();
+
+            if (/*Qr scan is success */true)
+            {
+                popupp.Close();
+                ApplicationForm app = new ApplicationForm();
+                this.Hide();
+                app.ShowDialog();
+            }
+
+
+
+
+
+
+
+
+
         }
     }
 }
