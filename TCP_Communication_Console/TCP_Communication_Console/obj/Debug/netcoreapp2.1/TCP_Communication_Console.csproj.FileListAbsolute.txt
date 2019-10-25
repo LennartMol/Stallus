@@ -1,0 +1,11 @@
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\bin\Debug\netcoreapp2.1\TCP_Communication_Console.deps.json
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\bin\Debug\netcoreapp2.1\TCP_Communication_Console.runtimeconfig.json
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\bin\Debug\netcoreapp2.1\TCP_Communication_Console.runtimeconfig.dev.json
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\bin\Debug\netcoreapp2.1\TCP_Communication_Console.dll
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\bin\Debug\netcoreapp2.1\TCP_Communication_Console.pdb
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.csprojAssemblyReference.cache
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.csproj.CoreCompileInputs.cache
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.AssemblyInfoInputs.cache
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.AssemblyInfo.cs
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.dll
+D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Communication_Console\obj\Debug\netcoreapp2.1\TCP_Communication_Console.pdb

@@ -39,8 +39,8 @@ namespace Stallus
         public override string ToString()
         {
             return $"Name: {Name} \n" +
-                   $"Birthday: {DateOfBirth}" +
-                   $"Email: {Email}" +
+                   $"Birthday: {DateOfBirth.ToShortDateString()} \n" +
+                   $"Email: {Email} \n" +
                    $"Balance: {Balance}";
         }
 
