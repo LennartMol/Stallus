@@ -35,5 +35,4 @@ void MessageHandler(String* messagePtr) {
     servoLock();
     Serial.println("bicycleIslocked");
   }
-  
 }
