@@ -1,0 +1,63 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_Communication_Console\\TCP_Communication_Console.csproj": {}
+  },
+  "projects": {
+    "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_Communication_Console\\TCP_Communication_Console.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_Communication_Console\\TCP_Communication_Console.csproj",
+        "projectName": "TCP_Communication_Console",
+        "projectPath": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_Communication_Console\\TCP_Communication_Console.csproj",
+        "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
+        "outputPath": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_Communication_Console\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "dependencies": {
+            "Microsoft.NETCore.App": {
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "System.Net.Sockets": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

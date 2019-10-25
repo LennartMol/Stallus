@@ -55,7 +55,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnRegistrate = new System.Windows.Forms.Button();
             this.tbRegistratePassword = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -100,6 +99,7 @@
             // 
             this.tbLoginPassword.Location = new System.Drawing.Point(296, 180);
             this.tbLoginPassword.Name = "tbLoginPassword";
+            this.tbLoginPassword.PasswordChar = '*';
             this.tbLoginPassword.Size = new System.Drawing.Size(164, 22);
             this.tbLoginPassword.TabIndex = 3;
             // 
@@ -130,7 +130,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.label11);
             this.tabPage2.Controls.Add(this.dtpRegistrateDateOfBirth);
             this.tabPage2.Controls.Add(this.tbRegistrateFirstName);
@@ -311,16 +310,7 @@
             this.tbRegistratePassword.Name = "tbRegistratePassword";
             this.tbRegistratePassword.Size = new System.Drawing.Size(164, 22);
             this.tbRegistratePassword.TabIndex = 8;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(639, 280);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 35);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "Registrate";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.tbRegistratePassword.Text = "*";
             // 
             // LoginForm
             // 
@@ -368,6 +358,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dtpRegistrateDateOfBirth;
-        private System.Windows.Forms.Button button1;
     }
 }
