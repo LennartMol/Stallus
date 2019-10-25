@@ -20,9 +20,19 @@ void CheckForSerialCom() {
     {
       *messagePtr += readChar;
     }
-  }
+  }  
 }
 
 void MessageHandler(String* messagePtr) {
   Serial.println(*messagePtr);
+  if (*messagePtr == "unlockBicylceStand")
+  {
+    servoUnLock();
+    Serial.println("bicycleIsUnlocked");
+  }
+  if (*messagePtr == "lockBicylceStand")
+  {
+    servoLock();
+    Serial.println("bicycleIslocked");
+  }
 }

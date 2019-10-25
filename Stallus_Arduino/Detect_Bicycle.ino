@@ -1,7 +1,7 @@
-const int bounceTime = 300;
-unsigned long lastBounceTime = 0;
-bool bicycleOnStand = false;
-unsigned long moment = 0;
+//const int bounceTime = 300;
+//unsigned long lastBounceTime = 0;
+//bool bicycleOnStand = false;
+//unsigned long moment = 0;
 int currentState = 0;
 int previousState = 0;
 long pressedDown;
@@ -29,4 +29,5 @@ void DetectBicycle()
 
 void TakeAction() {
   Serial.println("close");
+  servoLock();
 }
