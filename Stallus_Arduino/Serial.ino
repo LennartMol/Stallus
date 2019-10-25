@@ -25,14 +25,15 @@ void CheckForSerialCom() {
 
 void MessageHandler(String* messagePtr) {
   Serial.println(*messagePtr);
-  if (*messagePtr == "unlockBicylceStand")
+  if (*messagePtr == "unlockBicycleStand")
   {
     servoUnLock();
     Serial.println("bicycleIsUnlocked");
   }
-  if (*messagePtr == "lockBicylceStand")
+  if (*messagePtr == "lockBicycleStand")
   {
     servoLock();
     Serial.println("bicycleIslocked");
   }
+  
 }

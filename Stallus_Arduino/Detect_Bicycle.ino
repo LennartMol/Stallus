@@ -15,7 +15,7 @@ void DetectBicycle()
   }
 
   if (currentState == previousState && digitalRead(buttonPin) == LOW) {
-    Serial.println("up");
+    //Serial.println("up");
     pressedDown = millis();
   }
 
@@ -23,7 +23,7 @@ void DetectBicycle()
     TakeAction();
   }
   previousState = currentState;
-  Serial.println(millis() - pressedDown);
+  //Serial.println(millis() - pressedDown);
 }
 
 void TakeAction() {
