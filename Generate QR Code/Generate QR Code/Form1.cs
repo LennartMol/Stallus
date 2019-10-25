@@ -20,10 +20,13 @@ namespace Generate_QR_Code
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            string generatedString = "Test";
+
+
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The greatest Pepe.", QRCodeGenerator.ECCLevel.H);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode(generatedString, QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);     
-            Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.pepe);
+            Bitmap customImage = new Bitmap(Properties.Resources.pepe);
             Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, customImage, 27);
             pictureBox1.Image = qrCodeImage;
         }

@@ -22,7 +22,7 @@ namespace Stallus
             //ApplicationForm app = new ApplicationForm();
             Form popupp = new Form();
             PictureBox pb = new PictureBox();
-            pb.Image = Image.FromFile("C:/Users/mpcme/OneDrive/Afbeeldingen/Shrek.JPG");
+            pb.Image = new Bitmap(Properties.Resources.shrek); // Used properties.resources to save image within project instead of a local location.
             pb.Location = new Point(5, 5);
             pb.Width = 200;
             pb.Height = 200;
