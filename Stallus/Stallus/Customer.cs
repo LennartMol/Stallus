@@ -8,13 +8,13 @@ namespace Stallus
 {
     public class Customer
     {
-        string name;
-        string password;
-        DateTime dateOfBirth;
-        Address address;
+        private string name;
+        private string password;
+        private DateTime dateOfBirth;
+        private Address address;
         //int customerId;
-        string email;
-        decimal balance;
+        private string email;
+        private decimal balance;
         
 
         public string Name { get => name; private set => name = value; }

@@ -40,5 +40,10 @@ namespace Stallus
             connection.Close();
             return retrievedPassword;
         }
+
+        public string StallusRegister()
+        {
+            return null;
+        }
     }
 }
