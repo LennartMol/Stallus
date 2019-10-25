@@ -8,8 +8,14 @@ namespace Main_computer
 {
     class Program
     {
+        static Socket_server server = new Socket_server();
         static void Main(string[] args)
         {
+            server.startServer();
+            while (true)
+            {
+                Console.WriteLine(server.receiveMessage());
+            }
         }
     }
 }
