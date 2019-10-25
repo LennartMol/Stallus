@@ -1,0 +1,9 @@
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.exe.config
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.pdb
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.csprojAssemblyReference.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.Properties.Resources.resources
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.csproj.GenerateResource.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.csproj.CoreCompileInputs.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.pdb

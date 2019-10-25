@@ -1,0 +1,7 @@
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.exe.config
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.pdb
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.csprojAssemblyReference.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.csproj.CoreCompileInputs.cache
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.exe
+C:\Users\lenna\Documents\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.pdb
