@@ -21,7 +21,11 @@ namespace Generate_QR_Code
         private void Button1_Click(object sender, EventArgs e)
         {
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("The greatest Pepe.", QRCodeGenerator.ECCLevel.H);
+            Int64 date_context = (DateTime.Now.Year | (DateTime.Now.Month << 7)) | (DateTime.Now.Day << 11);
+            Int64 time_context = (DateTime.Now.Second | (DateTime.Now.Minute << 6) | DateTime.Now.Hour << 6);
+            Int64 user_id_context = 1 << 32;
+            Int64 context = (user_id_context | (time_context << 16)) | date_context;
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode("@" + context.ToString() + "&", QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);     
             Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.pepe);
             Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, customImage, 27);
