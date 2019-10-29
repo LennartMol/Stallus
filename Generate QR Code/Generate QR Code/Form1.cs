@@ -20,11 +20,11 @@ namespace Generate_QR_Code
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            ulong user_id = 1;
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
-            Int64 date_context = (DateTime.Now.Year | (DateTime.Now.Month << 7)) | (DateTime.Now.Day << 11);
-            Int64 time_context = (DateTime.Now.Second | (DateTime.Now.Minute << 6) | DateTime.Now.Hour << 6);
-            Int64 user_id_context = 1 << 32;
-            Int64 context = (user_id_context | (time_context << 16)) | date_context;
+            ulong time_context_2 = Convert.ToUInt32(DateTime.Now.Second) | Convert.ToUInt32(DateTime.Now.Minute) << 6 | Convert.ToUInt32(DateTime.Now.Hour) << 12;
+            ulong date_context_2 = Convert.ToUInt32(DateTime.Now.Year - 2000) | Convert.ToUInt32(DateTime.Now.Month) << 7 | Convert.ToUInt32(DateTime.Now.Day) << 11;
+            ulong context = user_id << 33 | date_context_2 << 17 | time_context_2;
             QRCodeData qrCodeData = qrGenerator.CreateQrCode("@" + context.ToString() + "&", QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);     
             Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.pepe);
