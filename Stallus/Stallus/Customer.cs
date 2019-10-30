@@ -8,7 +8,8 @@ namespace Stallus
 {
     public class Customer: ICustomer
     {
-        private string name;
+        private string firstName;
+        private string lastName;
         private string password;
         private DateTime dateOfBirth;
         private Address address;
@@ -17,7 +18,8 @@ namespace Stallus
         private decimal balance;
 
 
-        public string Name { get => name; private set => name = value; }
+        public string FirstName { get => firstName; private set => firstName = value; }
+        public string LastName { get => lastName; private set => lastName = value; }
         public DateTime DateOfBirth { get => dateOfBirth; private set => dateOfBirth = value; }
         //public int CustomerId { get => customerId; private set => customerId = value; }
         public string Email { get => email; private set => email = value; }
@@ -25,9 +27,10 @@ namespace Stallus
         public string Password { get => password; private set => password = value; }
         public Address Address { get => address; set => address = value; }
 
-        public Customer(string name, string password, DateTime dateOfBirth, /*int customerId,*/ string email, decimal balance, Address address)
+        public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, /*int customerId,*/ string email, decimal balance, Address address)
         {
-            Name = name;
+            FirstName = firstName;
+            LastName = lastName;
             Password = password;
             Address = address;
             DateOfBirth = dateOfBirth;
@@ -47,7 +50,7 @@ namespace Stallus
 
         public override string ToString()
         {
-            return $"Name: {Name} \n" +
+            return $"Name: {FirstName} {LastName} \n" +
                    $"Birthday: {DateOfBirth.ToShortDateString()} \n" +
                    $"Email: {Email} \n" +
                    $"Balance: {Balance}";

@@ -12,8 +12,8 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "ww", dateTime, "hansdv@gmail.com", 10, address);
-            Assert.AreEqual("Hans", customer.Name);
+            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            Assert.AreEqual("Hans", customer.FirstName);
             Assert.AreEqual(dateTime, customer.DateOfBirth);
             Assert.AreEqual("hansdv@gmail.com", customer.Email);
             Assert.AreEqual(10, customer.Balance);
@@ -24,7 +24,7 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
             Assert.AreEqual(20, customer.RaiseBalance(10));
             Assert.AreEqual(20, customer.RaiseBalance(-10));
         }
