@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    public class Customer
+    public class Customer: ICustomer
     {
         private string name;
         private string password;
@@ -15,7 +15,7 @@ namespace Stallus
         //int customerId;
         private string email;
         private decimal balance;
-        
+
 
         public string Name { get => name; private set => name = value; }
         public DateTime DateOfBirth { get => dateOfBirth; private set => dateOfBirth = value; }
