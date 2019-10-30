@@ -20,17 +20,17 @@ namespace Stallus
 
         private void BtOpenApplication_Click(object sender, EventArgs e)
         {
-            //database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
-            //if (tbLoginPassword.Text == database.StallusLogin(tbLoginEmail.Text))
-           // {
+            database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
+            if (tbLoginPassword.Text == database.StallusLogin(tbLoginEmail.Text))
+            {
                 ApplicationForm app = new ApplicationForm();
                 this.Hide();
                 app.ShowDialog();
-           // }
-           // else
-           // {
-           //     MessageBox.Show("Password doesn't match the email");
-           // }
+            }
+            else
+            {
+                MessageBox.Show("Password doesn't match the email");
+            }
 
         }
 
@@ -64,6 +64,10 @@ namespace Stallus
                 {
                     Customer customer = new Customer(name, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
                     MessageBox.Show(customer.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("The password has to be bigger then 6 characters");
                 }
             }
         }

@@ -13,17 +13,31 @@ namespace Main_computer
         TcpListener servSock = null;
         TcpClient clientSock = null;
         byte[] bytes = new byte[1024];
+        IPAddress ipAddress;
 
         public int Port { get; private set; }
 
         public Socket_server()
         {
             Port = 13000;
+            GetLocalIPAddress();
+        }
+
+        public void GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ipAddress = IPAddress.Parse(ip.ToString());
+                }
+            }
         }
 
         public void startServer()  
         {
-            servSock = new TcpListener(IPAddress.Loopback, Port);
+            servSock = new TcpListener(ipAddress, Port);
             servSock.Start();
         }
 

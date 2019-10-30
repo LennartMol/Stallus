@@ -58,3 +58,5 @@ C:\Users\lenna\Documents\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj
 C:\Users\lenna\Documents\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.csproj.CopyComplete
 C:\Users\lenna\Documents\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.exe
 C:\Users\lenna\Documents\GitHub\Stallus\Stallus\Stallus\obj\Debug\Stallus.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\bin\Debug\QRCoder.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\Stallus\bin\Debug\System.Drawing.Common.dll

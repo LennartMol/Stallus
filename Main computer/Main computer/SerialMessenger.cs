@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 
-namespace Main_Computer
+namespace Main_computer
 {
     public class SerialMessenger
     {
