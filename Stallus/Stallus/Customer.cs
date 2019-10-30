@@ -36,6 +36,11 @@ namespace Stallus
             Balance = balance;
         }
 
+        public void RaiseBalance(decimal currentBalance, decimal raiseValue)
+        {
+            Balance = currentBalance + raiseValue;
+        }
+
         public override string ToString()
         {
             return $"Name: {Name} \n" +
