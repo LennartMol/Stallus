@@ -11,7 +11,14 @@ C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\De
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csprojAssemblyReference.cache
-C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csproj.CoreCompileInputs.cache
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csproj.CopyComplete
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.dll
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\QRCoder.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\MySql.Data.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Google.Protobuf.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Renci.SshNet.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\MySql.Data.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Google.Protobuf.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Renci.SshNet.xml

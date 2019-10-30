@@ -53,19 +53,19 @@ namespace Stallus
             Customer customer = new Customer("Adolf", "SichHeil", dateTime, "Ubermench88@hotmail.du", 0, address);
             if (rb5.Checked)
             {
-                customer.RaiseBalance(customer.Balance, 5);
+                customer.RaiseBalance(5);
             }
             else if (rb10.Checked)
             {
-                customer.RaiseBalance(customer.Balance, 10);
+                customer.RaiseBalance(10);
             }
             else if (rb15.Checked)
             {
-                customer.RaiseBalance(customer.Balance, 15);
+                customer.RaiseBalance(15);
             }
             else if (rb10.Checked)
             {
-                customer.RaiseBalance(customer.Balance, 20);
+                customer.RaiseBalance(20);
             }
         }
     }
