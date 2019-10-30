@@ -308,9 +308,9 @@
             // 
             this.tbRegistratePassword.Location = new System.Drawing.Point(192, 143);
             this.tbRegistratePassword.Name = "tbRegistratePassword";
+            this.tbRegistratePassword.PasswordChar = '*';
             this.tbRegistratePassword.Size = new System.Drawing.Size(164, 22);
             this.tbRegistratePassword.TabIndex = 7;
-            this.tbRegistratePassword.Text = "*";
             // 
             // LoginForm
             // 
