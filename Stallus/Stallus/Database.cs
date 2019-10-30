@@ -24,7 +24,7 @@ namespace Stallus
             string retrievedPassword = "";
             connection.Open();
             MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT password FROM login WHERE username = @1";
+            command.CommandText = "SELECT password FROM login_details WHERE username = @1";
             command.Parameters.AddWithValue("@1", username);
             var reader = command.ExecuteReader();
             if (reader.HasRows)
