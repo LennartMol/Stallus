@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Main_Computer
+namespace Main_computer
 {
     public class MessageBuilder
     {
