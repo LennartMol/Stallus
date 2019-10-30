@@ -12,9 +12,11 @@ namespace Main_computer
 
         static void Main(string[] args)
         {
+            /*
             // App naar server communicatie
             Socket_server server = new Socket_server();
             server.startServer(); // Use multithreading to simultaneously listen for a client on another thread.
+            */
 
             // Arduino naar server communicatie
             string[] portnames = SerialPort.GetPortNames();
@@ -24,8 +26,10 @@ namespace Main_computer
 
             while (true)
             {
+                /*
                 // Receive message from app
                 Console.WriteLine(server.receiveMessage());
+                */
 
                 // Receive message from Arduino
                 string[] messages = serialmessenger.ReadMessages();
