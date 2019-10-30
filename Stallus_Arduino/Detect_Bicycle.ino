@@ -19,7 +19,7 @@ void DetectBicycle()
 }
 
 void TakeAction() {
-  Serial.println("close");
+  Serial.println("close%");
   if (isLocked == false)
   {
     servoLock();
