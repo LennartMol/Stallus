@@ -65,6 +65,10 @@ namespace Stallus
                     Customer customer = new Customer(name, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
                     MessageBox.Show(customer.ToString());
                 }
+                else
+                {
+                    MessageBox.Show("The password has to be bigger then 6 characters");
+                }
             }
         }
 

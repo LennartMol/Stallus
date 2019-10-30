@@ -65,7 +65,7 @@
             this.btOpenApplication.Location = new System.Drawing.Point(336, 221);
             this.btOpenApplication.Name = "btOpenApplication";
             this.btOpenApplication.Size = new System.Drawing.Size(84, 35);
-            this.btOpenApplication.TabIndex = 0;
+            this.btOpenApplication.TabIndex = 3;
             this.btOpenApplication.Text = "Login";
             this.btOpenApplication.UseVisualStyleBackColor = true;
             this.btOpenApplication.Click += new System.EventHandler(this.BtOpenApplication_Click);
@@ -101,7 +101,7 @@
             this.tbLoginPassword.Name = "tbLoginPassword";
             this.tbLoginPassword.PasswordChar = '*';
             this.tbLoginPassword.Size = new System.Drawing.Size(164, 22);
-            this.tbLoginPassword.TabIndex = 3;
+            this.tbLoginPassword.TabIndex = 2;
             // 
             // tabControl1
             // 
@@ -171,14 +171,14 @@
             this.dtpRegistrateDateOfBirth.Location = new System.Drawing.Point(523, 47);
             this.dtpRegistrateDateOfBirth.Name = "dtpRegistrateDateOfBirth";
             this.dtpRegistrateDateOfBirth.Size = new System.Drawing.Size(200, 22);
-            this.dtpRegistrateDateOfBirth.TabIndex = 24;
+            this.dtpRegistrateDateOfBirth.TabIndex = 10;
             // 
             // tbRegistrateFirstName
             // 
             this.tbRegistrateFirstName.Location = new System.Drawing.Point(192, 44);
             this.tbRegistrateFirstName.Name = "tbRegistrateFirstName";
             this.tbRegistrateFirstName.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateFirstName.TabIndex = 22;
+            this.tbRegistrateFirstName.TabIndex = 4;
             // 
             // label10
             // 
@@ -194,7 +194,7 @@
             this.tbRegistrateLastName.Location = new System.Drawing.Point(192, 75);
             this.tbRegistrateLastName.Name = "tbRegistrateLastName";
             this.tbRegistrateLastName.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateLastName.TabIndex = 20;
+            this.tbRegistrateLastName.TabIndex = 5;
             // 
             // label4
             // 
@@ -219,14 +219,14 @@
             this.tbRegistrateCity.Location = new System.Drawing.Point(523, 124);
             this.tbRegistrateCity.Name = "tbRegistrateCity";
             this.tbRegistrateCity.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateCity.TabIndex = 18;
+            this.tbRegistrateCity.TabIndex = 12;
             // 
             // tbRegistrateNumber
             // 
             this.tbRegistrateNumber.Location = new System.Drawing.Point(192, 214);
             this.tbRegistrateNumber.Name = "tbRegistrateNumber";
             this.tbRegistrateNumber.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateNumber.TabIndex = 14;
+            this.tbRegistrateNumber.TabIndex = 9;
             // 
             // label7
             // 
@@ -242,7 +242,7 @@
             this.tbRegistrateZipcode.Location = new System.Drawing.Point(523, 83);
             this.tbRegistrateZipcode.Name = "tbRegistrateZipcode";
             this.tbRegistrateZipcode.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateZipcode.TabIndex = 16;
+            this.tbRegistrateZipcode.TabIndex = 11;
             // 
             // label8
             // 
@@ -258,7 +258,7 @@
             this.tbRegistrateEmail.Location = new System.Drawing.Point(192, 109);
             this.tbRegistrateEmail.Name = "tbRegistrateEmail";
             this.tbRegistrateEmail.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateEmail.TabIndex = 10;
+            this.tbRegistrateEmail.TabIndex = 6;
             // 
             // label5
             // 
@@ -274,7 +274,7 @@
             this.tbRegistrateStreet.Location = new System.Drawing.Point(192, 174);
             this.tbRegistrateStreet.Name = "tbRegistrateStreet";
             this.tbRegistrateStreet.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistrateStreet.TabIndex = 12;
+            this.tbRegistrateStreet.TabIndex = 8;
             // 
             // label6
             // 
@@ -299,7 +299,7 @@
             this.btnRegistrate.Location = new System.Drawing.Point(327, 280);
             this.btnRegistrate.Name = "btnRegistrate";
             this.btnRegistrate.Size = new System.Drawing.Size(84, 35);
-            this.btnRegistrate.TabIndex = 5;
+            this.btnRegistrate.TabIndex = 13;
             this.btnRegistrate.Text = "Registrate";
             this.btnRegistrate.UseVisualStyleBackColor = true;
             this.btnRegistrate.Click += new System.EventHandler(this.btnRegistrate_Click);
@@ -309,7 +309,7 @@
             this.tbRegistratePassword.Location = new System.Drawing.Point(192, 143);
             this.tbRegistratePassword.Name = "tbRegistratePassword";
             this.tbRegistratePassword.Size = new System.Drawing.Size(164, 22);
-            this.tbRegistratePassword.TabIndex = 8;
+            this.tbRegistratePassword.TabIndex = 7;
             this.tbRegistratePassword.Text = "*";
             // 
             // LoginForm
