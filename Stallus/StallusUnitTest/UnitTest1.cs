@@ -20,6 +20,17 @@ namespace StallusUnitTest
         }
 
         [TestMethod]
+        public void RaiseBallanceOfCustomer()
+        {
+            DateTime dateTime = new DateTime(2001, 05, 23);
+            Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
+            Customer customer = new Customer("Hans", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            Assert.AreEqual(20, customer.RaiseBalance(10));
+            Assert.AreEqual(20, customer.RaiseBalance(-10));
+        }
+
+
+        [TestMethod]
         public void Default_Constructor_Address()
         {
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
@@ -27,6 +38,14 @@ namespace StallusUnitTest
             Assert.AreEqual("9", address.Number);
             Assert.AreEqual("5505TL", address.Zipcode);
             Assert.AreEqual("Veldhoven", address.City);
+        }
+
+        [TestMethod]
+        public void RecievePasswordOutOfDatabase()
+        {
+            Database database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
+            Assert.AreEqual("stallus", database.StallusLogin("admin"));
+            Assert.AreEqual(null, database.StallusLogin("Hoi"));
         }
     }
 }
