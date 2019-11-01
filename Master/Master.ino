@@ -1,12 +1,34 @@
-char mystr[10]; //Initialized variable to store recieved data
+#include <Wire.h>
+String message = "";
+String* messagePtr = &message;
+bool messageState = false;
 
 void setup() {
-  // Begin the Serial at 9600 Baud
-  Serial.begin(9600);
+  Wire.begin();        // join i2c bus (address optional for master)
+  Serial.begin(9600);  // start serial for output
 }
 
 void loop() {
-  Serial.readBytes(mystr,5); //Read the serial data and store in var
-  Serial.println(mystr); //Print data on Serial Monitor
-  delay(1000);
+  Wire.requestFrom(8, 7);    // request 6 bytes from slave device #8
+
+  while (Wire.available()) { // slave may send less than requested
+    char readChar = (char)Wire.read();
+    if (readChar == '#')
+    {
+      messageState = true;
+    }
+    else if (readChar == '%')
+    {
+      messageState = false;
+      Serial.println(*messagePtr);
+      //MessageHandler(messagePtr);
+      *messagePtr = "";
+    }
+    else if (messageState == true)
+    {
+      *messagePtr += readChar;
+    }
+  }
+
+  delay(500);
 }

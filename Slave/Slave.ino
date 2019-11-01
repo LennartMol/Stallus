@@ -1,17 +1,29 @@
-#include <SoftwareSerial.h>
+// Wire Slave Sender
+// by Nicholas Zambetti <http://www.zambetti.com>
 
-SoftwareSerial mySerial(2, 3); // RX, TX
+// Demonstrates use of the Wire library
+// Sends data as an I2C/TWI slave device
+// Refer to the "Wire Master Reader" example for use with this
 
-char mystr[8] = "12345678"; //String data
+// Created 29 March 2006
+
+// This example code is in the public domain.
+
+
+#include <Wire.h>
 
 void setup() {
-  // Begin the Serial at 9600 Baud
-  Serial.begin(9600);
-  mySerial.begin(9600);
-  Serial.println("Hello, world?");
+  Wire.begin(8);                // join i2c bus with address #8
+  Wire.onRequest(requestEvent); // register event
 }
 
 void loop() {
-  Serial.println(mystr); //Write the serial data
-  delay(1000);
+  requestEvent();
+}
+
+// function that executes whenever data is requested by master
+// this function is registered as an event, see setup()
+void requestEvent() {
+  Wire.write("#hello%"); // respond with message of 6 bytes
+  // as expected by master
 }
