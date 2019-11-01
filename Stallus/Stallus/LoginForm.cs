@@ -16,11 +16,11 @@ namespace Stallus
         public LoginForm()
         {
             InitializeComponent();
+            database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
         }
 
         private void BtOpenApplication_Click(object sender, EventArgs e)
         {
-            database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
             if (tbLoginPassword.Text == database.StallusLogin(tbLoginEmail.Text))
             {
                 ApplicationForm app = new ApplicationForm();
@@ -63,7 +63,7 @@ namespace Stallus
                 if (!string.IsNullOrWhiteSpace(name) && tbRegistratePassword.Text.Length > 6 && emailCheck)
                 {
                     Customer customer = new Customer(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
-                    MessageBox.Show(customer.ToString());
+                    database.StallusRegistrate(customer.FirstName, customer.LastName, customer.DateOfBirth, customer.Email, customer.Address, customer.Password);
                 }
                 else
                 {

@@ -1,0 +1,14 @@
+D:\Visual Studio\PT2\Stallus_1\StallusApp\bin\Debug\StallusApp.exe.config
+D:\Visual Studio\PT2\Stallus_1\StallusApp\bin\Debug\StallusApp.exe
+D:\Visual Studio\PT2\Stallus_1\StallusApp\bin\Debug\StallusApp.pdb
+D:\Visual Studio\PT2\Stallus_1\StallusApp\bin\Debug\QRCoder.dll
+D:\Visual Studio\PT2\Stallus_1\StallusApp\bin\Debug\System.Drawing.Common.dll
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.csprojAssemblyReference.cache
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.Login_Form.resources
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.Main_Form.resources
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.Properties.Resources.resources
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.csproj.GenerateResource.cache
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.csproj.CoreCompileInputs.cache
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.csproj.CopyComplete
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.exe
+D:\Visual Studio\PT2\Stallus_1\StallusApp\obj\Debug\StallusApp.pdb

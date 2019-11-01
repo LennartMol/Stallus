@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
+      "projectUniqueName": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
       "projectName": "TCP_BaseServer_Console",
-      "projectPath": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
+      "projectPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
       "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
-      "outputPath": "D:\\Visual Studio\\PT2\\Sockets_ookVoorNT21\\TCP_Communication_Console\\TCP_BaseServer_Console\\obj\\",
+      "outputPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -729,16 +729,23 @@
       "netcoreapp2.1": {
         "dependencies": {
           "Microsoft.NETCore.App": {
+            "suppressParent": "All",
             "target": "Package",
             "version": "[2.1.0, )",
             "autoReferenced": true
           }
         },
         "imports": [
-          "net461"
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
         ],
         "assetTargetFallback": true,
-        "warn": true
+        "warn": true,
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

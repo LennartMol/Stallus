@@ -14,11 +14,11 @@ void CheckForSerialCom() {
   if (Serial.available() > 0)
   {
     char readChar = (char)Serial.read();
-    if (readChar == '@')
+    if (readChar == '#')
     {
       messageState = true;
     }
-    else if (readChar == '&')
+    else if (readChar == '%')
     {
       messageState = false;
       MessageHandler(message);
@@ -32,7 +32,7 @@ void CheckForSerialCom() {
 }
 
 void MessageHandler(String command) {
-  Serial.println(command);
+  Serial.println("#"+command+"%");
   uint64_t command_uint64 = StringToUInt64(command);
   uint8_t user_id = command_uint64 >> 33;
   uint8_t D,M,Y,h,m,s;

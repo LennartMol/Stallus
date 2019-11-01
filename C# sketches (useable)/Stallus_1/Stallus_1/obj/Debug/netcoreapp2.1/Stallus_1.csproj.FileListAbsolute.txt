@@ -1,0 +1,21 @@
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.deps.json
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.runtimeconfig.json
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.runtimeconfig.dev.json
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.dll
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.csprojAssemblyReference.cache
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.csproj.CoreCompileInputs.cache
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.AssemblyInfoInputs.cache
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.AssemblyInfo.cs
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.pdb
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.dll
+D:\Visual Studio\PT2\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.deps.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.runtimeconfig.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.runtimeconfig.dev.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\bin\Debug\netcoreapp2.1\Stallus_1.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.AssemblyInfoInputs.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.AssemblyInfo.cs
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Stallus_1\Stallus_1\obj\Debug\netcoreapp2.1\Stallus_1.pdb
