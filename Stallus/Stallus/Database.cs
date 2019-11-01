@@ -45,7 +45,7 @@ namespace Stallus
         {
             MySqlCommand commandUsers = connection.CreateCommand();
             MySqlCommand commandLogin = connection.CreateCommand();
-            commandUsers.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `physical_address`, `ballance`) VALUES (@1, @2, @3, @4, @5, 0)";
+            commandUsers.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `physical_address`, `balance`) VALUES (@1, @2, @3, @4, @5, 0)";
             commandUsers.Parameters.AddWithValue("@1", firstName);
             commandUsers.Parameters.AddWithValue("@2", lastName);
             commandUsers.Parameters.AddWithValue("@3", date_of_birth);
@@ -54,27 +54,19 @@ namespace Stallus
             commandUsers.Connection = connection;
 
             commandLogin.CommandText = "INSERT INTO login_details(userid, username, password) " +
-                "SELECT userid, email, @2 " +
+                "SELECT userid, email_address, @2 " +
                 "FROM users " +
-                "WHERE email LIKE @1";
+                "WHERE email_address LIKE @1";
             commandLogin.Parameters.AddWithValue("@1", email);
             commandLogin.Parameters.AddWithValue("@2", password);
 
 
-            try
-            {
+
                 connection.Open();
                 commandUsers.ExecuteNonQuery();
                 commandLogin.ExecuteNonQuery();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex);
-            }
-            finally
-            {
                 connection.Close();
-            }
+
         }
 
         public string StallusRegister()
