@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Main_computer
 {
+    /// <summary>
+    /// Class to extract messages from a text feed (like serial port).
+    /// 
+    /// Feed all data from the feed to the MessageBuilder by using the Add() method.
+    /// Use the GetMessage() method to retrieve the messages found in the feed.
+    /// </summary>
     public class MessageBuilder
     {
         /// <summary>
@@ -18,6 +21,11 @@ namespace Main_computer
         /// Needed because its possible that multiple messages are parsed from the data input
         /// </summary>
         private Queue<string> messages;
+
+        /// <summary>
+        /// Marker that marks the start of a message.
+        /// </summary>
+        public char MessageBeginMarker { get; private set; }
 
         /// <summary>
         /// Marker that marks the mark the end of a message.
@@ -39,13 +47,17 @@ namespace Main_computer
         /// <summary>
         /// Create a MessageBuilder instance.
         /// </summary>
+        /// <param name="messageBeginMarker">
+        /// Marker that is used to find the start of a message 
+        /// when trying to find messages in the buffered data.
         /// </param>
         /// <param name="messageEndMarker">
         /// Marker that is used to find the end of a message 
         /// when trying to find messages in the buffered data.
         /// </param>
-        public MessageBuilder(char messageEndMarker)
+        public MessageBuilder(char messageBeginMarker, char messageEndMarker)
         {
+            MessageBeginMarker = messageBeginMarker;
             MessageEndMarker = messageEndMarker;
             messages = new Queue<string>();
             partlyMessage = null;
@@ -68,31 +80,48 @@ namespace Main_computer
             }
 
             string message;
+            bool messageStarted;
             if (partlyMessage != null)
             {
                 message = partlyMessage;
+                messageStarted = true;
                 partlyMessage = null;
             }
             else
             {
                 message = "";
+                messageStarted = false;
             }
 
             foreach (char character in data)
             {
-                if (character != MessageEndMarker)
+                if (messageStarted)
                 {
-                    message += character;
+                    if (character != MessageEndMarker)
+                    {
+                        message += character;
+                    }
+                    else
+                    {
+                        messages.Enqueue(message);
+                        message = "";
+                        messageStarted = false;
+                    }
                 }
                 else
                 {
-                    messages.Enqueue(message);
-                    message = "";
+                    if (character == MessageBeginMarker)
+                    {
+                        messageStarted = true;
+                    }
                 }
             }
-            partlyMessage = message;
-        }
 
+            if (messageStarted)
+            {
+                partlyMessage = message;
+            }
+        }
 
         /// <summary>
         /// Gets the next message that was present in the MessageBuilder.
@@ -121,6 +150,5 @@ namespace Main_computer
             messages.Clear();
             partlyMessage = null;
         }
-
     }
 }

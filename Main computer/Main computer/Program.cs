@@ -1,46 +1,89 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.IO.Ports;
+using System.Net.Sockets;
+using System.Threading;
+using System.Net;
+using System.Text;
+using System.Security;
 
 namespace Main_computer
 {
     class Program
     {
-
-        static void Main(string[] args)
+        private static int port = 13000;
+        private static int maxThreads = 4;
+        private static int dataTimeReadout = 5_000_000;
+        private static int storageSize = 1024 * 256;
+        static SocketProcess socketProcess;
+        static SerialProcess serialProcess;
+        private static string serverPassword = "password";
+        private static void Main(string[] args)
         {
-            /*
-            // App naar server communicatie
-            Socket_server server = new Socket_server();
-            server.startServer(); // Use multithreading to simultaneously listen for a client on another thread.
-            */
-
-            // Arduino naar server communicatie
-            string[] portnames = SerialPort.GetPortNames();
-            string portname = portnames[0]; // Get first portname (edit this is if multiple ports are used).
-            SerialMessenger serialmessenger = new SerialMessenger(portname, 9600, new MessageBuilder('%'));
-            serialmessenger.Connect();
-
+            socketProcess = new SocketProcess(port, maxThreads, dataTimeReadout, storageSize);
+            Console.WriteLine("<Server>Stallus Server is on. Currently listening on " + "145.93.73.21" + ":" + port + "\n And waiting for Serial communication"); //GetIPAddress() //"145.93.73.139"
+            Thread ipThread = new Thread(socketProcess.InitializeSocketProcessing);
+            ipThread.Start();
+            serialProcess = new SerialProcess('#', '%');
+            Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
+            serialThread.Start();
+            Thread commandThread = new Thread(CommandCentre);
+            commandThread.Start();
+        }
+        private static void CommandCentre()
+        {
             while (true)
             {
-                /*
-                // Receive message from app
-                Console.WriteLine(server.receiveMessage());
-                */
-
-                // Receive message from Arduino
-                string[] messages = serialmessenger.ReadMessages();
-                if (messages != null)
+                string command = Console.ReadLine();
+                if (command == "scrash")
                 {
-                    foreach (var message in messages)
+                    SecureString masked = MaskInputString();
+                    string Password = new NetworkCredential(string.Empty, masked).Password;
+                    if (Password == serverPassword)
                     {
-                        Console.WriteLine(message);
+                        Console.Write("\n<Server>Server is shutting down.");
+                        for (int i = 0; i <= 3; i++)
+                        {
+                            Thread.Sleep(400);
+                            Console.Write(".");
+                        }
+                        Environment.Exit(0);
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nWrong");
+                        CommandCentre();
                     }
                 }
             }
         }
+        private static SecureString MaskInputString()
+        {
+            Console.WriteLine("<CommandCentre>Enter password");
+            SecureString masked = new SecureString();
+            ConsoleKeyInfo keyInfo;
+
+            do
+            {
+                keyInfo = Console.ReadKey(true);
+                if (!char.IsControl(keyInfo.KeyChar))
+                {
+                    masked.AppendChar(keyInfo.KeyChar);
+                    Console.Write("*");
+                }
+                else if (keyInfo.Key == ConsoleKey.Backspace && masked.Length > 0)
+                {
+                    masked.RemoveAt(masked.Length - 1);
+                    Console.Write("\b \b");
+                }
+            }
+            while (keyInfo.Key != ConsoleKey.Enter);
+            {
+                return masked;
+            }
+        }
     }
 }
+
+
+
