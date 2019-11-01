@@ -12,11 +12,10 @@ namespace Main_computer
         private SerialMessenger serialMessenger;
         public bool ReceivedFirstContact { get; private set; }
         public string Portname { get; private set; }
-        public SerialProcess(char beginMarker, char endMarker)
+        public SerialProcess(char beginMarker, char endMarker, string portname)
         {
             MessageBuilder messageBuilder = new MessageBuilder(beginMarker, endMarker);
-            string[] portnames = SerialPort.GetPortNames();
-            Portname = portnames[0];
+            Portname = portname;
             serialMessenger = new SerialMessenger(Portname, 9600, messageBuilder); //COM3 COM5
         }
         public void InitializeSerialProcessing()

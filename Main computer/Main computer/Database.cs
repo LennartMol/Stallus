@@ -60,8 +60,6 @@ namespace Main_computer
             commandLogin.Parameters.AddWithValue("@1", email);
             commandLogin.Parameters.AddWithValue("@2", password);
 
-
-
             connection.Open();
             commandUsers.ExecuteNonQuery();
             commandLogin.ExecuteNonQuery();

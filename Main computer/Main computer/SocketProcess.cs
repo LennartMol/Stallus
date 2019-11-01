@@ -41,7 +41,7 @@ namespace Main_computer
             }
 
             listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            listener.Bind(new IPEndPoint(IPAddress.Parse("145.93.73.21"), Port)); //GetIPAddress() // IPAddress.Parse("145.93.73.139")
+            listener.Bind(new IPEndPoint(GetIPAddress(), Port)); //GetIPAddress() // IPAddress.Parse("145.93.73.139")
             listener.Listen(25);
 
             while (true)
@@ -129,7 +129,7 @@ namespace Main_computer
             if (command.Substring(9).StartsWith("REGISTRATE"))
             {
                 string[] data = CommandStringTrimmer(command);
-                db.Registrate(data[0], data[1], new DateTime(data[2])); ;  //year month day
+                //db.Registrate(data[0], data[1], new DateTime(data[2])); ;  //year month day
             }
         }
     }

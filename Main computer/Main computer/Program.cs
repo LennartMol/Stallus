@@ -6,6 +6,7 @@ using System.Threading;
 using System.Net;
 using System.Text;
 using System.Security;
+using System.Collections.Generic;
 
 namespace Main_computer
 {
@@ -18,15 +19,32 @@ namespace Main_computer
         static SocketProcess socketProcess;
         static SerialProcess serialProcess;
         private static string serverPassword = "password";
+        private static string serverPrefix = "<Server>";
+        private static string errorPrefix = "<Error>";
         private static void Main(string[] args)
         {
-            socketProcess = new SocketProcess(port, maxThreads, dataTimeReadout, storageSize);
-            Console.WriteLine("<Server>Stallus Server is on. Currently listening on " + "145.93.73.21" + ":" + port + "\n And waiting for Serial communication"); //GetIPAddress() //"145.93.73.139"
-            Thread ipThread = new Thread(socketProcess.InitializeSocketProcessing);
-            ipThread.Start();
-            serialProcess = new SerialProcess('#', '%');
-            Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
-            serialThread.Start();
+            try
+            {
+                socketProcess = new SocketProcess(port, maxThreads, dataTimeReadout, storageSize);
+                Console.WriteLine($"{serverPrefix}Stallus Server is online. Currently listening on " + "145.93.73.21" + ":" + port + "\n And waiting for Serial communication"); //GetIPAddress() //"145.93.73.139"
+                Thread ipThread = new Thread(socketProcess.InitializeSocketProcessing);
+                ipThread.Start();
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(errorPrefix + x.Message);
+            }
+            try
+            {
+                string[] availablePortnames = SerialPort.GetPortNames();
+                serialProcess = new SerialProcess('#', '%', availablePortnames[0]);
+                Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
+                serialThread.Start();
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(errorPrefix + x.Message);
+            }
             Thread commandThread = new Thread(CommandCentre);
             commandThread.Start();
         }
