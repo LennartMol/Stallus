@@ -41,6 +41,42 @@ namespace Stallus
             return retrievedPassword;
         }
 
+        public void StallusRegistrate(string firstName, string lastName, DateTime date_of_birth, string email, Address address, string password)
+        {
+            MySqlCommand commandUsers = connection.CreateCommand();
+            MySqlCommand commandLogin = connection.CreateCommand();
+            commandUsers.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `physical_address`, `ballance`) VALUES (@1, @2, @3, @4, @5, 0)";
+            commandUsers.Parameters.AddWithValue("@1", firstName);
+            commandUsers.Parameters.AddWithValue("@2", lastName);
+            commandUsers.Parameters.AddWithValue("@3", date_of_birth);
+            commandUsers.Parameters.AddWithValue("@4", email);
+            commandUsers.Parameters.AddWithValue("@5", address);
+            commandUsers.Connection = connection;
+
+            commandLogin.CommandText = "INSERT INTO login_details(userid, username, password) " +
+                "SELECT userid, email, @2 " +
+                "FROM users " +
+                "WHERE email LIKE @1";
+            commandLogin.Parameters.AddWithValue("@1", email);
+            commandLogin.Parameters.AddWithValue("@2", password);
+
+
+            try
+            {
+                connection.Open();
+                commandUsers.ExecuteNonQuery();
+                commandLogin.ExecuteNonQuery();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+
         public string StallusRegister()
         {
             return null;
