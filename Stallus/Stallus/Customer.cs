@@ -17,7 +17,9 @@ namespace Stallus
         private decimal balance;
 
 
-        public string FirstName { get { return firstName; }
+        public string FirstName
+        {
+            get { return firstName; }
             private set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -26,7 +28,9 @@ namespace Stallus
                 }
             }
         }
-        public string LastName { get { return lastName; }
+        public string LastName
+        {
+            get { return lastName; }
             private set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -36,17 +40,21 @@ namespace Stallus
             }
         }
 
-        public DateTime DateOfBirth { get { return dateOfBirth; }
+        public DateTime DateOfBirth
+        {
+            get { return dateOfBirth; }
             private set
             {
-                if (dateOfBirth != null)
+                if (value != null)
                 {
                     dateOfBirth = value;
                 }
             }
         }
 
-        public string Email { get { return email; }
+        public string Email
+        {
+            get { return email; }
             private set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -58,7 +66,9 @@ namespace Stallus
 
         public decimal Balance { get => balance; private set => balance = value; }
 
-        public string Password { get { return password; }
+        public string Password
+        {
+            get { return password; }
             private set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -67,15 +77,18 @@ namespace Stallus
                 }
             }
         }
-        public Address Address { get { return address; }
+        public Address Address
+        {
+            get { return address; }
             set
             {
-                if (address != null)
+                if (value != null)
                 {
                     address = value;
                 }
             }
         }
+
 
         public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
         {
@@ -91,7 +104,7 @@ namespace Stallus
             }
             else
             {
-                throw new ArgumentNullException();
+                throw new ArgumentNullException("Values can't be null");
             }
 
 

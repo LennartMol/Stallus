@@ -41,24 +41,24 @@ namespace Stallus
             return retrievedPassword;
         }
 
-        public void StallusRegistrate(string firstName, string lastName, DateTime date_of_birth, string email, Address address, string password)
+        public void StallusRegistrate(Customer customer)
         {
             MySqlCommand commandUsers = connection.CreateCommand();
             MySqlCommand commandLogin = connection.CreateCommand();
             commandUsers.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `physical_address`, `balance`) VALUES (@1, @2, @3, @4, @5, 0)";
-            commandUsers.Parameters.AddWithValue("@1", firstName);
-            commandUsers.Parameters.AddWithValue("@2", lastName);
-            commandUsers.Parameters.AddWithValue("@3", date_of_birth);
-            commandUsers.Parameters.AddWithValue("@4", email);
-            commandUsers.Parameters.AddWithValue("@5", address);
+            commandUsers.Parameters.AddWithValue("@1", customer.FirstName);
+            commandUsers.Parameters.AddWithValue("@2", customer.LastName);
+            commandUsers.Parameters.AddWithValue("@3", customer.DateOfBirth);
+            commandUsers.Parameters.AddWithValue("@4", customer.Email);
+            commandUsers.Parameters.AddWithValue("@5", customer.Address);
             commandUsers.Connection = connection;
 
             commandLogin.CommandText = "INSERT INTO login_details(userid, username, password) " +
                 "SELECT userid, email_address, @2 " +
                 "FROM users " +
                 "WHERE email_address LIKE @1";
-            commandLogin.Parameters.AddWithValue("@1", email);
-            commandLogin.Parameters.AddWithValue("@2", password);
+            commandLogin.Parameters.AddWithValue("@1", customer.Email);
+            commandLogin.Parameters.AddWithValue("@2", customer.Password);
 
 
 
@@ -69,9 +69,5 @@ namespace Stallus
 
         }
 
-        public string StallusRegister()
-        {
-            return null;
-        }
     }
 }
