@@ -154,7 +154,7 @@
             // pbQRCode
             // 
             this.pbQRCode.Location = new System.Drawing.Point(249, 199);
-            this.pbQRCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pbQRCode.Margin = new System.Windows.Forms.Padding(4);
             this.pbQRCode.Name = "pbQRCode";
             this.pbQRCode.Size = new System.Drawing.Size(273, 252);
             this.pbQRCode.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -263,7 +263,6 @@
             this.Controls.Add(this.tabControl1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ApplicationForm";
-            this.Text = "Form1";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();

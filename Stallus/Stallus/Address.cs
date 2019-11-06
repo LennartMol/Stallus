@@ -30,7 +30,7 @@ namespace Stallus
         public override string ToString()
         {
             return $"Address: {Street} {Number} \n" +
-                    $"        {Zipcode} {City}";
+                    $"{Zipcode} {City}";
         }
     }
 }
