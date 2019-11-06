@@ -86,8 +86,13 @@ namespace StallusUnitTest
         [TestMethod]
         public void TestValuesInDatabase()
         {
+            DateTime dateTime = new DateTime(2001, 05, 23);
+            Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
+            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
             Database database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
-
+            Assert.AreEqual(0, database.StallusRegistrate(customer));
+            // When we dont use VPN
+            //Assert.AreEqual(-1, database.StallusRegistrate(customer));
         }
     }
 }

@@ -41,8 +41,9 @@ namespace Stallus
             return retrievedPassword;
         }
 
-        public void StallusRegistrate(Customer customer)
+        public int StallusRegistrate(Customer customer)
         {
+
             MySqlCommand commandUsers = connection.CreateCommand();
             MySqlCommand commandLogin = connection.CreateCommand();
             commandUsers.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `physical_address`, `balance`) VALUES (@1, @2, @3, @4, @5, 0)";
@@ -61,11 +62,23 @@ namespace Stallus
             commandLogin.Parameters.AddWithValue("@2", customer.Password);
 
 
-
+            try
+            {
                 connection.Open();
                 commandUsers.ExecuteNonQuery();
                 commandLogin.ExecuteNonQuery();
                 connection.Close();
+                return 0;
+            }
+            catch
+            {
+                return -1;
+            }
+            finally
+            {
+                connection.Close();
+            }
+
 
         }
 
