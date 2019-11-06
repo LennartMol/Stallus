@@ -9,16 +9,18 @@ namespace Main_computer
 {
     public class SocketProcess
     {
+        public IPAddress IPAddress { get; private set; }
         public int Port { get; private set; }
         public int MaxThreads { get; private set; }
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
-        public SocketProcess(int port, int maxThreads, int dataTimeReadout, int storageSize)
+        public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)
             {
                 throw new ArgumentException("Port cannot be zero", "port");
             }
+            IPAddress = iPAddress;
             Port = port;
             MaxThreads = maxThreads;
             DataTimeReadout = dataTimeReadout;
@@ -41,7 +43,7 @@ namespace Main_computer
             }
 
             listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            listener.Bind(new IPEndPoint(GetIPAddress(), Port)); //GetIPAddress() // IPAddress.Parse("145.93.73.139")
+            listener.Bind(new IPEndPoint(IPAddress, Port)); //GetIPAddress() // IPAddress.Parse("145.93.73.139")
             listener.Listen(25);
 
             while (true)
