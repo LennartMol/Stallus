@@ -22,7 +22,6 @@ void setup() {
   Serial.setTimeout(20);
   Serial.begin(9600);
   Wire.begin();        // join i2c bus (address optional for master)
-  Serial.begin(9600);  // start serial for output
 }
 
 void loop() {
