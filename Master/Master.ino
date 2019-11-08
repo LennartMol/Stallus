@@ -10,7 +10,7 @@ void setup() {
 
 void loop() {
   Wire.requestFrom(7, 6);    // request 6 bytes from slave device #8
-
+  Serial.println("asd");
   while (Wire.available()) { // slave may send less than requested
     char readChar = (char)Wire.read();
     if (readChar == '#')

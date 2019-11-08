@@ -6,7 +6,6 @@ void DetectBicycle()
 {
   currentState = digitalRead(SENSORPIN);
   if(currentState == HIGH){
-    Serial.println("connected");
   }
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
     pressedDown = millis();

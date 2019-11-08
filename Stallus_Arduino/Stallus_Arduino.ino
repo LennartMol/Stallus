@@ -2,6 +2,7 @@
 
 #include <Servo.h>
 #include <Stream.h>
+#include <Wire.h>
 Servo myservo;  // create servo object to control a servo
 
 #define SENSORPIN 4
@@ -20,10 +21,13 @@ void setup() {
   myservo.write(pos);   
   Serial.setTimeout(20);
   Serial.begin(9600);
+  Wire.begin();        // join i2c bus (address optional for master)
+  Serial.begin(9600);  // start serial for output
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   CheckForSerialCom();
+  CheckForSlaveCom();
   DetectBicycle();
 }
