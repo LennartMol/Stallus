@@ -29,7 +29,7 @@ namespace Main_computer
         /// The serial port name
         /// </summary>
         public string PortName { get { return serialPort.PortName; } }
-
+        public bool IsDisconnected { get; private set; }
         /// <summary>
         /// Creates a Serial Messenger
         /// </summary>
@@ -57,7 +57,7 @@ namespace Main_computer
             serialPort = new SerialPort();
             serialPort.BaudRate = baudRate;
             serialPort.PortName = portName;
-
+            IsDisconnected = false;
             this.messageBuilder = messageBuilder;
         }
 
@@ -150,6 +150,10 @@ namespace Main_computer
                     }
                     return messages;
                 }
+            }
+            else if (!serialPort.IsOpen)
+            {
+                IsDisconnected = true;
             }
             return null; //new string[2]
         }

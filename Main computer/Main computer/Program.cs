@@ -22,22 +22,12 @@ namespace Main_computer
         private static string serverPrefix = "<Server>";
         private static string errorPrefix = "<Error>";
         private static IPAddress chosenIpAdress = null;
+        private static string chosenPortName = "";
         private static void Main(string[] args)
         {
             Console.WriteLine($"{serverPrefix}Stallus Server is running, but not yet online for communication."); //GetIPAddress() //"145.93.73.139"
             Thread commandThread = new Thread(CommandCentre);
             commandThread.Start();
-            //try
-            //{
-            //    string[] availablePortnames = SerialPort.GetPortNames();
-            //    serialProcess = new SerialProcess('#', '%', availablePortnames[0]);
-            //    Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
-            //    serialThread.Start();
-            //}
-            //catch (Exception x)
-            //{
-            //    Console.WriteLine(errorPrefix + x.Message);
-            //}
         }
 
         private static void StartSocketProcess()
@@ -55,9 +45,23 @@ namespace Main_computer
             }
         }
 
+        private static void StartSerialProcess()
+        {
+            try
+            {
+                serialProcess = new SerialProcess('#', '%', chosenPortName);
+                Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
+                serialThread.Start();
+            }
+            catch (Exception x)
+            {
+                Console.WriteLine(errorPrefix + x.Message);
+            }
+        }
+
         private static void CommandCentre()
         {
-            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "help", string.Empty };
+            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", string.Empty };
             while (true)
             {
                 string command = Console.ReadLine();
@@ -105,6 +109,24 @@ namespace Main_computer
                         chosenIpAdress = ChooseIpSetting(cleanIpList);
                         Console.WriteLine($"{serverPrefix}Chosen IP-Address: {chosenIpAdress.ToString()}.");
                     }
+                    else if (command == "config serial")
+                    {
+                        string[] availablePortnames = SerialPort.GetPortNames();
+                        Console.WriteLine($"{serverPrefix}Available ports:");
+                        if (availablePortnames.Length != 0)
+                        {
+                            foreach (string portName in availablePortnames)
+                            {
+                                Console.WriteLine(portName);
+                            }
+                            chosenPortName = ChoosePortName(availablePortnames);
+                            Console.WriteLine($"{serverPrefix}Chosen port-name: {chosenPortName}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{serverPrefix}No available Ports");
+                        }
+                    }
                     else if (command == "socket start")
                     {
                         if (chosenIpAdress != null)
@@ -115,6 +137,18 @@ namespace Main_computer
                         else
                         {
                             Console.WriteLine($"{serverPrefix}No chosen IP-Address. Try choosing one by using command: config socket.");
+                        }
+                    }
+                    else if (command == "serial start")
+                    {
+                        if (chosenPortName != "")
+                        {
+                            Console.WriteLine($"{serverPrefix}Starting SerialProcess with: {chosenPortName}");
+                            StartSerialProcess();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{serverPrefix}No chosen Portname. Try choosing one by using command: config serial.");
                         }
                     }
                     else if (command == "help")
@@ -205,6 +239,43 @@ namespace Main_computer
             while (keyInfo.Key != ConsoleKey.Enter);
             {
                 return iPAddresses[index];
+            }
+        }
+
+        private static string ChoosePortName(string[] availablePortNames)
+        {
+            Console.WriteLine($"{serverPrefix}Choose Portname by using the UP/DOWN arrow keys");
+            ConsoleKeyInfo keyInfo;
+            int index = 0;
+            Console.WriteLine(availablePortNames[index]);
+            Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+            do
+            {
+                keyInfo = Console.ReadKey(true);
+                if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    index--;
+                    if (index < 0)
+                    {
+                        index = (availablePortNames.Length - 1);
+                    }
+                    Console.WriteLine(availablePortNames[index]);
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                }
+                else if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    index++;
+                    if (index > (availablePortNames.Length -1))
+                    {
+                        index = 0;
+                    }
+                    Console.WriteLine(availablePortNames[index]);
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
+                }
+            }
+            while (keyInfo.Key != ConsoleKey.Enter);
+            {
+                return availablePortNames[index];
             }
         }
     }
