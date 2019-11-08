@@ -156,29 +156,36 @@ namespace Main_computer
 
         private DateTime ParseDateTime(string date)
         {
-            int year = Convert.ToInt32(date.Substring(6,4));
-            int month = Convert.ToInt32(date.Substring(3,2));
-            int day = Convert.ToInt32(date.Substring(0,2));
+            List<int> divisor_indexes = GetDivisorIndexes(date);
+            int year = Convert.ToInt32(date.Substring(divisor_indexes[1], divisor_indexes[2] - divisor_indexes[1]));
+            int month = Convert.ToInt32(date.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]));
+            int day = Convert.ToInt32(date.Substring(0, divisor_indexes[0]));
             return new DateTime(year, month, day);
         }
 
         private Address ParseAddress(string address)
         {
-            List<int> divisor_indexes = new List<int>();
-            char[] address_charArray = address.ToCharArray();
-            for (int i = 0; i < address.Length; i++)
-            {
-                if (address_charArray[i] == '_')
-                {
-                    divisor_indexes.Add(i);
-                }
-            }
+            List<int> divisor_indexes = GetDivisorIndexes(address);
             string street = address.Substring(0, divisor_indexes[0]);
             string number = address.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]);
             string zipcode = address.Substring(divisor_indexes[1], divisor_indexes[2] - divisor_indexes[1]);
             string city = address.Substring(divisor_indexes[2]);
             Console.WriteLine(street + number + zipcode + city);
             return new Address(street, number, zipcode, city);
+        }
+
+        private List<int> GetDivisorIndexes(string data)
+        {
+            List<int> divisor_indexes = new List<int>();
+            char[] data_charArray = data.ToCharArray();
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data_charArray[i] == '_')
+                {
+                    divisor_indexes.Add(i);
+                }
+            }
+            return divisor_indexes;
         }
     }
 }
