@@ -6,37 +6,108 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    public class Customer: ICustomer
+    public class Customer : ICustomer
     {
         private string firstName;
         private string lastName;
         private string password;
         private DateTime dateOfBirth;
         private Address address;
-        //int customerId;
         private string email;
         private decimal balance;
 
 
-        public string FirstName { get => firstName; private set => firstName = value; }
-        public string LastName { get => lastName; private set => lastName = value; }
-        public DateTime DateOfBirth { get => dateOfBirth; private set => dateOfBirth = value; }
-        //public int CustomerId { get => customerId; private set => customerId = value; }
-        public string Email { get => email; private set => email = value; }
-        public decimal Balance { get => balance; private set => balance = value; }
-        public string Password { get => password; private set => password = value; }
-        public Address Address { get => address; set => address = value; }
-
-        public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, /*int customerId,*/ string email, decimal balance, Address address)
+        public string FirstName
         {
-            FirstName = firstName;
-            LastName = lastName;
-            Password = password;
-            Address = address;
-            DateOfBirth = dateOfBirth;
-            //CustomerId = customerId;
-            Email = email;
-            Balance = balance;
+            get { return firstName; }
+            private set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    firstName = value;
+                }
+            }
+        }
+        public string LastName
+        {
+            get { return lastName; }
+            private set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    lastName = value;
+                }
+            }
+        }
+
+        public DateTime DateOfBirth
+        {
+            get { return dateOfBirth; }
+            private set
+            {
+                if (value != null)
+                {
+                    dateOfBirth = value;
+                }
+            }
+        }
+
+        public string Email
+        {
+            get { return email; }
+            private set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    email = value;
+                }
+            }
+        }
+
+        public decimal Balance { get => balance; private set => balance = value; }
+
+        public string Password
+        {
+            get { return password; }
+            private set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    password = value;
+                }
+            }
+        }
+        public Address Address
+        {
+            get { return address; }
+            set
+            {
+                if (value != null)
+                {
+                    address = value;
+                }
+            }
+        }
+
+
+        public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        {
+            if (firstName != null || LastName != null || password != null || address != null || email != null)
+            {
+                FirstName = firstName;
+                LastName = lastName;
+                Password = password;
+                DateOfBirth = dateOfBirth;
+                Address = address;
+                Email = email;
+                Balance = balance;
+            }
+            else
+            {
+                throw new ArgumentNullException("Values can't be null");
+            }
+
+
         }
 
         public decimal RaiseBalance(decimal raiseValue)

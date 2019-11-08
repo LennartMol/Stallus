@@ -1,12 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO.Ports;
 
 namespace Main_Computer
 {
+    /// <summary>
+    /// Class to send / receive messages using the serial port.
+    /// 
+    /// Intentionally, this class omits the use of the DataReceive event of the SerialPort.
+    /// Using the event would lead to much cleaner code, but also introduces the need 
+    /// of taking care of threading in the MessageBuilder class and invoking UI code from non UI threads.
+    /// Both of these concerns are not subjects of this course.
+    /// </summary>
     public class SerialMessenger
     {
         /// <summary>
@@ -113,7 +117,7 @@ namespace Main_Computer
             {
                 //try
                 //{
-                serialPort.Write(message + messageBuilder.MessageEndMarker);
+                serialPort.Write(messageBuilder.MessageBeginMarker + message + messageBuilder.MessageEndMarker);
                 return true;
                 //}
                 //catch (Exception exception) // Not very nice to catch Exception...but for now it's good enough.
@@ -133,8 +137,6 @@ namespace Main_Computer
             if (serialPort.IsOpen
                 && serialPort.BytesToRead > 0)
             {
-                //try
-                //{
                 string data = serialPort.ReadExisting();
                 messageBuilder.Add(data);
 
@@ -142,21 +144,14 @@ namespace Main_Computer
                 if (messageCount > 0)
                 {
                     string[] messages = new string[messageCount];
-                    for (int i = 0; i < messageCount; i++) // not very fail safe programming... 
+                    for (int i = 0; i < messageCount; i++)
                     {
                         messages[i] = messageBuilder.GetNextMessage();
                     }
                     return messages;
                 }
-
-                //ProcessMessages();
-                //}
-                //catch (Exception exception) // Not very nice to catch Exception...but for now it's good enough.
-                //{
-                //    Debug.WriteLine("Could not read from serial port: " + exception.Message);
-                //}
             }
-            return null;
+            return null; //new string[2]
         }
     }
 }

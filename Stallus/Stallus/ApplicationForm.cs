@@ -68,5 +68,6 @@ namespace Stallus
                 customer.RaiseBalance(20);
             }
         }
+
     }
 }
