@@ -44,10 +44,6 @@ namespace Main_computer
         {
             return serialMessenger.IsConnected();
         }
-        private string[] GetMessages()
-        {
-            return serialMessenger.ReadMessages();
-        }
         private void Send(string content)
         {
             serialMessenger.SendMessage(content);

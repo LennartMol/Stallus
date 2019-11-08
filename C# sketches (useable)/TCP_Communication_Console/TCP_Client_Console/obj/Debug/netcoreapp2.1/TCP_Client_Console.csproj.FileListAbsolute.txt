@@ -9,3 +9,13 @@ D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Client_Co
 D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.AssemblyInfo.cs
 D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.dll
 D:\Visual Studio\PT2\Sockets_ookVoorNT21\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\bin\Debug\netcoreapp2.1\TCP_Client_Console.deps.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\bin\Debug\netcoreapp2.1\TCP_Client_Console.runtimeconfig.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\bin\Debug\netcoreapp2.1\TCP_Client_Console.runtimeconfig.dev.json
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\bin\Debug\netcoreapp2.1\TCP_Client_Console.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\bin\Debug\netcoreapp2.1\TCP_Client_Console.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.AssemblyInfoInputs.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.AssemblyInfo.cs
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\TCP_Communication_Console\TCP_Client_Console\obj\Debug\netcoreapp2.1\TCP_Client_Console.pdb

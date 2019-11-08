@@ -49,14 +49,14 @@ namespace Main_computer
 
             while (true)
             {
-                Console.WriteLine("<SocketProcess>Waiting for a TCP connection");
+                Console.WriteLine($"{prefix}Waiting for a TCP connection");
                 Socket sock = listener.Accept();
 
-                Console.WriteLine("<SocketProcess>Got a connection");
-                Console.WriteLine("<SocketProcess>Waiting for idle thread");
+                Console.WriteLine($"{prefix}Got a connection");
+                Console.WriteLine($"{prefix}Waiting for idle thread");
                 int index = WaitHandle.WaitAny(waitHandles);
 
-                Console.WriteLine("<SocketProcess>Starting new thread to process client");
+                Console.WriteLine($"{prefix}Starting new thread to process client");
 
                 ThreadParams context = new ThreadParams()
                 {
@@ -81,7 +81,7 @@ namespace Main_computer
         public void ProcessSocketConnection(object threadState)
         {
             ThreadParams state = (ThreadParams)threadState;
-            Console.WriteLine($"<SocketProcess>Thread {state.ThreadIndex} is processing connection"); //{state.ClientSocket.RemoteEndPoint}
+            Console.WriteLine($"{prefix}Thread {state.ThreadIndex} is processing connection"); //{state.ClientSocket.RemoteEndPoint}
 
             // This should be an extra method. In general this code should be more modular!
             byte[] recievBuffer = new byte[StorageSize];
@@ -91,7 +91,7 @@ namespace Main_computer
             }
             else
             {
-                Console.WriteLine("<SocketProcess>Got no data, aborting");
+                Console.WriteLine($"{prefix}Got no data, aborting");
                 Cleanup();
             }
             // Do your data Processing in this Method.
@@ -100,7 +100,7 @@ namespace Main_computer
             // This is a local Function introduced in c#7
             void Cleanup()
             {
-                Console.WriteLine("<SocketProcess>Doing clean up tasks");
+                Console.WriteLine($"{prefix}Doing clean up tasks.");
                 state.ClientSocket.Shutdown(SocketShutdown.Both);
                 state.ClientSocket.Close();
                 state.ClientSocket.Dispose();
@@ -110,18 +110,20 @@ namespace Main_computer
                 state.ThreadHandle.Set();
             }
         }
-        private  void DoWork(byte[] context, Socket socket)
+        private void DoWork(byte[] context, Socket socket)
         {
             string command = Encoding.ASCII.GetString(context);
-            if (command.StartsWith("INSERT_DB_"))
+            string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
+            Console.WriteLine(cleanCommand);
+            if (cleanCommand.StartsWith("INSERT_DB_"))
             {
-                DatabaseCommandsHandler(command);
+                DatabaseCommandsHandler(cleanCommand.Substring(10));
             }
         }
 
         private string[] CommandStringTrimmer(string stringToTrim)
         {
-            string cleanString = stringToTrim.Substring(stringToTrim.IndexOf(';'));
+            string cleanString = stringToTrim.Substring(stringToTrim.IndexOf(':') + 1);
             string[] returnArray = cleanString.Split('/');
             return returnArray;
         }
@@ -129,11 +131,54 @@ namespace Main_computer
         private void DatabaseCommandsHandler(string command)
         {
             Database db = new Database();
-            if (command.Substring(9).StartsWith("REGISTRATE"))
+            Console.WriteLine(command);
+            if (command.StartsWith("REGISTRATE"))
             {
                 string[] data = CommandStringTrimmer(command);
-                //db.Registrate(data[0], data[1], new DateTime(data[2])); ;  //year month day
+                string first_name = data[0];
+                Console.WriteLine(first_name);
+                string last_name = data[1];
+                Console.WriteLine(last_name);
+                DateTime date_of_birth = ParseDateTime(data[2]);
+                Console.WriteLine(date_of_birth.ToString());
+                string email_address = data[3];
+                Console.WriteLine(email_address);
+                Address address = ParseAddress(data[4]);
+                Console.WriteLine(data[4]);
+                string password = data[5].Substring(0, data[5].Length - 1);
+                Console.WriteLine(password);
+                foreach (string info in data)
+                {
+                    Console.WriteLine(info);
+                }
             }
+        }
+
+        private DateTime ParseDateTime(string date)
+        {
+            int year = Convert.ToInt32(date.Substring(6,4));
+            int month = Convert.ToInt32(date.Substring(3,2));
+            int day = Convert.ToInt32(date.Substring(0,2));
+            return new DateTime(year, month, day);
+        }
+
+        private Address ParseAddress(string address)
+        {
+            List<int> divisor_indexes = new List<int>();
+            char[] address_charArray = address.ToCharArray();
+            for (int i = 0; i < address.Length; i++)
+            {
+                if (address_charArray[i] == '_')
+                {
+                    divisor_indexes.Add(i);
+                }
+            }
+            string street = address.Substring(0, divisor_indexes[0]);
+            string number = address.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]);
+            string zipcode = address.Substring(divisor_indexes[1], divisor_indexes[2] - divisor_indexes[1]);
+            string city = address.Substring(divisor_indexes[2]);
+            Console.WriteLine(street + number + zipcode + city);
+            return new Address(street, number, zipcode, city);
         }
     }
 }

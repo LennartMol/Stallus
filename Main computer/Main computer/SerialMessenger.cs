@@ -151,10 +151,6 @@ namespace Main_computer
                     return messages;
                 }
             }
-            else if (!serialPort.IsOpen)
-            {
-                IsDisconnected = true;
-            }
             return null; //new string[2]
         }
     }
