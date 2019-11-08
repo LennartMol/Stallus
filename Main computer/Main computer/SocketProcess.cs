@@ -14,6 +14,7 @@ namespace Main_computer
         public int MaxThreads { get; private set; }
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
+        private string prefix = "<SocketProcess>";
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)

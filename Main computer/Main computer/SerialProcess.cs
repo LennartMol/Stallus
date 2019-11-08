@@ -12,6 +12,8 @@ namespace Main_computer
         private SerialMessenger serialMessenger;
         public bool ReceivedFirstContact { get; private set; }
         public string Portname { get; private set; }
+        private string prefix = "<SerialProcess>";
+        public bool PortWasDisconnected { get; private set; }
         public SerialProcess(char beginMarker, char endMarker, string portname)
         {
             MessageBuilder messageBuilder = new MessageBuilder(beginMarker, endMarker);
@@ -21,7 +23,7 @@ namespace Main_computer
         public void InitializeSerialProcessing()
         {
             serialMessenger.Connect();
-            Console.WriteLine("<SerialProcess>Waiting for Serial communication on: " + Portname);
+            Console.WriteLine($"{prefix}Waiting for Serial communication on: {Portname}");
             while (true)
             {
                 string[] messages = serialMessenger.ReadMessages();
@@ -29,22 +31,14 @@ namespace Main_computer
                 {
                     foreach (string message in messages)
                     {
-                        Console.WriteLine("<SerialProcess>" + message);
+                        Console.WriteLine(prefix + message);
                     }
                 }
-            }
-        }
-        public bool LookingForFirstContact()
-        {
-            foreach (string message in serialMessenger.ReadMessages())
-            {
-                if (message == "CONNECT")
+                else if (serialMessenger.IsDisconnected)
                 {
-                    ReceivedFirstContact = true;
-                    return true;
+                    Console.WriteLine($"{prefix}Port: {Portname} was disconnected.");
                 }
             }
-            return false;
         }
         private bool IsConnected()
         {
