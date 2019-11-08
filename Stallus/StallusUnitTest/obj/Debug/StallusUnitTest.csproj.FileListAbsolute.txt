@@ -22,4 +22,3 @@ C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\De
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\MySql.Data.xml
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Google.Protobuf.xml
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\bin\Debug\Renci.SshNet.xml
-C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\StallusUnitTest\obj\Debug\StallusUnitTest.csproj.CoreCompileInputs.cache

@@ -13,14 +13,34 @@ namespace Stallus
     public partial class LoginForm : Form
     {
         private Database database;
+        private TCP_Client client;
         public LoginForm()
         {
             InitializeComponent();
             database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
         }
 
-        private void BtOpenApplication_Click(object sender, EventArgs e)
+        private void BtLogin_Click(object sender, EventArgs e)
         {
+            client = new TCP_Client();
+            client.sendMessage($"REQ_LOGIN_EMAIL:{tbLoginEmail.Text}");
+            while (client.getMessage())
+            {
+                if (tbLoginPassword.Text == client.ReceivedMessage)
+                {
+                    ApplicationForm app = new ApplicationForm();
+                    this.Hide();
+                    app.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Password doesn't match the email");
+                }
+            }
+           
+
+           
+            /*
             if (tbLoginPassword.Text == database.StallusLogin(tbLoginEmail.Text))
             {
                 ApplicationForm app = new ApplicationForm();
@@ -30,7 +50,7 @@ namespace Stallus
             else
             {
                 MessageBox.Show("Password doesn't match the email");
-            }
+            }*/
 
         }
 
@@ -72,6 +92,10 @@ namespace Stallus
             }
         }
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            client = new TCP_Client();
+            client.sendMessage($"INSERT_DB_REGISTRATE:first/last/01_04_2001/test@hotmail.nl/teststraat_10_5505PT_Veldhoven/password");
+        }
     }
 }
