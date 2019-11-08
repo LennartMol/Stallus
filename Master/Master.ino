@@ -9,7 +9,7 @@ void setup() {
 }
 
 void loop() {
-  Wire.requestFrom(8, 7);    // request 6 bytes from slave device #8
+  Wire.requestFrom(7, 6);    // request 6 bytes from slave device #8
 
   while (Wire.available()) { // slave may send less than requested
     char readChar = (char)Wire.read();
