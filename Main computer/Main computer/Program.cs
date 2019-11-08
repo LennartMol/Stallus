@@ -27,17 +27,17 @@ namespace Main_computer
             Console.WriteLine($"{serverPrefix}Stallus Server is running, but not yet online for communication."); //GetIPAddress() //"145.93.73.139"
             Thread commandThread = new Thread(CommandCentre);
             commandThread.Start();
-            try
-            {
-                string[] availablePortnames = SerialPort.GetPortNames();
-                serialProcess = new SerialProcess('#', '%', availablePortnames[0]);
-                Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
-                serialThread.Start();
-            }
-            catch (Exception x)
-            {
-                Console.WriteLine(errorPrefix + x.Message);
-            }
+            //try
+            //{
+            //    string[] availablePortnames = SerialPort.GetPortNames();
+            //    serialProcess = new SerialProcess('#', '%', availablePortnames[0]);
+            //    Thread serialThread = new Thread(serialProcess.InitializeSerialProcessing);
+            //    serialThread.Start();
+            //}
+            //catch (Exception x)
+            //{
+            //    Console.WriteLine(errorPrefix + x.Message);
+            //}
         }
 
         private static void StartSocketProcess()
@@ -71,25 +71,11 @@ namespace Main_computer
                         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                         if (Password == serverPassword)
                         {
-                            int i = 0;
-                            Console.Write($"\n{serverPrefix}Server is shutting down. (Press Escape to cancel)");
-                            do
-                            {
-                                Console.Write(".");
-                                i++;
-                                if (i == 10)
-                                {
-                                    Environment.Exit(0);
-                                }
-                            }
-                            while (keyInfo.Key != ConsoleKey.Escape);
-                            {
-                                Console.WriteLine("Shutting down was cancelled.");
-                            }
+                            Environment.Exit(0);
                         }
                         else
                         {
-                            Console.WriteLine("\nWrong");
+                            Console.WriteLine($"\n{serverPrefix}Wrong");
                             CommandCentre();
                         }
                     }

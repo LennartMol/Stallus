@@ -23,3 +23,15 @@ D:\GitHub\LennartMol\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generat
 D:\GitHub\LennartMol\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.CopyComplete
 D:\GitHub\LennartMol\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.exe
 D:\GitHub\LennartMol\Stallus\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.exe.config
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.exe
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\bin\Debug\Generate QR Code.pdb
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\bin\Debug\QRCoder.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\bin\Debug\System.Drawing.Common.dll
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate_QR_Code.Form1.resources
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate_QR_Code.Properties.Resources.resources
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.GenerateResource.cache
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.csproj.CopyComplete
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.exe
+D:\GitHub\LennartMol\Stallus\C# sketches (useable)\Generate QR Code\Generate QR Code\obj\Debug\Generate QR Code.pdb

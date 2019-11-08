@@ -25,7 +25,7 @@ namespace Generate_QR_Code
             ulong time_context_2 = Convert.ToUInt32(DateTime.Now.Second) | Convert.ToUInt32(DateTime.Now.Minute) << 6 | Convert.ToUInt32(DateTime.Now.Hour) << 12;
             ulong date_context_2 = Convert.ToUInt32(DateTime.Now.Year - 2000) | Convert.ToUInt32(DateTime.Now.Month) << 7 | Convert.ToUInt32(DateTime.Now.Day) << 11;
             ulong context = user_id << 33 | date_context_2 << 17 | time_context_2;
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("@" + context.ToString() + "&", QRCodeGenerator.ECCLevel.H);
+            QRCodeData qrCodeData = qrGenerator.CreateQrCode("#" + context.ToString() + "%", QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);     
             Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.pepe);
             Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, customImage, 27);
