@@ -4,11 +4,13 @@ long wait = 5000;
 
 void DetectBicycle()
 {
-  currentState = digitalRead(buttonPin);
-  if (currentState != previousState && digitalRead(buttonPin) == HIGH) {
+  currentState = digitalRead(SENSORPIN);
+  if(currentState == HIGH){
+  }
+  if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
     pressedDown = millis();
   }
-  if (currentState == previousState && digitalRead(buttonPin) == LOW) {
+  if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle avedeble
     //Serial.println("up");
     pressedDown = millis();
   }

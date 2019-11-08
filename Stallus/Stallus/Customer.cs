@@ -8,6 +8,7 @@ namespace Stallus
 {
     public class Customer : ICustomer
     {
+
         private string firstName;
         private string lastName;
         private string password;
