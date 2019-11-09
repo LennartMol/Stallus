@@ -115,9 +115,13 @@ namespace Main_computer
             string command = Encoding.ASCII.GetString(context);
             string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
             Console.WriteLine(cleanCommand);
-            if (cleanCommand.StartsWith("INSERT_DB_"))
+            if (cleanCommand.StartsWith("DB"))
             {
-                DatabaseCommandsHandler(cleanCommand.Substring(10));
+                DatabaseCommandsHandler(cleanCommand.Substring(3));
+            }
+            else if (cleanCommand.StartsWith("ARD"))
+            {
+
             }
         }
 
@@ -128,29 +132,30 @@ namespace Main_computer
             return returnArray;
         }
 
-        private void DatabaseCommandsHandler(string command)
+        private void DatabaseCommandsHandler(string protocol)
         {
             Database db = new Database();
-            Console.WriteLine(command);
-            if (command.StartsWith("REGISTRATE"))
+            if (db.IsDatabaseReachable())
             {
-                string[] data = CommandStringTrimmer(command);
-                string first_name = data[0];
-                Console.WriteLine(first_name);
-                string last_name = data[1];
-                Console.WriteLine(last_name);
-                DateTime date_of_birth = ParseDateTime(data[2]);
-                Console.WriteLine(date_of_birth.ToString());
-                string email_address = data[3];
-                Console.WriteLine(email_address);
-                Address address = ParseAddress(data[4]);
-                Console.WriteLine(data[4]);
-                string password = data[5].Substring(0, data[5].Length - 1);
-                Console.WriteLine(password);
-                foreach (string info in data)
+                string[] data = CommandStringTrimmer(protocol);
+                if (protocol.StartsWith("INSERT_REGISTRATE"))
                 {
-                    Console.WriteLine(info);
+                    string first_name = data[0];
+                    string last_name = data[1];
+                    DateTime date_of_birth = ParseDateTime(data[2]);
+                    string email_address = data[3];
+                    Address address = ParseAddress(data[4]);
+                    string password = data[5].Substring(0, data[5].Length - 1);
+                    db.Registrate(first_name, last_name, date_of_birth, email_address, address, password);
                 }
+                else if (protocol.StartsWith("REQ_LOGIN"))
+                {
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
             }
         }
 

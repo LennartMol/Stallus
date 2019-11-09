@@ -9,46 +9,22 @@ namespace TCP_Client_Console
     {
         static void Main(string[] args)
         {
-            string sendLine = "";
             const int port = 13000;
-            byte[] bytes = new byte[10];
 
             try
             {
-                //Send
-                if (Console.ReadLine() == "Connect to server")
-                {
-                    TcpClient clientSock = new TcpClient();
-                    Console.WriteLine("Connecting to Server ...");
-                    IPAddress ip = IPAddress.Parse("192.168.1.109"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
-                    clientSock.Connect(ip, port);
-                    Console.WriteLine("Connected !");
-                    string test = "INSERT_DB_REGISTRATE:First/Last/01_04_2001/test@hotmail.nl/teststraat_10_5510TP_Veldhoven/password;";
-                    NetworkStream stream = clientSock.GetStream();
-                    byte[] data = Encoding.ASCII.GetBytes(test);
-                    Console.WriteLine($"Sending message to the Server: {test}");
-                    stream.Write(data, 0, data.Length);
-
-
-                    //while (sendLine != "Stop")
-                    //{
-                    //    sendLine = Console.ReadLine();
-
-                    //    NetworkStream stream = clientSock.GetStream();
-                    //    byte[] data = Encoding.ASCII.GetBytes(sendLine);
-                    //    Console.WriteLine("Sending message to the Server");
-                    //    stream.Write(data, 0, data.Length);
-
-
-                    //    //listen
-                    //    stream = clientSock.GetStream();
-                    //    int num = stream.Read(bytes, 0, bytes.Length);
-                    //    Console.WriteLine(Encoding.ASCII.GetString(bytes, 0, num));
-                    //}
-
-                    Console.Read();
-                    clientSock.Close();
-                }
+                TcpClient clientSock = new TcpClient();
+                Console.WriteLine("Connecting to Server ...");
+                IPAddress ip = IPAddress.Parse("192.168.1.109"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
+                clientSock.Connect(ip, port);
+                Console.WriteLine("Connected !");
+                string test = "DB_INSERT_REGISTRATE:First/Last/01_04_2001/test@hotmail.nl/teststraat_10_5510TP_Veldhoven/password;";
+                NetworkStream stream = clientSock.GetStream();
+                byte[] data = Encoding.ASCII.GetBytes(test);
+                Console.WriteLine($"Sending message to the Server: {test}");
+                stream.Write(data, 0, data.Length);
+                Console.Read();
+                clientSock.Close();
             }
             catch (Exception e)
             {

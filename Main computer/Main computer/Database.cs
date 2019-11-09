@@ -18,6 +18,19 @@ namespace Main_computer
             ConnectionString = connectionString;
             connection = new MySqlConnection(connectionString);
         }
+        
+        public bool IsDatabaseReachable()
+        {
+            try
+            {
+                connection.Open();
+                return true;
+            }
+            catch 
+            {
+                return false;
+            }
+        }
 
         public string Login(string username)
         {

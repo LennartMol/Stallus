@@ -92,22 +92,31 @@ namespace Main_computer
                         string hostName = Dns.GetHostName();
                         IPAddress[] ipList = Dns.GetHostEntry(hostName).AddressList;
                         Console.WriteLine($"{serverPrefix}Possible ip-addresses for {hostName}:");
-                        IPAddress[] cleanIpList = new IPAddress[4];
+                        IPAddress[] cleanIpList = new IPAddress[10];
                         int j = 0;
+                        //foreach (IPAddress ip in ipList)
+                        //{
+                        //    //if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        //    //{
+                        //    //    cleanIpList[j] = ip;
+                        //    //    j++;
+                        //    //}
+                        //}
                         foreach (IPAddress ip in ipList)
                         {
-                            if (ip.AddressFamily == AddressFamily.InterNetwork)
+                            if (!ip.ToString().Contains("%"))
                             {
+                                Console.WriteLine(ip.ToString());
                                 cleanIpList[j] = ip;
                                 j++;
                             }
                         }
-                        foreach (IPAddress ip in cleanIpList)
-                        {
-                            Console.WriteLine(ip.ToString());
-                        }
                         chosenIpAdress = ChooseIpSetting(cleanIpList);
                         Console.WriteLine($"{serverPrefix}Chosen IP-Address: {chosenIpAdress.ToString()}.");
+                        //else
+                        //{
+                        //    Console.WriteLine($"{serverPrefix}No IP-Addresses available. Server is using VPN");
+                        //}
                     }
                     else if (command == "config serial")
                     {
@@ -217,21 +226,25 @@ namespace Main_computer
                 keyInfo = Console.ReadKey(true);
                 if (keyInfo.Key == ConsoleKey.DownArrow)
                 {
-                    index--;
-                    if (index < 0)
+                    index++;
+                    if (index > 4)
                     {
-                        index = 3;
+                        index = 0;
                     }
+                    Console.WriteLine("                                    ");
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                     Console.WriteLine(iPAddresses[index]);
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 }
                 else if (keyInfo.Key == ConsoleKey.UpArrow)
                 {
-                    index++;
-                    if (index > 3)
+                    index--;
+                    if (index < 0)
                     {
-                        index = 0;
+                        index = 4;
                     }
+                    Console.WriteLine("                                    ");
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                     Console.WriteLine(iPAddresses[index]);
                     Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - 1);
                 }

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="DatabaseNotReachableException.cs" />
     <Compile Include="MessageBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
