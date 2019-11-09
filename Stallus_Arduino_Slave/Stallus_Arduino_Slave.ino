@@ -9,7 +9,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  delay(100);
+  // CheckForSerialCom();
 }
 
 void requestEvent(){

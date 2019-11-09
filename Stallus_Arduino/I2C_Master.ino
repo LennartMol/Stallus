@@ -7,14 +7,15 @@ void CheckForSlaveCom() {
   while (Wire.available())
   {
     char readChar = (char)Wire.read();
-    if (readChar == '@')
+    if (readChar == '#')
     {
       messageStateQR = true;
     }
-    else if (readChar == '&')
+    else if (readChar == '%')
     {
       messageStateQR = false;
       Serial.println(*messagePtrQR);
+      Serial.write(*messagePtrQR);
       *messagePtrQR = "";
     }
     else if (messageStateQR == true)
