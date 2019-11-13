@@ -23,7 +23,7 @@ namespace Stallus
         private void BtLogin_Click(object sender, EventArgs e)
         {
             client = new TCP_Client();
-            client.sendMessage($"REQ_LOGIN_EMAIL:{tbLoginEmail.Text}");
+            client.sendMessage($"REQ_LOGIN:{tbLoginEmail.Text}");
             while (client.getMessage())
             {
                 if (tbLoginPassword.Text == client.ReceivedMessage)
@@ -83,19 +83,14 @@ namespace Stallus
                 if (!string.IsNullOrWhiteSpace(name) && tbRegistratePassword.Text.Length > 6 && emailCheck)
                 {
                     Customer customer = new Customer(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
-                    database.StallusRegistrate(customer);
+                    client = new TCP_Client();
+                    client.sendMessage($"DB_INSERT_REGISTRATE:{customer.FirstName}/{customer.LastName}/{customer.DateOfBirth}/{customer.Email}/{customer.Address}/{customer.Password}");
                 }
                 else
                 {
                     MessageBox.Show("The password has to be bigger then 6 characters");
                 }
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            client = new TCP_Client();
-            client.sendMessage($"INSERT_DB_REGISTRATE:first/last/01_04_2001/test@hotmail.nl/teststraat_10_5505PT_Veldhoven/password");
         }
     }
 }
