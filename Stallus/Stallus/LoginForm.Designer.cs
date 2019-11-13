@@ -55,7 +55,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnRegistrate = new System.Windows.Forms.Button();
             this.tbRegistratePassword = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -116,7 +115,6 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Controls.Add(this.tbLoginEmail);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.btOpenApplication);
@@ -314,16 +312,6 @@
             this.tbRegistratePassword.Size = new System.Drawing.Size(164, 22);
             this.tbRegistratePassword.TabIndex = 7;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(336, 288);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(84, 35);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Login";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -370,6 +358,5 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DateTimePicker dtpRegistrateDateOfBirth;
-        private System.Windows.Forms.Button button1;
     }
 }
