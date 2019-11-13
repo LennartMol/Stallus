@@ -2,6 +2,8 @@
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.IO;
+
 
 namespace TCP_Client_Console
 {
@@ -10,26 +12,26 @@ namespace TCP_Client_Console
         static void Main(string[] args)
         {
             const int port = 13000;
-
-            try
+            //TcpListener server;
+            TcpClient clientSock = new TcpClient();
+            Console.WriteLine("Connecting to Server ...");
+            IPAddress ip = IPAddress.Parse("192.168.1.109"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
+            clientSock.Connect(ip, port);
+            Console.WriteLine("Connected !");
+            string test = "DB_REQ_LOGIN:admin;";
+            NetworkStream stream = clientSock.GetStream();
+            byte[] data = Encoding.ASCII.GetBytes(test);
+            Console.WriteLine($"Sending message to the Server: {test}");
+            stream.Write(data, 0, data.Length);
+            Byte[] bytes = new Byte[256];
+            int i;
+            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
             {
-                TcpClient clientSock = new TcpClient();
-                Console.WriteLine("Connecting to Server ...");
-                IPAddress ip = IPAddress.Parse("192.168.1.109"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
-                clientSock.Connect(ip, port);
-                Console.WriteLine("Connected !");
-                string test = "DB_INSERT_REGISTRATE:First/Last/01_04_2001/test@hotmail.nl/teststraat_10_5510TP_Veldhoven/password;";
-                NetworkStream stream = clientSock.GetStream();
-                byte[] data = Encoding.ASCII.GetBytes(test);
-                Console.WriteLine($"Sending message to the Server: {test}");
-                stream.Write(data, 0, data.Length);
-                Console.Read();
-                clientSock.Close();
+                string data_ = Encoding.ASCII.GetString(bytes, 0, i);
+                Console.WriteLine("Received: {0}", data_);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            Console.Read();
+            //clientSock.Close();
         }
     }
 }

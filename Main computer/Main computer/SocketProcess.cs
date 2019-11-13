@@ -15,6 +15,8 @@ namespace Main_computer
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
         private string prefix = "<SocketProcess>";
+        private static WaitHandle[] waitHandles;
+        private static Socket listener;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)
@@ -27,14 +29,14 @@ namespace Main_computer
             DataTimeReadout = dataTimeReadout;
             StorageSize = storageSize;
         }
-        private static WaitHandle[] waitHandles;
-        private static Socket listener;
+        
         private struct ThreadParams
         {
             public AutoResetEvent ThreadHandle;
             public Socket ClientSocket;
             public int ThreadIndex;
         }
+
         public void InitializeSocketProcessing()
         {
             waitHandles = new WaitHandle[MaxThreads];
@@ -66,16 +68,6 @@ namespace Main_computer
                 };
                 ThreadPool.QueueUserWorkItem(ProcessSocketConnection, context);
             }
-        }
-        public IPAddress GetIPAddress()
-        {
-            IPHostEntry hostEntry = Dns.GetHostEntry(Environment.MachineName);
-            foreach (IPAddress address in hostEntry.AddressList)
-            {
-                if (address.AddressFamily == AddressFamily.InterNetwork)
-                    return address;
-            }
-            return null;
         }
 
         public bool CheckDbReachable()
@@ -116,6 +108,7 @@ namespace Main_computer
                 state.ThreadHandle.Set();
             }
         }
+
         private void DoWork(byte[] context, Socket socket)
         {
             string command = Encoding.ASCII.GetString(context);
@@ -145,7 +138,8 @@ namespace Main_computer
             Database db = new Database();
             if (db.IsDatabaseReachable())
             {
-                string[] data = CommandStringTrimmer(protocol);
+                string cleanProtocol = protocol.Substring(0, protocol.Length - 1);
+                string[] data = CommandStringTrimmer(cleanProtocol);
                 if (protocol.StartsWith("INSERT_REGISTRATE"))
                 {
                     string first_name = data[0];
@@ -155,19 +149,31 @@ namespace Main_computer
                     Address address = ParseAddress(data[4]);
                     string password = data[5].Substring(0, data[5].Length - 1);
                     db.Registrate(first_name, last_name, date_of_birth, email_address, address, password);
+                    string send = $"ACK_INSERT_REGISTRATE:{email_address}";
+                    SendMessageToSocket(send, socket);
                 }
                 else if (protocol.StartsWith("REQ_LOGIN"))
                 {
                     string username = data[0];
                     string password = db.RetrievePassword(username);
-                    string send = $"ACK_REQ_LOGIN:{username}/{password}";
-                    socket.Send(Encoding.ASCII.GetBytes(send));
+                    string send = $"ACK_REQ_LOGIN:{username}/{password};";
+                    SendMessageToSocket(send, socket);
+                }
+                else if (protocol.StartsWith(""))
+                {
+
                 }
             }
             else
             {
                 Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
             }
+        }
+
+        private void SendMessageToSocket(string message, Socket socket)
+        {
+            socket.Send(Encoding.ASCII.GetBytes(message));
+            Console.WriteLine($"Sent: {message}");
         }
 
         private DateTime ParseDateTime(string date)

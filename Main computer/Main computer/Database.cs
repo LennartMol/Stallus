@@ -33,28 +33,6 @@ namespace Main_computer
             }
         }
 
-        public string Login(string username)
-        {
-            string retrievedPassword = "";
-            connection.Open();
-            MySqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT password FROM login_details WHERE username = @1";
-            command.Parameters.AddWithValue("@1", username);
-            var reader = command.ExecuteReader();
-            if (reader.HasRows)
-            {
-                reader.Read();
-                retrievedPassword = reader.GetString(0);
-            }
-            else
-            {
-                connection.Close();
-                return null;
-            }
-            connection.Close();
-            return retrievedPassword;
-        }
-
         public void Registrate(string firstName, string lastName, DateTime date_of_birth, string email, Address address, string password)
         {
             MySqlCommand commandUsers = connection.CreateCommand();
@@ -83,22 +61,24 @@ namespace Main_computer
         public string RetrievePassword(string username)
         {
             MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT 'password' FROM 'login_details' WHERE username = @1";
+            cmd.CommandText = "SELECT password FROM login_details WHERE username = @1";
             cmd.Parameters.AddWithValue("@1", username);
             connection.Open();
             cmd.ExecuteNonQuery();
-            MySqlDataReader reader = cmd.ExecuteReader();
+            var reader = cmd.ExecuteReader();
+            string password;
             if (reader.HasRows)
             {
                 reader.Read();
-                connection.Close();
-                return reader.GetString(0);
+                password = reader.GetString(0);
             }
             else
             {
                 connection.Close();
-                return null;
+                return "null";
             }
+            connection.Close();
+            return password;
         }
 
         public string Register()
