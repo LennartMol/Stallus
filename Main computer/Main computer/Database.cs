@@ -24,6 +24,7 @@ namespace Main_computer
             try
             {
                 connection.Open();
+                connection.Close();
                 return true;
             }
             catch 

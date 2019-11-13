@@ -174,9 +174,9 @@ namespace Main_computer
         {
             List<int> divisor_indexes = GetDivisorIndexes(date);
 
-            int year = Int32.Parse(date.Substring(divisor_indexes[1]));
-            int month = Int32.Parse(date.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]));
-            int day = Int32.Parse(date.Substring(0, divisor_indexes[0]));
+            int year = Convert.ToInt32(date.Substring(divisor_indexes[1] + 1));
+            int month = Convert.ToInt32(date.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1));
+            int day = Convert.ToInt32(date.Substring(0, divisor_indexes[0]));
             return new DateTime(year, month, day);
         }
 
@@ -184,9 +184,9 @@ namespace Main_computer
         {
             List<int> divisor_indexes = GetDivisorIndexes(address);
             string street = address.Substring(0, divisor_indexes[0]);
-            string number = address.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]);
-            string zipcode = address.Substring(divisor_indexes[1], divisor_indexes[2] - divisor_indexes[1]);
-            string city = address.Substring(divisor_indexes[2]);
+            string number = address.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1);
+            string zipcode = address.Substring(divisor_indexes[1] + 1, divisor_indexes[2] - divisor_indexes[1] - 1);
+            string city = address.Substring(divisor_indexes[2] + 1);
             Console.WriteLine(street + number + zipcode + city);
             return new Address(street, number, zipcode, city);
         }
