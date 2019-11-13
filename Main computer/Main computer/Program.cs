@@ -14,7 +14,7 @@ namespace Main_computer
     {
         private static int port = 13000;
         private static int maxThreads = 4;
-        private static int dataTimeReadout = 5_000_000;
+        private static int dataTimeReadout = 2_000_000;
         private static int storageSize = 1024 * 256;
         static SocketProcess socketProcess;
         static SerialProcess serialProcess;
@@ -23,6 +23,7 @@ namespace Main_computer
         private static string errorPrefix = "<Error>";
         private static IPAddress chosenIpAdress = null;
         private static string chosenPortName = "";
+        private static bool socketProcessStarted = false;
         private static void Main(string[] args)
         {
             Console.WriteLine($"{serverPrefix}Stallus Server is running, but not yet online for communication."); //GetIPAddress() //"145.93.73.139"
@@ -38,6 +39,8 @@ namespace Main_computer
                 Console.WriteLine($"{serverPrefix}SocketProcess started"); //GetIPAddress() //"145.93.73.139"
                 Thread ipThread = new Thread(socketProcess.InitializeSocketProcessing);
                 ipThread.Start();
+                socketProcessStarted = true;
+
             }
             catch (Exception x)
             {
@@ -61,7 +64,7 @@ namespace Main_computer
 
         private static void CommandCentre()
         {
-            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", string.Empty };
+            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", "check db", string.Empty };
             while (true)
             {
                 string command = Console.ReadLine();
@@ -94,14 +97,6 @@ namespace Main_computer
                         Console.WriteLine($"{serverPrefix}Possible ip-addresses for {hostName}:");
                         IPAddress[] cleanIpList = new IPAddress[10];
                         int j = 0;
-                        //foreach (IPAddress ip in ipList)
-                        //{
-                        //    //if (ip.AddressFamily == AddressFamily.InterNetwork)
-                        //    //{
-                        //    //    cleanIpList[j] = ip;
-                        //    //    j++;
-                        //    //}
-                        //}
                         foreach (IPAddress ip in ipList)
                         {
                             if (!ip.ToString().Contains("%"))
@@ -113,10 +108,6 @@ namespace Main_computer
                         }
                         chosenIpAdress = ChooseIpSetting(cleanIpList);
                         Console.WriteLine($"{serverPrefix}Chosen IP-Address: {chosenIpAdress.ToString()}.");
-                        //else
-                        //{
-                        //    Console.WriteLine($"{serverPrefix}No IP-Addresses available. Server is using VPN");
-                        //}
                     }
                     else if (command == "config serial")
                     {
@@ -166,6 +157,17 @@ namespace Main_computer
                         foreach (string existingCommand in commands)
                         {
                             Console.WriteLine(existingCommand);
+                        }
+                    }
+                    else if (command == "check db")
+                    {
+                        if (chosenIpAdress != null && socketProcessStarted == true)
+                        {
+                            Console.WriteLine($"Connected:{socketProcess.CheckDbReachable()}");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{serverPrefix}Server has not been configured for Socket connection.");
                         }
                     }
                 }

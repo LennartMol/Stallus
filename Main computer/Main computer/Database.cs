@@ -77,7 +77,27 @@ namespace Main_computer
             commandUsers.ExecuteNonQuery();
             commandLogin.ExecuteNonQuery();
             connection.Close();
+        }
 
+        public string RetrievePassword(string username)
+        {
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT 'password' FROM 'login_details' WHERE username = @1";
+            cmd.Parameters.AddWithValue("@1", username);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                connection.Close();
+                return reader.GetString(0);
+            }
+            else
+            {
+                connection.Close();
+                return null;
+            }
         }
 
         public string Register()

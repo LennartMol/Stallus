@@ -78,6 +78,12 @@ namespace Main_computer
             return null;
         }
 
+        public bool CheckDbReachable()
+        {
+            Database db = new Database();
+            return db.IsDatabaseReachable();
+        }
+
         public void ProcessSocketConnection(object threadState)
         {
             ThreadParams state = (ThreadParams)threadState;
@@ -117,7 +123,7 @@ namespace Main_computer
             Console.WriteLine(cleanCommand);
             if (cleanCommand.StartsWith("DB"))
             {
-                DatabaseCommandsHandler(cleanCommand.Substring(3));
+                DatabaseCommandsHandler(cleanCommand.Substring(3), socket);
             }
             else if (cleanCommand.StartsWith("ARD"))
             {
@@ -127,12 +133,14 @@ namespace Main_computer
 
         private string[] CommandStringTrimmer(string stringToTrim)
         {
-            string cleanString = stringToTrim.Substring(stringToTrim.IndexOf(':') + 1);
-            string[] returnArray = cleanString.Split('/');
-            return returnArray;
+            if (!stringToTrim.Contains("/"))
+            {
+                 return new string[] { stringToTrim.Substring(stringToTrim.IndexOf(':') + 1) };
+            }
+            return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
         }
 
-        private void DatabaseCommandsHandler(string protocol)
+        private void DatabaseCommandsHandler(string protocol, Socket socket)
         {
             Database db = new Database();
             if (db.IsDatabaseReachable())
@@ -150,7 +158,10 @@ namespace Main_computer
                 }
                 else if (protocol.StartsWith("REQ_LOGIN"))
                 {
-                    
+                    string username = data[0];
+                    string password = db.RetrievePassword(username);
+                    string send = $"ACK_REQ_LOGIN:{username}/{password}";
+                    socket.Send(Encoding.ASCII.GetBytes(send));
                 }
             }
             else
@@ -162,9 +173,10 @@ namespace Main_computer
         private DateTime ParseDateTime(string date)
         {
             List<int> divisor_indexes = GetDivisorIndexes(date);
-            int year = Convert.ToInt32(date.Substring(divisor_indexes[1], divisor_indexes[2] - divisor_indexes[1]));
-            int month = Convert.ToInt32(date.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]));
-            int day = Convert.ToInt32(date.Substring(0, divisor_indexes[0]));
+
+            int year = Int32.Parse(date.Substring(divisor_indexes[1]));
+            int month = Int32.Parse(date.Substring(divisor_indexes[0], divisor_indexes[1] - divisor_indexes[0]));
+            int day = Int32.Parse(date.Substring(0, divisor_indexes[0]));
             return new DateTime(year, month, day);
         }
 
