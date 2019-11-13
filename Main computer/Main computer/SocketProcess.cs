@@ -146,11 +146,19 @@ namespace Main_computer
                     string last_name = data[1];
                     DateTime date_of_birth = ParseDateTime(data[2]);
                     string email_address = data[3];
-                    Address address = ParseAddress(data[4]);
-                    string password = data[5].Substring(0, data[5].Length - 1);
-                    db.Registrate(first_name, last_name, date_of_birth, email_address, address, password);
-                    string send = $"ACK_INSERT_REGISTRATE:{email_address}";
-                    SendMessageToSocket(send, socket);
+                    string password = data[4].Substring(0, data[4].Length);
+                    Address address = ParseAddress(data[5]);
+                    bool emailAddressNotInUse = db.Registrate(first_name, last_name, date_of_birth, email_address, password, address);
+                    if (emailAddressNotInUse)
+                    {
+                        string send = $"ACK_INSERT_REGISTRATE:{email_address}";
+                        SendMessageToSocket(send, socket);
+                    }
+                    else
+                    {
+                        string send = $"NACK_INSERT_REGISTRATE:{email_address}";
+                        SendMessageToSocket(send, socket);
+                    }
                 }
                 else if (protocol.StartsWith("REQ_LOGIN"))
                 {
@@ -192,9 +200,10 @@ namespace Main_computer
             string street = address.Substring(0, divisor_indexes[0]);
             string number = address.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1);
             string zipcode = address.Substring(divisor_indexes[1] + 1, divisor_indexes[2] - divisor_indexes[1] - 1);
-            string city = address.Substring(divisor_indexes[2] + 1);
+            string city = address.Substring(divisor_indexes[2] + 1, divisor_indexes[3] - divisor_indexes[2] - 1);
+            string country = address.Substring(divisor_indexes[3] + 1);
             Console.WriteLine(street + number + zipcode + city);
-            return new Address(street, number, zipcode, city);
+            return new Address(street, number, zipcode, city, country);
         }
 
         private List<int> GetDivisorIndexes(string data)

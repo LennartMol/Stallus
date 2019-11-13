@@ -18,7 +18,7 @@ namespace TCP_Client_Console
             IPAddress ip = IPAddress.Parse("192.168.1.109"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
             clientSock.Connect(ip, port);
             Console.WriteLine("Connected !");
-            string test = "DB_REQ_LOGIN:admin;";
+            string test = "DB_INSERT_REGISTRATE:Test/TestLest/01_04_2001/test@test.nl/testpassword/Teststraat_1_0000NN_Test_Netherlands;";
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(test);
             Console.WriteLine($"Sending message to the Server: {test}");
