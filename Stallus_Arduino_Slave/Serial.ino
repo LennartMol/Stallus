@@ -29,7 +29,7 @@ void MessageHandler(String* messagePtr) {
   char sendLine[10];
   message.toCharArray(sendLine, 11);
   for(int x = 0; x < 10; x++){
-    Serial.println(sendLine);
+    Serial.println(sendLine[x]);
   }
   Wire.write(sendLine);
 }

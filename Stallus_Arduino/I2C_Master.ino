@@ -1,5 +1,4 @@
 String messageQR = "";
-String* messagePtrQR = &messageQR;
 bool messageStateQR = false;
 
 void CheckForSlaveCom() {
@@ -14,13 +13,13 @@ void CheckForSlaveCom() {
     else if (readChar == '%')
     {
       messageStateQR = false;
-      Serial.println(*messagePtrQR);
-      Serial.write(*messagePtrQR);
-      *messagePtrQR = "";
+      Serial.println(messageQR);
+      //Serial.write(messageQR);
+      messageQR = "";
     }
     else if (messageStateQR == true)
     {
-      *messagePtrQR += readChar;
+      messageQR += readChar;
     }
   }
 }

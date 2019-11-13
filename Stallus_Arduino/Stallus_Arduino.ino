@@ -21,6 +21,7 @@ void setup() {
   myservo.write(pos);   
   Serial.setTimeout(20);
   Serial.begin(9600);
+  //use pins A4 & A5
   Wire.begin();        // join i2c bus (address optional for master)
 }
 

@@ -1,5 +1,4 @@
 String message = "";
-String* messagePtr = &message;
 bool messageState = false;
 
 void CheckForSerialCom() {
@@ -13,24 +12,24 @@ void CheckForSerialCom() {
     else if (readChar == '%')
     {
       messageState = false;
-      MessageHandler(messagePtr);
-      *messagePtr = "";
+      MessageHandler(message);
+      message = "";
     }
     else if (messageState == true)
     {
-      *messagePtr += readChar;
+      message += readChar;
     }
   }  
 }
 
-void MessageHandler(String* messagePtr) {
-  Serial.println(*messagePtr+"%");
-  if (*messagePtr == "unlockBicycleStand")
+void MessageHandler(String message) {
+  Serial.println(message);
+  if (message == "unlockBicycleStand")
   {
     servoUnLock();
     Serial.println("bicycleIsUnlocked%");
   }
-  if (*messagePtr == "lockBicycleStand")
+  if (message == "lockBicycleStand")
   {
     servoLock();
     Serial.println("bicycleIslocked%");
