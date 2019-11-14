@@ -24,7 +24,7 @@ namespace Stallus
         public void sendMessage(string message)
         {
             clientSock = new TcpClient();
-            IPAddress ip = IPAddress.Parse("145.93.72.151");
+            IPAddress ip = IPAddress.Parse("145.93.72.193");
             clientSock.Connect(ip, Port);
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(message);
@@ -38,7 +38,7 @@ namespace Stallus
 
             clientSock = new TcpClient();
             Console.WriteLine("Connecting to Server ...");
-            IPAddress ip = IPAddress.Parse("145.93.72.151"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
+            IPAddress ip = IPAddress.Parse("145.93.72.193"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
             clientSock.Connect(ip, Port);
             Console.WriteLine("Connected !");
             NetworkStream stream = clientSock.GetStream();
