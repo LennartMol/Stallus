@@ -24,7 +24,7 @@ namespace Stallus
         {
             client = new TCP_Client();
             client.sendMessage($"REQ_LOGIN:{tbLoginEmail.Text}");
-            while (client.getMessage())
+            if (client.getMessage())
             {
                 if (tbLoginPassword.Text == client.ReceivedMessage)
                 {
