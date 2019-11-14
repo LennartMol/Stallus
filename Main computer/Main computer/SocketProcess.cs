@@ -148,11 +148,19 @@ namespace Main_computer
                     string email_address = data[3];
                     string password = data[4].Substring(0, data[4].Length);
                     Address address = ParseAddress(data[5]);
-                    bool emailAddressNotInUse = db.Registrate(first_name, last_name, date_of_birth, email_address, password, address);
-                    if (emailAddressNotInUse)
+                    if (!db.EmailAlreadyInUse(email_address))
                     {
-                        string send = $"ACK_INSERT_REGISTRATE:{email_address}";
-                        SendMessageToSocket(send, socket);
+                        bool success = db.Registrate(first_name, last_name, date_of_birth, email_address, password, address);
+                        if (success)
+                        {
+                            string send = $"ACK_INSERT_REGISTRATE:{email_address}";
+                            SendMessageToSocket(send, socket);
+                        }
+                        else
+                        {
+                            string send = $"FAIL_INSERT_REGISTRATE:{email_address}";
+                            SendMessageToSocket(send, socket);
+                        }
                     }
                     else
                     {

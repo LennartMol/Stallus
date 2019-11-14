@@ -35,18 +35,6 @@ namespace Main_computer
 
         public bool Registrate(string firstName, string lastName, DateTime date_of_birth, string email, string password, Address address)
         {
-            MySqlCommand cmd_checkEmail = connection.CreateCommand();
-            cmd_checkEmail.CommandText = "SELECT email_address FROM users WHERE email_address = @1";
-            cmd_checkEmail.Parameters.AddWithValue("@1", email);
-            connection.Open();
-            cmd_checkEmail.ExecuteNonQuery();
-            MySqlDataReader reader = cmd_checkEmail.ExecuteReader();
-            if (reader.HasRows)
-            {
-                return false;
-            }
-            connection.Close();
-
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `password`, `physical_address`) VALUES (@1, @2, @3, @4, @5, @6)";
             cmd.Parameters.AddWithValue("@1", firstName);
@@ -67,6 +55,22 @@ namespace Main_computer
             {
                 return false;
             }
+        }
+
+        public bool EmailAlreadyInUse(string email)
+        {
+            MySqlCommand cmd_checkEmail = connection.CreateCommand();
+            cmd_checkEmail.CommandText = "SELECT email_address FROM users WHERE email_address = @1";
+            cmd_checkEmail.Parameters.AddWithValue("@1", email);
+            connection.Open();
+            cmd_checkEmail.ExecuteNonQuery();
+            MySqlDataReader reader = cmd_checkEmail.ExecuteReader();
+            connection.Close();
+            if (reader.HasRows)
+            {
+                return true;
+            }
+            return false;
         }
 
         public string RetrievePassword(string username)
