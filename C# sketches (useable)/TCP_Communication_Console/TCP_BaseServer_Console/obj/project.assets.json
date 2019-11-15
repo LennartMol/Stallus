@@ -559,6 +559,7 @@
       "path": "netstandard.library/2.0.3",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "build/netstandard2.0/NETStandard.Library.targets",
@@ -688,23 +689,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\sande\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\mpcme\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
+      "projectUniqueName": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
       "projectName": "TCP_BaseServer_Console",
-      "projectPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
-      "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\obj\\",
+      "projectPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\TCP_BaseServer_Console.csproj",
+      "packagesPath": "C:\\Users\\mpcme\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_BaseServer_Console\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\mpcme\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

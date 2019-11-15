@@ -43,7 +43,7 @@ namespace Main_computer
             cmd.Parameters.AddWithValue("@4", email);
             cmd.Parameters.AddWithValue("@5", password);
             cmd.Parameters.AddWithValue("@6", address);
-            cmd.Connection = connection;
+            //cmd.Connection = connection;
             connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected > 0)
@@ -71,17 +71,17 @@ namespace Main_computer
                 connection.Close();
                 return true;
             }
+            connection.Close();
             return false;
         }
 
         public string RetrievePassword(string email_address)
         {
-            connection.Open();
+           
             MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = "SELECT `password` FROM `users` WHERE email_address LIKE '@1';";
+            cmd.CommandText = $"SELECT `password` FROM `users` WHERE email_address LIKE @1;";
             cmd.Parameters.AddWithValue("@1", email_address);
-            Console.WriteLine(cmd.ExecuteNonQuery());
-            Console.WriteLine(cmd.ExecuteNonQuery());
+            connection.Open();
             Console.WriteLine(cmd.ExecuteNonQuery());
             var reader = cmd.ExecuteReader();
             string password;

@@ -18,3 +18,17 @@ D:\GitHub\LennartMol\Stallus\Main computer\Main computer\obj\Debug\Main computer
 D:\GitHub\LennartMol\Stallus\Main computer\Main computer\obj\Debug\Main computer.csproj.CopyComplete
 D:\GitHub\LennartMol\Stallus\Main computer\Main computer\obj\Debug\Main computer.exe
 D:\GitHub\LennartMol\Stallus\Main computer\Main computer\obj\Debug\Main computer.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.exe.config
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.exe
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Main computer.pdb
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\BouncyCastle.Crypto.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Google.Protobuf.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\MySql.Data.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Renci.SshNet.dll
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Google.Protobuf.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\MySql.Data.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\bin\Debug\Renci.SshNet.xml
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.csprojAssemblyReference.cache
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.csproj.CopyComplete
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.exe
+C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Main computer\Main computer\obj\Debug\Main computer.pdb
