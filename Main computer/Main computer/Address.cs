@@ -14,7 +14,6 @@ namespace Main_computer
         public string City { get; private set; }
         public string Country { get; private set; }
 
-
         public Address(string street, string number, string zipcode, string city, string country)
         {
             Street = street;
