@@ -175,7 +175,7 @@ namespace Main_computer
                     string send = $"ACK_REQ_LOGIN:{username}/{password};";
                     SendMessageToSocket(send, socket);
                 }
-                else if (protocol.StartsWith(""))
+                else if (protocol.StartsWith("UPDATE_DETAILS"))
                 {
 
                 }

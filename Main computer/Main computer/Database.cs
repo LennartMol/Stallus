@@ -43,7 +43,6 @@ namespace Main_computer
             cmd.Parameters.AddWithValue("@4", email);
             cmd.Parameters.AddWithValue("@5", password);
             cmd.Parameters.AddWithValue("@6", address);
-            //cmd.Connection = connection;
             connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             if (rowsAffected > 0)
@@ -61,7 +60,7 @@ namespace Main_computer
         public bool EmailAlreadyInUse(string email)
         {
             MySqlCommand cmd_checkEmail = connection.CreateCommand();
-            cmd_checkEmail.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE '@1';";
+            cmd_checkEmail.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE @1;";
             cmd_checkEmail.Parameters.AddWithValue("@1", email);
             connection.Open();
             cmd_checkEmail.ExecuteNonQuery();
@@ -79,7 +78,7 @@ namespace Main_computer
         {
            
             MySqlCommand cmd = connection.CreateCommand();
-            cmd.CommandText = $"SELECT `password` FROM `users` WHERE email_address LIKE @1;";
+            cmd.CommandText = "SELECT `password` FROM `users` WHERE email_address LIKE @1;";
             cmd.Parameters.AddWithValue("@1", email_address);
             connection.Open();
             Console.WriteLine(cmd.ExecuteNonQuery());
@@ -98,9 +97,10 @@ namespace Main_computer
             return password;
         }
 
-        public string Register()
+        public bool ChangeUserDetails()
         {
-            return null;
+            
+            return true;
         }
     }
 }
