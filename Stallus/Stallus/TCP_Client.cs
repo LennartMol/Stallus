@@ -21,7 +21,7 @@ namespace Stallus
             Port = 13000;
         }
 
-        public void sendMessage(string message)
+        public void SendMessage(string message)
         {
             clientSock = new TcpClient();
             IPAddress ip = IPAddress.Parse("145.93.72.193");
@@ -32,7 +32,7 @@ namespace Stallus
             clientSock.Close();
         }
 
-        public bool getMessage()
+        public bool GetMessage()
         {
             byte[] bytes = new byte[1024];
 
@@ -53,6 +53,17 @@ namespace Stallus
             else return false;
             
         }
+
+
+        public string MessageBuilder()
+        {            
+            if (GetMessage())
+            {
+
+            }
+            return "";
+        }
+        
 
     }
 }
