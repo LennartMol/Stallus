@@ -55,27 +55,26 @@ namespace Stallus
         }
 
 
-        public string MessageHandler()
+        public string[] MessageHandler()
         {            
             if (GetMessage())
             {
                 if (ReceivedMessage.StartsWith("ACK"))
                 {
-                    
+                    ReceivedMessage.Remove(ReceivedMessage.IndexOf('_') + 1);
+                    if (ReceivedMessage.StartsWith("REQ_LOGIN"))
+                    {
+                        string[] data = CommandStringTrimmer(ReceivedMessage);
+                        return data;
+                    }
                 }
-
-                ACK_REQ_LOGIN:USERNAME/PASSWORD
             }
-            return "";
+            return null;
         }
 
         private string[] CommandStringTrimmer(string stringToTrim)
         {
-            if (stringToTrim.Contains("_"))
-            {
-                return new string[] { stringToTrim.Substring(stringToTrim.IndexOf('_') + 1) };
-            }
-            else if (!stringToTrim.Contains("/"))
+            if (!stringToTrim.Contains("/"))
             {
                 return new string[] { stringToTrim.Substring(stringToTrim.IndexOf(':') + 1) };
             }
