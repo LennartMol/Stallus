@@ -61,7 +61,7 @@ namespace Main_computer
         public bool EmailAlreadyInUse(string email)
         {
             MySqlCommand cmd_checkEmail = connection.CreateCommand();
-            cmd_checkEmail.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE '@1';";
+            cmd_checkEmail.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE @1;";
             cmd_checkEmail.Parameters.AddWithValue("@1", email);
             connection.Open();
             cmd_checkEmail.ExecuteNonQuery();
@@ -77,7 +77,6 @@ namespace Main_computer
 
         public string RetrievePassword(string email_address)
         {
-           
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = $"SELECT `password` FROM `users` WHERE email_address LIKE @1;";
             cmd.Parameters.AddWithValue("@1", email_address);
