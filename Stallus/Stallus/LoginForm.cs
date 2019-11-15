@@ -23,9 +23,10 @@ namespace Stallus
         private void BtLogin_Click(object sender, EventArgs e)
         {
             client = new TCP_Client();
-            client.sendMessage($"REQ_LOGIN:{tbLoginEmail.Text}");
-            if (client.getMessage())
+            client.SendMessage($"DB_REQ_LOGIN:{tbLoginEmail.Text}");
+            if (client.GetMessage())
             {
+
                 if (tbLoginPassword.Text == client.ReceivedMessage)
                 {
                     ApplicationForm app = new ApplicationForm();
@@ -84,7 +85,7 @@ namespace Stallus
                 {
                     Customer customer = new Customer(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
                     client = new TCP_Client();
-                    client.sendMessage($"DB_INSERT_REGISTRATE:{customer.FirstName}/{customer.LastName}/{customer.DateOfBirth}/{customer.Email}/{customer.Address}/{customer.Password}");
+                    client.SendMessage($"DB_INSERT_REGISTRATE:{customer.FirstName}/{customer.LastName}/{customer.DateOfBirth}/{customer.Email}/{customer.Address}/{customer.Password}");
                 }
                 else
                 {

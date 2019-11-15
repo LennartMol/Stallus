@@ -24,7 +24,7 @@ namespace Stallus
         private void BtnLockBicycle_Click(object sender, EventArgs e)
         {
             // A message is sent to the main computer to lock the bicycle.
-            client.sendMessage("User ID + Lock bicycle");
+            client.SendMessage("User ID + Lock bicycle");
         }
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
@@ -34,7 +34,7 @@ namespace Stallus
             string generatedString = Path.GetRandomFileName(); // Create random string.
             generatedString = generatedString.Replace(".", ""); // Remove period.
             generatedString = generatedString.Substring(0, 8);  // Return 8 character string.
-            client.sendMessage("User ID + Unlock bicycle + " + generatedString); // Send message to TCP server.
+            client.SendMessage("User ID + Unlock bicycle + " + generatedString); // Send message to TCP server.
 
             QRCodeGenerator qrGenerator = new QRCodeGenerator(); // Create a QR with the generatedString.
             QRCodeData qrCodeData = qrGenerator.CreateQrCode("#" + generatedString + "%", QRCodeGenerator.ECCLevel.H);
