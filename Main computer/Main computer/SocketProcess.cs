@@ -113,7 +113,7 @@ namespace Main_computer
         {
             string command = Encoding.ASCII.GetString(context);
             string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
-            Console.WriteLine(cleanCommand);
+            Console.WriteLine("Received: " + cleanCommand);
             if (cleanCommand.StartsWith("DB"))
             {
                 DatabaseCommandsHandler(cleanCommand.Substring(3), socket);
@@ -148,7 +148,12 @@ namespace Main_computer
                     string email_address = data[3];
                     string password = data[4].Substring(0, data[4].Length);
                     Address address = ParseAddress(data[5]);
-                    if (!db.EmailAlreadyInUse(email_address))
+                    if (db.EmailAlreadyInUse(email_address))
+                    {
+                        string send = $"NACK_INSERT_REGISTRATE:{email_address}";
+                        SendMessageToSocket(send, socket);
+                    }
+                    else
                     {
                         bool success = db.Registrate(first_name, last_name, date_of_birth, email_address, password, address);
                         if (success)
@@ -161,11 +166,6 @@ namespace Main_computer
                             string send = $"FAIL_INSERT_REGISTRATE:{email_address}";
                             SendMessageToSocket(send, socket);
                         }
-                    }
-                    else
-                    {
-                        string send = $"NACK_INSERT_REGISTRATE:{email_address}";
-                        SendMessageToSocket(send, socket);
                     }
                 }
                 else if (protocol.StartsWith("REQ_LOGIN"))
@@ -210,7 +210,6 @@ namespace Main_computer
             string zipcode = address.Substring(divisor_indexes[1] + 1, divisor_indexes[2] - divisor_indexes[1] - 1);
             string city = address.Substring(divisor_indexes[2] + 1, divisor_indexes[3] - divisor_indexes[2] - 1);
             string country = address.Substring(divisor_indexes[3] + 1);
-            Console.WriteLine(street + number + zipcode + city);
             return new Address(street, number, zipcode, city, country);
         }
 
