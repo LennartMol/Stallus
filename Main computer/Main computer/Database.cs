@@ -33,14 +33,14 @@ namespace Main_computer
             }
         }
 
-        public bool Registrate(string firstName, string lastName, DateTime date_of_birth, string email, string password, Address address)
+        public bool Registrate(string firstName, string lastName, DateTime date_of_birth, string email_address, string password, Address address)
         {
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `password`, `physical_address`) VALUES (@1, @2, @3, @4, @5, @6);";
             cmd.Parameters.AddWithValue("@1", firstName);
             cmd.Parameters.AddWithValue("@2", lastName);
             cmd.Parameters.AddWithValue("@3", date_of_birth);
-            cmd.Parameters.AddWithValue("@4", email);
+            cmd.Parameters.AddWithValue("@4", email_address);
             cmd.Parameters.AddWithValue("@5", password);
             cmd.Parameters.AddWithValue("@6", address);
             connection.Open();
@@ -57,14 +57,36 @@ namespace Main_computer
             }
         }
 
-        public bool EmailAlreadyInUse(string email)
+        public string RetrieveUserID(string email_address)
         {
-            MySqlCommand cmd_checkEmail = connection.CreateCommand();
-            cmd_checkEmail.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE @1;";
-            cmd_checkEmail.Parameters.AddWithValue("@1", email);
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT `userid` FROM `users` WHERE email_address = @1;";
+            cmd.Parameters.AddWithValue("@1", email_address);
             connection.Open();
-            cmd_checkEmail.ExecuteNonQuery();
-            MySqlDataReader reader = cmd_checkEmail.ExecuteReader();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            string userid;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                userid = reader.GetString(0);
+            }
+            else
+            {
+                userid = "null";
+            }
+            connection.Close();
+            return userid;
+        }
+
+        public bool EmailAlreadyInUse(string email_address)
+        {
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = "SELECT `email_address` FROM `users` WHERE email_address LIKE @1;";
+            cmd.Parameters.AddWithValue("@1", email_address);
+            connection.Open();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
                 connection.Close();
@@ -97,7 +119,7 @@ namespace Main_computer
             return password;
         }
 
-        public bool ChangeUserDetails()
+        public bool ChangeUserDetails(string[] columnNames, string[] newValues)
         {
             
             return true;

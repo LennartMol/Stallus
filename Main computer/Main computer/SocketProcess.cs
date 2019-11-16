@@ -17,6 +17,7 @@ namespace Main_computer
         private string prefix = "<SocketProcess>";
         private static WaitHandle[] waitHandles;
         private static Socket listener;
+        private Utility utility;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)
@@ -28,6 +29,7 @@ namespace Main_computer
             MaxThreads = maxThreads;
             DataTimeReadout = dataTimeReadout;
             StorageSize = storageSize;
+            utility = new Utility();
         }
         
         private struct ThreadParams
@@ -124,30 +126,21 @@ namespace Main_computer
             }
         }
 
-        private string[] CommandStringTrimmer(string stringToTrim)
-        {
-            if (!stringToTrim.Contains("/"))
-            {
-                 return new string[] { stringToTrim.Substring(stringToTrim.IndexOf(':') + 1) };
-            }
-            return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
-        }
-
         private void DatabaseCommandsHandler(string protocol, Socket socket)
         {
             Database db = new Database();
             if (db.IsDatabaseReachable())
             {
                 string cleanProtocol = protocol.Substring(0, protocol.Length - 1);
-                string[] data = CommandStringTrimmer(cleanProtocol);
+                string[] data = utility.CommandStringTrimmer(cleanProtocol);
                 if (protocol.StartsWith("INSERT_REGISTRATE"))
                 {
                     string first_name = data[0];
                     string last_name = data[1];
-                    DateTime date_of_birth = ParseDateTime(data[2]);
+                    DateTime date_of_birth = utility.ParseDateTime(data[2]);
                     string email_address = data[3];
                     string password = data[4].Substring(0, data[4].Length);
-                    Address address = ParseAddress(data[5]);
+                    Address address = utility.ParseAddress(data[5]);
                     if (db.EmailAlreadyInUse(email_address))
                     {
                         string send = $"NACK_INSERT_REGISTRATE:{email_address}";
@@ -171,13 +164,25 @@ namespace Main_computer
                 else if (protocol.StartsWith("REQ_LOGIN"))
                 {
                     string username = data[0];
+                    string userid = db.RetrieveUserID(username);
                     string password = db.RetrievePassword(username);
-                    string send = $"ACK_REQ_LOGIN:{username}/{password};";
+                    string send = $"ACK_REQ_LOGIN:{userid}/{username}/{password};";
                     SendMessageToSocket(send, socket);
                 }
                 else if (protocol.StartsWith("UPDATE_DETAILS"))
                 {
-
+                    string[] columns = utility.ValuesStringTrimmer(data[0]);
+                    string[] newValues = utility.ValuesStringTrimmer(data[1]);
+                    if (db.ChangeUserDetails(columns, newValues))
+                    {
+                        string send = "";
+                        SendMessageToSocket(send, socket);
+                    }
+                    else
+                    {
+                        string send = "";
+                        SendMessageToSocket(send, socket);
+                    }
                 }
             }
             else
@@ -185,46 +190,11 @@ namespace Main_computer
                 Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
             }
         }
-
+        
         private void SendMessageToSocket(string message, Socket socket)
         {
             socket.Send(Encoding.ASCII.GetBytes(message));
             Console.WriteLine($"Sent: {message}");
-        }
-
-        private DateTime ParseDateTime(string date)
-        {
-            List<int> divisor_indexes = GetDivisorIndexes(date);
-
-            int year = Convert.ToInt32(date.Substring(divisor_indexes[1] + 1));
-            int month = Convert.ToInt32(date.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1));
-            int day = Convert.ToInt32(date.Substring(0, divisor_indexes[0]));
-            return new DateTime(year, month, day);
-        }
-
-        private Address ParseAddress(string address)
-        {
-            List<int> divisor_indexes = GetDivisorIndexes(address);
-            string street = address.Substring(0, divisor_indexes[0]);
-            string number = address.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1);
-            string zipcode = address.Substring(divisor_indexes[1] + 1, divisor_indexes[2] - divisor_indexes[1] - 1);
-            string city = address.Substring(divisor_indexes[2] + 1, divisor_indexes[3] - divisor_indexes[2] - 1);
-            string country = address.Substring(divisor_indexes[3] + 1);
-            return new Address(street, number, zipcode, city, country);
-        }
-
-        private List<int> GetDivisorIndexes(string data)
-        {
-            List<int> divisor_indexes = new List<int>();
-            char[] data_charArray = data.ToCharArray();
-            for (int i = 0; i < data.Length; i++)
-            {
-                if (data_charArray[i] == '_')
-                {
-                    divisor_indexes.Add(i);
-                }
-            }
-            return divisor_indexes;
         }
     }
 }

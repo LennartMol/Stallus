@@ -73,6 +73,7 @@
     <Compile Include="SerialProcess.cs" />
     <Compile Include="SocketProcess.cs" />
     <Compile Include="Socket_server.cs" />
+    <Compile Include="Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
