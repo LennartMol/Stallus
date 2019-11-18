@@ -98,12 +98,10 @@ namespace Main_computer
 
         public string RetrievePassword(string email_address)
         {
-           
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT `password` FROM `users` WHERE email_address LIKE @1;";
             cmd.Parameters.AddWithValue("@1", email_address);
             connection.Open();
-            Console.WriteLine(cmd.ExecuteNonQuery());
             var reader = cmd.ExecuteReader();
             string password;
             if (reader.HasRows)
@@ -119,10 +117,34 @@ namespace Main_computer
             return password;
         }
 
-        public bool ChangeUserDetails(string[] columnNames, string[] newValues)
+        public bool UpdateUserDetails(string userid, string[] columnNames, string[] newValues)
         {
-            
-            return true;
+            string query = "UPDATE `users` SET ";
+            for (int i = 0; i < columnNames.Length; i++)
+            {
+                if ((i + 1) == columnNames.Length)
+                {
+                    query += $"{columnNames[i]} = '{newValues[i]}' ";
+                }
+                else
+                {
+                    query += $"{columnNames[i]} = '{newValues[i]}', ";
+                }
+            }
+            query += $"WHERE userid = {userid}";
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = query;
+            connection.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            connection.Close();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

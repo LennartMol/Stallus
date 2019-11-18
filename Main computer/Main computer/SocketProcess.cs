@@ -148,15 +148,14 @@ namespace Main_computer
                     }
                     else
                     {
-                        bool success = db.Registrate(first_name, last_name, date_of_birth, email_address, password, address);
-                        if (success)
+                        if (db.Registrate(first_name, last_name, date_of_birth, email_address, password, address))
                         {
-                            string send = $"ACK_INSERT_REGISTRATE:{email_address}";
+                            string send = $"ACK_INSERT_REGISTRATE:{email_address};";
                             SendMessageToSocket(send, socket);
                         }
                         else
                         {
-                            string send = $"FAIL_INSERT_REGISTRATE:{email_address}";
+                            string send = $"FAIL_INSERT_REGISTRATE:{email_address};";
                             SendMessageToSocket(send, socket);
                         }
                     }
@@ -171,16 +170,17 @@ namespace Main_computer
                 }
                 else if (protocol.StartsWith("UPDATE_DETAILS"))
                 {
-                    string[] columns = utility.ValuesStringTrimmer(data[0]);
-                    string[] newValues = utility.ValuesStringTrimmer(data[1]);
-                    if (db.ChangeUserDetails(columns, newValues))
+                    string userid = data[0];
+                    string[] columns = utility.ValuesStringTrimmer(data[1]);
+                    string[] newValues = utility.ValuesStringTrimmer(data[2]);
+                    if (db.UpdateUserDetails(userid, columns, newValues))
                     {
-                        string send = "";
+                        string send = $"ACK_UPDATE_DETAILS:{userid};";
                         SendMessageToSocket(send, socket);
                     }
                     else
                     {
-                        string send = "";
+                        string send = $"NACK_UPDATE_DETAILS:{userid};";
                         SendMessageToSocket(send, socket);
                     }
                 }
