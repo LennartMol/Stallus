@@ -14,6 +14,7 @@ namespace Main_computer
         public int MaxThreads { get; private set; }
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
+        public byte[] ReceivedBuffer { get; private set; }
         private string prefix = "<SocketProcess>";
         private WaitHandle[] waitHandles;
         private Socket listener;
@@ -47,7 +48,7 @@ namespace Main_computer
             }
 
             listener = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            listener.Bind(new IPEndPoint(IPAddress, Port)); //GetIPAddress() // IPAddress.Parse("145.93.73.139")
+            listener.Bind(new IPEndPoint(IPAddress, Port));
             listener.Listen(25);
 
             while (true)
@@ -74,43 +75,38 @@ namespace Main_computer
         public bool CheckDbReachable()
         {
             Database db = new Database();
-            return db.IsDatabaseReachable();
+            return db.IsDatabaseReachable().Reachable;
         }
 
         private void ProcessSocketConnection(object threadState)
         {
             ThreadParams state = (ThreadParams)threadState;
             Console.WriteLine($"{prefix}Thread {state.ThreadIndex} is processing connection"); //{state.ClientSocket.RemoteEndPoint}
-
-            // This should be an extra method. In general this code should be more modular!
-            byte[] recievBuffer = new byte[StorageSize];
+            ReceivedBuffer = new byte[StorageSize];
             if (state.ClientSocket.Poll(DataTimeReadout, SelectMode.SelectRead))
             {
-                state.ClientSocket.Receive(recievBuffer);
+                state.ClientSocket.Receive(ReceivedBuffer);
             }
             else
             {
                 Console.WriteLine($"{prefix}Got no data, aborting");
-                Cleanup();
+                Cleanup(state);
             }
-            // Do your data Processing in this Method.
-            DoWork(recievBuffer, state.ClientSocket);
-            Cleanup();
-            // This is a local Function introduced in c#7
-            void Cleanup()
-            {
-                Console.WriteLine($"{prefix}Doing clean up tasks.");
-                state.ClientSocket.Shutdown(SocketShutdown.Both);
-                state.ClientSocket.Close();
-                state.ClientSocket.Dispose();
-
-                recievBuffer = new byte[StorageSize];
-
-                state.ThreadHandle.Set();
-            }
+            DivideIncomingMessage(ReceivedBuffer, state.ClientSocket);
+            Cleanup(state);
         }
 
-        private void DoWork(byte[] context, Socket socket)
+        private void Cleanup(ThreadParams state)
+        {
+            Console.WriteLine($"{prefix}Doing clean up tasks.");
+            state.ClientSocket.Shutdown(SocketShutdown.Both);
+            state.ClientSocket.Close();
+            state.ClientSocket.Dispose();
+            ReceivedBuffer = new byte[StorageSize];
+            state.ThreadHandle.Set();
+        }
+
+        private void DivideIncomingMessage(byte[] context, Socket socket)
         {
             string command = Encoding.ASCII.GetString(context);
             string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
@@ -119,13 +115,14 @@ namespace Main_computer
             CommandHandling handling = new CommandHandling(cleanCommand, socket, db);
             if (cleanCommand.StartsWith("DB"))
             {
-                if (db.IsDatabaseReachable())
+                DbCheck check = db.IsDatabaseReachable();
+                if (check.Reachable)
                 {
                     handling.DatabaseCommandsHandler(cleanCommand.Substring(3));
                 }
                 else
                 {
-                    Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
+                    Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection.\n{check.SqlException.Message}");
                 }
             }
             else if (cleanCommand.StartsWith("ARD"))

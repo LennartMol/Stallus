@@ -19,17 +19,17 @@ namespace Main_computer
             Connection = new MySqlConnection(connectionString);
         }
         
-        public bool IsDatabaseReachable()
+        public DbCheck IsDatabaseReachable()
         {
             try
             {
                 Connection.Open();
                 Connection.Close();
-                return true;
+                return new DbCheck(true);
             }
             catch (MySqlException ex)
             {
-                return false;
+                return new DbCheck(false, ex);
             }
         }
 
