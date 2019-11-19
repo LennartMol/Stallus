@@ -15,9 +15,9 @@ namespace Main_computer
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
         private string prefix = "<SocketProcess>";
-        private static WaitHandle[] waitHandles;
-        private static Socket listener;
-        private Utility utility;
+        private WaitHandle[] waitHandles;
+        private Socket listener;
+        private CommandHandling handling;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)
@@ -29,7 +29,6 @@ namespace Main_computer
             MaxThreads = maxThreads;
             DataTimeReadout = dataTimeReadout;
             StorageSize = storageSize;
-            utility = new Utility();
         }
         
         private struct ThreadParams
@@ -78,7 +77,7 @@ namespace Main_computer
             return db.IsDatabaseReachable();
         }
 
-        public void ProcessSocketConnection(object threadState)
+        private void ProcessSocketConnection(object threadState)
         {
             ThreadParams state = (ThreadParams)threadState;
             Console.WriteLine($"{prefix}Thread {state.ThreadIndex} is processing connection"); //{state.ClientSocket.RemoteEndPoint}
@@ -116,85 +115,23 @@ namespace Main_computer
             string command = Encoding.ASCII.GetString(context);
             string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
             Console.WriteLine("Received: " + cleanCommand);
+            Database db = new Database();
+            CommandHandling handling = new CommandHandling(cleanCommand, socket, db);
             if (cleanCommand.StartsWith("DB"))
             {
-                DatabaseCommandsHandler(cleanCommand.Substring(3), socket);
+                if (db.IsDatabaseReachable())
+                {
+                    handling.DatabaseCommandsHandler(cleanCommand.Substring(3));
+                }
+                else
+                {
+                    Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
+                }
             }
             else if (cleanCommand.StartsWith("ARD"))
             {
 
             }
-        }
-
-        private void DatabaseCommandsHandler(string protocol, Socket socket)
-        {
-            Database db = new Database();
-            if (db.IsDatabaseReachable())
-            {
-                string cleanProtocol = protocol.Substring(0, protocol.Length - 1);
-                string[] data = utility.CommandStringTrimmer(cleanProtocol);
-                if (protocol.StartsWith("INSERT_REGISTRATE"))
-                {
-                    string first_name = data[0];
-                    string last_name = data[1];
-                    DateTime date_of_birth = utility.ParseDateTime(data[2]);
-                    string email_address = data[3];
-                    string password = data[4].Substring(0, data[4].Length);
-                    Address address = utility.ParseAddress(data[5]);
-                    if (db.EmailAlreadyInUse(email_address))
-                    {
-                        string send = $"NACK_INSERT_REGISTRATE:{email_address}";
-                        SendMessageToSocket(send, socket);
-                    }
-                    else
-                    {
-                        if (db.Registrate(first_name, last_name, date_of_birth, email_address, password, address))
-                        {
-                            string send = $"ACK_INSERT_REGISTRATE:{email_address};";
-                            SendMessageToSocket(send, socket);
-                        }
-                        else
-                        {
-                            string send = $"FAIL_INSERT_REGISTRATE:{email_address};";
-                            SendMessageToSocket(send, socket);
-                        }
-                    }
-                }
-                else if (protocol.StartsWith("REQ_LOGIN"))
-                {
-                    string username = data[0];
-                    string userid = db.RetrieveUserID(username);
-                    string password = db.RetrievePassword(username);
-                    string send = $"ACK_REQ_LOGIN:{userid}/{username}/{password};";
-                    SendMessageToSocket(send, socket);
-                }
-                else if (protocol.StartsWith("UPDATE_DETAILS"))
-                {
-                    string userid = data[0];
-                    string[] columns = utility.ValuesStringTrimmer(data[1]);
-                    string[] newValues = utility.ValuesStringTrimmer(data[2]);
-                    if (db.UpdateUserDetails(userid, columns, newValues))
-                    {
-                        string send = $"ACK_UPDATE_DETAILS:{userid};";
-                        SendMessageToSocket(send, socket);
-                    }
-                    else
-                    {
-                        string send = $"NACK_UPDATE_DETAILS:{userid};";
-                        SendMessageToSocket(send, socket);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine($"{prefix}Received command for Database-data, but can not reach Database.\nServer is not connected to 'vdi.fhict.nl' via a VPN connection");
-            }
-        }
-        
-        private void SendMessageToSocket(string message, Socket socket)
-        {
-            socket.Send(Encoding.ASCII.GetBytes(message));
-            Console.WriteLine($"Sent: {message}");
         }
     }
 }
