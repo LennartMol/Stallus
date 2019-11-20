@@ -33,6 +33,10 @@ namespace Main_computer
                     {
                         Console.WriteLine(prefix + message);
                         CommandHandling handling = new CommandHandling(message, serialMessenger);
+                        if (message.StartsWith("DB"))
+                        {
+                            handling.ArduinoCommandsHandler(message.Substring(3));
+                        }
                     }
                 }
                 else if (serialMessenger.IsDisconnected)
