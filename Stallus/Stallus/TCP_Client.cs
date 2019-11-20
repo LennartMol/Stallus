@@ -11,7 +11,6 @@ namespace Stallus
     class TCP_Client
     {
         TcpClient clientSock = null;
-        private string receivedMessage;
 
         public int Port { get; private set; }
         public string ReceivedMessage { get; private set; }
@@ -46,39 +45,33 @@ namespace Stallus
             int num = stream.Read(bytes, 0, bytes.Length);
             ReceivedMessage = Encoding.ASCII.GetString(bytes, 0, num);
             clientSock.Close();
-            if (!string.IsNullOrWhiteSpace(ReceivedMessage))
-            {
-                return true;
-            }
-            else return false;
-            
+            return !string.IsNullOrWhiteSpace(ReceivedMessage);
         }
 
 
         public string[] MessageHandler()
-        {            
-            if (GetMessage())
-            {
+        {
+            //if (GetMessage())
+            //{
+            ReceivedMessage = "ACK_REQ_LOGIN:USERNAME/PASSWORD";
                 if (ReceivedMessage.StartsWith("ACK"))
                 {
-                    ReceivedMessage.Remove(ReceivedMessage.IndexOf('_') + 1);
-                    if (ReceivedMessage.StartsWith("REQ_LOGIN"))
-                    {
-                        string[] data = CommandStringTrimmer(ReceivedMessage);
-                        return data;
-                    }
+                    ReceivedMessage = ReceivedMessage.Substring(ReceivedMessage.IndexOf('_') + 1);
+                    Console.WriteLine(ReceivedMessage);
+                    return CommandStringTrimmer(ReceivedMessage);
                 }
-            }
+
+                //ACK_REQ_LOGIN:USERNAME/PASSWORD
+            //}
             return null;
         }
 
-        private string[] CommandStringTrimmer(string stringToTrim)
+        public string[] CommandStringTrimmer(string stringToTrim)
         {
             if (!stringToTrim.Contains("/"))
             {
                 return new string[] { stringToTrim.Substring(stringToTrim.IndexOf(':') + 1) };
             }
-            
             return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
         }
 

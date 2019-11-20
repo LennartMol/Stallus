@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj": {}
+    "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj": {
+    "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj",
+        "projectUniqueName": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj",
         "projectName": "TCP_SecondClient_Console",
-        "projectPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj",
-        "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\obj\\",
+        "projectPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\TCP_SecondClient_Console.csproj",
+        "packagesPath": "C:\\Users\\mpcme\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_SecondClient_Console\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mpcme\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
