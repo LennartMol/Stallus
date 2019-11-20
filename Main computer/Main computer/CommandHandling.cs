@@ -11,6 +11,7 @@ namespace Main_computer
     {
         private string prefix = "CommandHandling";
         public string Command { get; private set; }
+        public string[] Data { get; private set; }
         public Socket ClientSocket { get; private set; }
         public Database Database { get; private set; }
         public SerialMessenger SerialMessenger { get; private set; }
@@ -20,6 +21,7 @@ namespace Main_computer
             Command = command;
             ClientSocket = clientSocket;
             Database = new Database();
+            Data = CommandStringTrimmer(command);
         }
 
         public CommandHandling(string command, SerialMessenger messenger)
@@ -27,27 +29,30 @@ namespace Main_computer
             Command = command;
             SerialMessenger = messenger;
             Database = new Database();
+            Data = CommandStringTrimmer(command);
         }
 
-        public void DatabaseCommandsHandler(string protocol)
+        public void DatabaseCommandsHandler()
         {
-            string cleanProtocol = protocol.Substring(0, protocol.Length - 1);
-            string[] data = CommandStringTrimmer(cleanProtocol);
-            if (protocol.StartsWith("INSERT_REGISTRATE"))
+            if (Command.StartsWith("DB_INSERT_REGISTRATE"))
             {
-                InsertRegistrate(data);
+                InsertRegistrate();
             }
-            else if (protocol.StartsWith("REQ_LOGIN"))
+            else if (Command.StartsWith("DB_REQ_LOGIN"))
             {
-                ReqLogin(data);
+                ReqLogin();
             }
-            else if (protocol.StartsWith("UPDATE_DETAILS"))
+            else if (Command.StartsWith("DB_REQ_USER"))
             {
-                UpdateDetails(data);
+                ReqUser();
             }
-            else if (protocol.StartsWith("CHANGE_BALANCE"))
+            else if (Command.StartsWith("DB_UPDATE_DETAILS"))
             {
-
+                UpdateDetails();
+            }
+            else if (Command.StartsWith("DB_CHANGE_BALANCE"))
+            {
+                ChangeBalance();
             }
         }
 
@@ -62,14 +67,20 @@ namespace Main_computer
             Console.WriteLine($"Sent: {message}");
         }
 
-        private void InsertRegistrate(string[] data)
+        private void SendMessageToSerialPort(string message)
         {
-            string first_name = data[0];
-            string last_name = data[1];
-            DateTime date_of_birth = ParseDateTime(data[2]);
-            string email_address = data[3];
-            string password = data[4].Substring(0, data[4].Length);
-            Address address = ParseAddress(data[5]);
+            SerialMessenger.SendMessage(message);
+            Console.WriteLine($"Sent: {message}");
+        }
+
+        private void InsertRegistrate()
+        {
+            string first_name = Data[0];
+            string last_name = Data[1];
+            DateTime date_of_birth = ParseDateTime(Data[2]);
+            string email_address = Data[3];
+            string password = Data[4].Substring(0, Data[4].Length);
+            Address address = ParseAddress(Data[5]);
             if (Database.EmailAlreadyInUse(email_address))
             {
                 string send = $"NACK_INSERT_REGISTRATE:{email_address}";
@@ -90,20 +101,42 @@ namespace Main_computer
             }
         }
 
-        private void ReqLogin(string[] data)
+        private void ReqLogin()
         {
-            string username = data[0];
+            string username = Data[0];
             string userid = Database.RetrieveUserID(username);
             string password = Database.RetrievePassword(username);
             string send = $"ACK_REQ_LOGIN:{userid}/{username}/{password};";
             SendMessageToSocket(send);
         }
 
-        private void UpdateDetails(string[] data)
+        private void ReqUser()
         {
-            string userid = data[0];
-            string[] columns = ValuesStringTrimmer(data[1]);
-            string[] newValues = ValuesStringTrimmer(data[2]);
+            string userid = Data[0];
+            User user = Database.GetUser(userid);
+            if (user != null)
+            {
+                string first_name = user.FirstName;
+                string last_name = user.LastName;
+                string date_of_birth = user.DateOfBirth.ToString("DD_MM_YY");
+                string email_address = user.Email;
+                string password = user.Password;
+                string address = $"{user.Address.Street}_{user.Address.Number}_{user.Address.Zipcode}_{user.Address.City}_{user.Address.Country}";
+                string send = $"ACK_REQ_USER:{userid}/{first_name}/{last_name}/{date_of_birth}/{email_address}/{password}/{address};";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = "";
+                SendMessageToSocket(send);
+            }
+        }
+
+        private void UpdateDetails()
+        {
+            string userid = Data[0];
+            string[] columns = ValuesStringTrimmer(Data[1]);
+            string[] newValues = ValuesStringTrimmer(Data[2]);
             if (Database.UpdateUserDetails(userid, columns, newValues))
             {
                 string send = $"ACK_UPDATE_DETAILS:{userid};";
@@ -116,10 +149,21 @@ namespace Main_computer
             }
         }
 
-        private void ChangeBalance(string[] data)
+        private void ChangeBalance()
         {
-            string userid = data[0];
-            string value = data[1];
+            string userid = Data[0];
+            string value = Data[1];
+            int change;
+            Int32.TryParse(value, out change);
+            if (Database.ChangeBalance(userid, change) && change != 0)
+            {
+                string send = $"ACK_CHANGE_BALANCE:{userid}/;";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = $"NACK_CHANGE_BALANCE:{userid};";
+            }
         }
 
         private string[] CommandStringTrimmer(string stringToTrim)

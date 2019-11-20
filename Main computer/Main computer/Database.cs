@@ -79,6 +79,58 @@ namespace Main_computer
             return userid;
         }
 
+        public User GetUser(string userid)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT * FROM `users` WHERE userid = @1;";
+            cmd.Parameters.AddWithValue("@1", userid);
+            Connection.Open();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            Connection.Close();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                return new User(reader.GetString(1), 
+                    reader.GetString(2), 
+                    reader.GetDateTime(3), 
+                    reader.GetString(4), 
+                    reader.GetString(5), 
+                    GetAddress(reader.GetString(6)), 
+                    reader.GetDecimal(7));
+            }
+            else
+            {
+                return null;
+            }
+            
+        }
+
+        private Address GetAddress(string address)
+        {
+            List<int> commas = CommaIndexes(address);
+            string street = address.Substring(0, address.IndexOf(' '));
+            string number = address.Substring(address.IndexOf(' '), commas[0]);
+            string zipcode = address.Substring(commas[0] + 1, commas[1] - commas[0]);
+            string city = address.Substring(commas[1] + 1, commas[2] - commas[1]);
+            string country = address.Substring(commas[2]);
+            return new Address(street, number, zipcode, city, country);
+        }
+
+        private List<int> CommaIndexes(string s)
+        {
+            List<int> indexes = new List<int>();
+            char[] s_array = s.ToCharArray();
+            foreach (char c in s_array)
+            {
+                if (c == ',')
+                {
+
+                }
+            }
+            return indexes;
+        }
+
         public bool EmailAlreadyInUse(string email_address)
         {
             MySqlCommand cmd = Connection.CreateCommand();
@@ -138,6 +190,28 @@ namespace Main_computer
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
             return rowsAffected > 0;
+        }
+
+        public bool ChangeBalance(string userid, int value)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "UPDATE `users` SET `balance` = balance + '@1' WHERE userid = @2;";
+            cmd.Parameters.AddWithValue("@1", value);
+            cmd.Parameters.AddWithValue("@2", userid);
+            Connection.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            Connection.Close();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public bool LockBikeStand()
+        {
+            
+            return true;
         }
     }
 }

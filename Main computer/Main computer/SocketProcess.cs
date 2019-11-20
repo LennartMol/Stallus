@@ -109,7 +109,7 @@ namespace Main_computer
         private void DivideIncomingMessage(byte[] context, Socket socket)
         {
             string command = Encoding.ASCII.GetString(context);
-            string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
+            string cleanCommand = command.Substring(0, command.IndexOf(';')/* + 1*/);
             Console.WriteLine("Received: " + cleanCommand);
             Database db = new Database();
             CommandHandling handling = new CommandHandling(cleanCommand, socket);
@@ -118,7 +118,7 @@ namespace Main_computer
                 DbCheck check = db.IsDatabaseReachable();
                 if (check.Reachable)
                 {
-                    handling.DatabaseCommandsHandler(cleanCommand.Substring(3));
+                    handling.DatabaseCommandsHandler();
                 }
                 else
                 {

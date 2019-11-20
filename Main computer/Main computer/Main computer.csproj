@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="CommandHandling.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DatabaseNotReachableException.cs" />
     <Compile Include="DbCheck.cs" />
