@@ -24,23 +24,20 @@ namespace Stallus
         {
             client = new TCP_Client();
             client.SendMessage($"DB_REQ_LOGIN:{tbLoginEmail.Text}");
-            if (client.GetMessage())
+            if (client.MessageHandler()[1] == tbLoginPassword.Text)
             {
-
-                if (tbLoginPassword.Text == client.ReceivedMessage)
-                {
-                    ApplicationForm app = new ApplicationForm();
-                    this.Hide();
-                    app.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Password doesn't match the email");
-                }
+                ApplicationForm app = new ApplicationForm();
+                this.Hide();
+                app.ShowDialog();
             }
-           
+            else
+            {
+                MessageBox.Show("Password doesn't match the email");
+            }
 
-           
+
+
+
             /*
             if (tbLoginPassword.Text == database.StallusLogin(tbLoginEmail.Text))
             {
@@ -92,6 +89,12 @@ namespace Stallus
                     MessageBox.Show("The password has to be bigger then 6 characters");
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            client = new TCP_Client();
+            client.MessageHandler();
         }
     }
 }
