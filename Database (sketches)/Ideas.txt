@@ -1,0 +1,1 @@
+https://www.codeproject.com/Articles/12335/Using-SqlDependency-for-data-change-events
