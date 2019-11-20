@@ -107,8 +107,19 @@ namespace Stallus
             {
                 throw new ArgumentNullException("Values can't be null");
             }
+        }
 
-
+        /// <summary>
+        /// Login customer info
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="balance"></param>
+        public Customer(string email, string password, decimal balance)
+        {
+            Email = email;
+            Password = password;
+            Balance = balance;
         }
 
         public decimal RaiseBalance(decimal raiseValue)
