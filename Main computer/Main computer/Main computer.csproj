@@ -64,15 +64,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="CommandHandling.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DatabaseNotReachableException.cs" />
+    <Compile Include="DbCheck.cs" />
     <Compile Include="MessageBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SerialMessenger.cs" />
     <Compile Include="SerialProcess.cs" />
     <Compile Include="SocketProcess.cs" />
-    <Compile Include="Socket_server.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
