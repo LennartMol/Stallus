@@ -140,6 +140,9 @@ namespace Main_computer
             return rowsAffected > 0;
         }
 
-
+        public bool LockBike(string standid)
+        {
+            return true;
+        }
     }
 }

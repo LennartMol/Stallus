@@ -18,7 +18,6 @@ namespace Main_computer
         private string prefix = "<SocketProcess>";
         private WaitHandle[] waitHandles;
         private Socket listener;
-        private CommandHandling handling;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)
@@ -112,7 +111,7 @@ namespace Main_computer
             string cleanCommand = command.Substring(0, command.IndexOf(';') + 1);
             Console.WriteLine("Received: " + cleanCommand);
             Database db = new Database();
-            CommandHandling handling = new CommandHandling(cleanCommand, socket, db);
+            CommandHandling handling = new CommandHandling(cleanCommand, socket);
             if (cleanCommand.StartsWith("DB"))
             {
                 DbCheck check = db.IsDatabaseReachable();

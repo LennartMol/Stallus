@@ -9,21 +9,27 @@ namespace Main_computer
 {
     public class CommandHandling
     {
-        private string prefix = "CommandHandling";
         public string Command { get; private set; }
         public Socket ClientSocket { get; private set; }
         public Database Database { get; private set; }
+        public SerialMessenger SerialMessenger { get; private set; }
 
-        public CommandHandling(string command, Socket clientSocket, Database database)
+        public CommandHandling(string command, Socket clientSocket)
         {
             Command = command;
             ClientSocket = clientSocket;
-            Database = database;
+            Database = new Database();
+        }
+
+        public CommandHandling(string command, SerialMessenger messenger)
+        {
+            Command = command;
+            SerialMessenger = messenger;
+            Database = new Database();
         }
 
         public void DatabaseCommandsHandler(string protocol)
         {
-            Database db = new Database();
             string cleanProtocol = protocol.Substring(0, protocol.Length - 1);
             string[] data = CommandStringTrimmer(cleanProtocol);
             if (protocol.StartsWith("INSERT_REGISTRATE"))
@@ -38,11 +44,34 @@ namespace Main_computer
             {
                 UpdateDetails(data);
             }
+            else if (protocol.StartsWith("BIKE_LOCKED"))
+            {
+                BikeLocked(data);
+            }
         }
 
-        private void SendMessageToSocket(string message, Socket socket)
+        public void ArduinoCommandsHandler(string protocol)
         {
-            socket.Send(Encoding.ASCII.GetBytes(message));
+            string[] data = CommandStringTrimmer(protocol);
+            if (protocol.StartsWith("UNLOCK_BIKE"))
+            {
+                
+            }
+            else if (protocol.StartsWith(""))
+            {
+
+            }
+        }
+
+        private void SendMessageToSocket(string message)
+        {
+            ClientSocket.Send(Encoding.ASCII.GetBytes(message));
+            Console.WriteLine($"Sent: {message}");
+        }
+
+        private void SendMessageToSerialPort(string message)
+        {
+            SerialMessenger.SendMessage(message);
             Console.WriteLine($"Sent: {message}");
         }
 
@@ -57,19 +86,19 @@ namespace Main_computer
             if (Database.EmailAlreadyInUse(email_address))
             {
                 string send = $"NACK_INSERT_REGISTRATE:{email_address}";
-                SendMessageToSocket(send, ClientSocket);
+                SendMessageToSocket(send);
             }
             else
             {
                 if (Database.Registrate(first_name, last_name, date_of_birth, email_address, password, address))
                 {
                     string send = $"ACK_INSERT_REGISTRATE:{email_address};";
-                    SendMessageToSocket(send, ClientSocket);
+                    SendMessageToSocket(send);
                 }
                 else
                 {
                     string send = $"FAIL_INSERT_REGISTRATE:{email_address};";
-                    SendMessageToSocket(send, ClientSocket);
+                    SendMessageToSocket(send);
                 }
             }
         }
@@ -80,7 +109,7 @@ namespace Main_computer
             string userid = Database.RetrieveUserID(username);
             string password = Database.RetrievePassword(username);
             string send = $"ACK_REQ_LOGIN:{userid}/{username}/{password};";
-            SendMessageToSocket(send, ClientSocket);
+            SendMessageToSocket(send);
         }
 
         private void UpdateDetails(string[] data)
@@ -91,12 +120,32 @@ namespace Main_computer
             if (Database.UpdateUserDetails(userid, columns, newValues))
             {
                 string send = $"ACK_UPDATE_DETAILS:{userid};";
-                SendMessageToSocket(send, ClientSocket);
+                SendMessageToSocket(send);
             }
             else
             {
                 string send = $"NACK_UPDATE_DETAILS:{userid};";
-                SendMessageToSocket(send, ClientSocket);
+                SendMessageToSocket(send);
+            }
+        }
+
+        private void UserPaid(string[] data)
+        {
+            string userid = data[0];
+        }
+
+        private void BikeLocked(string[] data)
+        {
+            string stand_id = data[0];
+            if (Database.LockBike(stand_id))
+            {
+                string send = $"ACK_LOCK_BIKE:{stand_id}";
+                SendMessageToSerialPort(send);
+            }
+            else
+            {
+                string send = $"NACK_LOCK_BIKE:{stand_id}";
+                SendMessageToSerialPort(send);
             }
         }
 

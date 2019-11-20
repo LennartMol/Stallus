@@ -25,6 +25,7 @@ namespace Main_computer
         private static string chosenPortName = "";
         private static bool socketProcessStarted = false;
         private static bool serialProcessStarted = false;
+        private static bool shuttingDown = false;
         private static void Main(string[] args)
         {
             Console.WriteLine($"{serverPrefix}Stallus Server is running, but not yet online for communication."); //GetIPAddress() //"145.93.73.139"
@@ -67,7 +68,7 @@ namespace Main_computer
         private static void CommandCentre()
         {
             string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", "check db", string.Empty };
-            while (true)
+            while (!shuttingDown)
             {
                 string command = Console.ReadLine();
                 bool commandExists = CheckIfCommandExists(commands, command);
@@ -80,6 +81,7 @@ namespace Main_computer
                         ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                         if (Password == serverPassword)
                         {
+                            shuttingDown = true;
                             Environment.Exit(0);
                         }
                         else
@@ -90,7 +92,7 @@ namespace Main_computer
                     }
                     else if (command == "config")
                     {
-                        Console.WriteLine("config [socket/serial] <?>");
+                        Console.WriteLine("config [socket/serial]");
                     }
                     else if (command == "config socket")
                     {
