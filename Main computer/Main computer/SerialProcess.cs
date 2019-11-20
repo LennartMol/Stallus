@@ -4,26 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
-using System.Net.Sockets;
 
 namespace Main_computer
 {
     public class SerialProcess
     {
         private SerialMessenger serialMessenger;
-        private string portname;
+        public bool ReceivedFirstContact { get; private set; }
+        public string Portname { get; private set; }
         private string prefix = "<SerialProcess>";
+        public bool PortWasDisconnected { get; private set; }
         public SerialProcess(char beginMarker, char endMarker, string portname)
         {
             MessageBuilder messageBuilder = new MessageBuilder(beginMarker, endMarker);
-            this.portname = portname;
-            serialMessenger = new SerialMessenger(portname, 9600, messageBuilder);
+            Portname = portname;
+            serialMessenger = new SerialMessenger(Portname, 9600, messageBuilder); //COM3 COM5
         }
-
         public void InitializeSerialProcessing()
         {
             serialMessenger.Connect();
-            Console.WriteLine($"{prefix}Waiting for Serial communication on: {portname}");
+            Console.WriteLine($"{prefix}Waiting for Serial communication on: {Portname}");
             while (true)
             {
                 string[] messages = serialMessenger.ReadMessages();
@@ -32,14 +32,25 @@ namespace Main_computer
                     foreach (string message in messages)
                     {
                         Console.WriteLine(prefix + message);
-                        CommandHandling handling = new CommandHandling(message, serialMessenger);
                     }
                 }
                 else if (serialMessenger.IsDisconnected)
                 {
-                    Console.WriteLine($"{prefix}Port: {portname} was disconnected.");
+                    Console.WriteLine($"{prefix}Port: {Portname} was disconnected.");
                 }
             }
+        }
+        private bool IsConnected()
+        {
+            return serialMessenger.IsConnected();
+        }
+        private void Send(string content)
+        {
+            serialMessenger.SendMessage(content);
+        }
+        private void MessageHandler(string message)
+        {
+
         }
     }
 }
