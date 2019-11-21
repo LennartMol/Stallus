@@ -46,6 +46,10 @@ namespace Main_computer
             {
                 ReqUser();
             }
+            else if (Command.StartsWith("DB_REQ_BALANCE"))
+            {
+                ReqBalance();
+            }
             else if (Command.StartsWith("DB_UPDATE_DETAILS"))
             {
                 UpdateDetails();
@@ -83,7 +87,7 @@ namespace Main_computer
             Address address = ParseAddress(Data[5]);
             if (Database.EmailAlreadyInUse(email_address))
             {
-                string send = $"NACK_INSERT_REGISTRATE:{email_address}";
+                string send = $"NACK_INSERT_REGISTRATE:{email_address};";
                 SendMessageToSocket(send);
             }
             else
@@ -118,7 +122,7 @@ namespace Main_computer
             {
                 string first_name = user.FirstName;
                 string last_name = user.LastName;
-                string date_of_birth = user.DateOfBirth.ToString("DD_MM_YY");
+                string date_of_birth = user.DateOfBirth.ToString("dd_MM_yyyy");
                 string email_address = user.Email;
                 string password = user.Password;
                 string address = $"{user.Address.Street}_{user.Address.Number}_{user.Address.Zipcode}_{user.Address.City}_{user.Address.Country}";
@@ -127,9 +131,17 @@ namespace Main_computer
             }
             else
             {
-                string send = "";
+                string send = $"NACK_REQ_USER:{userid};";
                 SendMessageToSocket(send);
             }
+        }
+
+        private void ReqBalance()
+        {
+            string userid = Data[0];
+            decimal balance = Database.GetUserBalance(userid);
+            string send = $"ACK_REQ_USER:{userid}/{balance};";
+            SendMessageToSocket(send);
         }
 
         private void UpdateDetails()
@@ -153,16 +165,17 @@ namespace Main_computer
         {
             string userid = Data[0];
             string value = Data[1];
-            int change;
-            Int32.TryParse(value, out change);
-            if (Database.ChangeBalance(userid, change) && change != 0)
+            decimal addedValue = Convert.ToDecimal(value);
+            if (Database.ChangeBalance(userid, addedValue))
             {
-                string send = $"ACK_CHANGE_BALANCE:{userid}/;";
+                decimal newBalance = Database.GetUserBalance(userid);
+                string send = $"ACK_CHANGE_BALANCE:{userid}/{newBalance};";
                 SendMessageToSocket(send);
             }
             else
             {
                 string send = $"NACK_CHANGE_BALANCE:{userid};";
+                SendMessageToSocket(send);
             }
         }
 

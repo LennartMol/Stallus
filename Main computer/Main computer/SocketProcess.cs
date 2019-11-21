@@ -18,7 +18,6 @@ namespace Main_computer
         private string prefix = "<SocketProcess>";
         private WaitHandle[] waitHandles;
         private Socket listener;
-        private CommandHandling handling;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
         {
             if (port < 1)

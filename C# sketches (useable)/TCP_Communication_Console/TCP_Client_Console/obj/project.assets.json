@@ -689,19 +689,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mpcme\\.nuget\\packages\\": {}
+    "C:\\Users\\sande\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\TCP_Client_Console.csproj",
+      "projectUniqueName": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\TCP_Client_Console.csproj",
       "projectName": "TCP_Client_Console",
-      "projectPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\TCP_Client_Console.csproj",
-      "packagesPath": "C:\\Users\\mpcme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\mpcme\\OneDrive\\Documenten\\GitHub\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\obj\\",
+      "projectPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\TCP_Client_Console.csproj",
+      "packagesPath": "C:\\Users\\sande\\.nuget\\packages\\",
+      "outputPath": "D:\\GitHub\\LennartMol\\Stallus\\C# sketches (useable)\\TCP_Communication_Console\\TCP_Client_Console\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\mpcme\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sande\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
