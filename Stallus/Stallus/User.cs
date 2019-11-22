@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    public class Customer : ICustomer
+    public class User : IUser
     {
 
         private string firstName;
@@ -91,7 +91,7 @@ namespace Stallus
         }
 
 
-        public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        public User(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
         {
             if (firstName != null || LastName != null || password != null || address != null || email != null)
             {
@@ -110,12 +110,12 @@ namespace Stallus
         }
 
         /// <summary>
-        /// Login customer info
+        /// Login user info
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="balance"></param>
-        public Customer(string email, string password, decimal balance)
+        public User(string email, string password, decimal balance)
         {
             Email = email;
             Password = password;

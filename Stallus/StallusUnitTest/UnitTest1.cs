@@ -12,8 +12,8 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
-            Customer customer2 = new Customer("hansDV@hotmail.com", "HansiePansie123", 0);
+            User customer = new User("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            User customer2 = new User("hansDV@hotmail.com", "HansiePansie123", 0);
             Assert.AreEqual("Hans", customer.FirstName);
             Assert.AreEqual("de Vries", customer.LastName);
             Assert.AreEqual("ww", customer.Password);
@@ -32,7 +32,7 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer(null, null, null, dateTime, null, 0, null);
+            User customer = new User(null, null, null, dateTime, null, 0, null);
         }
 
         [TestMethod]
@@ -40,7 +40,7 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            User customer = new User("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
             string expected = $"Name: Hans de Vries \n" +
                               $"Birthday: {dateTime.ToShortDateString()} \n" +
                               $"Email: hansdv@gmail.com \n" +
@@ -54,7 +54,7 @@ namespace StallusUnitTest
         {
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            User customer = new User("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
             Assert.AreEqual(20, customer.RaiseBalance(10));
             Assert.AreEqual(20, customer.RaiseBalance(-10));
         }

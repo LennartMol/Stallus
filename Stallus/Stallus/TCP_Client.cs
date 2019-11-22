@@ -13,11 +13,29 @@ namespace Stallus
         TcpClient clientSock = null;
 
         public int Port { get; private set; }
-        public string ReceivedMessage { get; private set; }
+        public string ReceivedString { get; private set; }
+
+        public string[] ReceivedData { get; set; }
 
         public TCP_Client()
         {
             Port = 13000;
+        }
+
+        public bool CheckConnection()
+        {
+            clientSock = new TcpClient();
+            IPAddress ip = IPAddress.Parse("145.93.72.193");
+            try
+            {
+                clientSock.Connect(ip, Port);
+                clientSock.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public void SendMessage(string message)
@@ -43,27 +61,59 @@ namespace Stallus
             NetworkStream stream = clientSock.GetStream();
             stream = clientSock.GetStream();
             int num = stream.Read(bytes, 0, bytes.Length);
-            ReceivedMessage = Encoding.ASCII.GetString(bytes, 0, num);
+            ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
             clientSock.Close();
-            return !string.IsNullOrWhiteSpace(ReceivedMessage);
+            return !string.IsNullOrWhiteSpace(ReceivedString);
         }
 
 
-        public string[] MessageHandler()
+        public void MessageHandler()
         {
-            //if (GetMessage())
-            //{
-            ReceivedMessage = "ACK_REQ_LOGIN:USERNAME/PASSWORD";
-                if (ReceivedMessage.StartsWith("ACK"))
+            if (GetMessage())
+            {
+                if (ReceivedString.StartsWith("ACK"))
                 {
-                    ReceivedMessage = ReceivedMessage.Substring(ReceivedMessage.IndexOf('_') + 1);
-                    Console.WriteLine(ReceivedMessage);
-                    return CommandStringTrimmer(ReceivedMessage);
+                    ReceivedString = ReceivedString.Substring(ReceivedString.IndexOf('_') + 1);
+                    ReceivedData = CommandStringTrimmer(ReceivedString);
                 }
+            }
+        }
 
-                //ACK_REQ_LOGIN:USERNAME/PASSWORD
-            //}
-            return null;
+        public DateTime ConvertStringToDateTime(string datetimeString)
+        {
+            string[] data = new string[3];
+            data[0] = datetimeString.Remove(datetimeString.IndexOf('-'));
+            data[1] = datetimeString.Substring(datetimeString.IndexOf('-') + 1).Remove(datetimeString.IndexOf('-') - 2);
+            data[2] = datetimeString.Substring(datetimeString.IndexOf('-')).Substring(datetimeString.IndexOf('-'));
+            DateTime dateTime = new DateTime(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), Convert.ToInt32(data[2]));
+            return dateTime;
+        }
+
+
+
+        public Address GetAddress(string address)
+        {
+            List<int> commaindexes = CommaIndexes(address);
+            string street = address.Substring(0, address.IndexOf(' '));
+            string number = address.Substring(street.Length + 1, commaindexes[0] - street.Length - 1);
+            string zipcode = address.Substring(commaindexes[0] + 2, commaindexes[1] - commaindexes[0] - 2);
+            string city = address.Substring(commaindexes[1] + 2, commaindexes[2] - commaindexes[1] - 2);
+            string country = address.Substring(commaindexes[2] + 2);
+            return new Address(street, number, zipcode, city, country);
+        }
+
+        private List<int> CommaIndexes(string s)
+        {
+            List<int> indexes = new List<int>();
+            char[] s_array = s.ToCharArray();
+            for (int i = 0; i < s_array.Length; i++)
+            {
+                if (s_array[i] == ',')
+                {
+                    indexes.Add(i);
+                }
+            }
+            return indexes;
         }
 
         public string[] CommandStringTrimmer(string stringToTrim)

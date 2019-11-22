@@ -49,8 +49,8 @@ namespace Stallus
         {
             //Customer aangemaakt ---- moet uit de database gehaald worden
             DateTime dateTime = new DateTime(1889, 04, 20);
-            Address address = new Address("Yeet", "10B", "8888HH", "Berlijn");
-            Customer customer = new Customer("Adolf", "HITLER", "SichHeil", dateTime, "Ubermench88@hotmail.du", 0, address);
+            Address address = new Address("Yeet", "10B", "8888HH", "Berlijn", "Duitsland");
+            User customer = new User("Adolf", "HITLER", "SichHeil", dateTime, "Ubermench88@hotmail.du", 0, address);
             if (rb5.Checked)
             {
                 customer.RaiseBalance(5);
