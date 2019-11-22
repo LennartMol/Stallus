@@ -75,6 +75,7 @@
     <Compile Include="SerialMessenger.cs" />
     <Compile Include="SerialProcess.cs" />
     <Compile Include="SocketProcess.cs" />
+    <Compile Include="Verification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -9,7 +9,6 @@ namespace Main_computer
 {
     public class CommandHandling
     {
-        private string prefix = "CommandHandling";
         public string Command { get; private set; }
         public string[] Data { get; private set; }
         public Socket ClientSocket { get; private set; }
@@ -58,11 +57,15 @@ namespace Main_computer
             {
                 ChangeBalance();
             }
+            else if (Command.StartsWith("DB_BIKE_LOCKED"))
+            {
+
+            }
         }
 
-        public void ArduinoCommandsHandler(string protocol)
+        public void ArduinoCommandsHandler()
         {
-            string[] data = CommandStringTrimmer(protocol);
+
         }
 
         private void SendMessageToSocket(string message)
@@ -177,6 +180,19 @@ namespace Main_computer
             {
                 string send = $"NACK_CHANGE_BALANCE:{userid};";
                 SendMessageToSocket(send);
+            }
+        }
+
+        private void BikeLocked()
+        {
+            string stand_id = Data[0];
+            if ()
+            {
+
+            }
+            else
+            {
+
             }
         }
 
