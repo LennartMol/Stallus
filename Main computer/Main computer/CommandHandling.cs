@@ -126,7 +126,8 @@ namespace Main_computer
                 string email_address = user.Email;
                 string password = user.Password;
                 string address = $"{user.Address.Street}_{user.Address.Number}_{user.Address.Zipcode}_{user.Address.City}_{user.Address.Country}";
-                string send = $"ACK_REQ_USER:{userid}/{first_name}/{last_name}/{date_of_birth}/{email_address}/{password}/{address};";
+                string balance = user.Balance.ToString();
+                string send = $"ACK_REQ_USER:{userid}/{first_name}/{last_name}/{date_of_birth}/{email_address}/{password}/{address}/{balance};";
                 SendMessageToSocket(send);
             }
             else
