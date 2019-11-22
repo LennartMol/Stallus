@@ -83,7 +83,6 @@
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Customer.cs" />
-    <Compile Include="Database.cs" />
     <Compile Include="ICustomer.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
