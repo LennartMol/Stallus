@@ -59,7 +59,7 @@ namespace Main_computer
             }
             else if (Command.StartsWith("DB_BIKE_LOCKED"))
             {
-
+                BikeLocked();
             }
         }
 
@@ -186,13 +186,30 @@ namespace Main_computer
         private void BikeLocked()
         {
             string stand_id = Data[0];
-            if ()
+            Verification ver = new Verification();
+            string verification_key = ver.GetNewKey();
+            if (Database.LockBikeStand(stand_id, verification_key))
             {
-
+                string send = $"ACK_BIKE_LOCKED:{stand_id};";
+                SendMessageToSerialPort(send);
             }
             else
             {
+                string send = $"NACK_BIKE_LOCKED:{stand_id};";
+                SendMessageToSerialPort(send);
+            }
+        }
 
+        private void BikeStandPaid()
+        {
+            string verification_key = Data[0];
+            string stand_id = Database.GetStandID_linkedToKey(verification_key);
+            if (stand_id != null)
+            {
+                if ()
+                {
+
+                }
             }
         }
 

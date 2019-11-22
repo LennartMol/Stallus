@@ -20,10 +20,8 @@ namespace Main_computer
         public string GetNewKey()
         {
             RNGCryptoService.GetBytes(Bytes);
-            UInt16 key = 0;
-            key |= Bytes[0];
-            _ = Bytes[1] << 8;
-            return "";
+            long key = Bytes[0] | Bytes[1] << 8;
+            return key.ToString();
         }
     }
 }

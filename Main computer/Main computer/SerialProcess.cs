@@ -10,6 +10,7 @@ namespace Main_computer
     public class SerialProcess
     {
         private SerialMessenger serialMessenger;
+        private CommandHandling handling;
         private string portname;
         private string prefix = "<SerialProcess>";
         public SerialProcess(char beginMarker, char endMarker, string portname)
@@ -30,6 +31,8 @@ namespace Main_computer
                     foreach (string message in messages)
                     {
                         Console.WriteLine(prefix + message);
+                        handling = new CommandHandling(message, serialMessenger);
+                        handling.DatabaseCommandsHandler();
                     }
                 }
                 else if (serialMessenger.IsDisconnected)

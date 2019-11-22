@@ -111,12 +111,13 @@ namespace Main_computer
             string cleanCommand = command.Substring(0, command.IndexOf(';')/* + 1*/);
             Console.WriteLine("Received: " + cleanCommand);
             Database db = new Database();
-            CommandHandling handling = new CommandHandling(cleanCommand, socket);
+            
             if (cleanCommand.StartsWith("DB"))
             {
                 DbCheck check = db.IsDatabaseReachable();
                 if (check.Reachable)
                 {
+                    CommandHandling handling = new CommandHandling(cleanCommand, socket);
                     handling.DatabaseCommandsHandler();
                 }
                 else
