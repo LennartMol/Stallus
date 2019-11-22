@@ -8,10 +8,10 @@ void DetectBicycle()
   if(currentState == HIGH){
   }
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
+    Serial.println("disconnected");
     pressedDown = millis();
   }
   if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle avedeble
-    //Serial.println("up");
     pressedDown = millis();
   }
   if ((millis() - pressedDown) > wait) {
@@ -21,7 +21,7 @@ void DetectBicycle()
 }
 
 void TakeAction() {
-  Serial.println("close%");
+  Serial.println("close");
   if (isLocked == false)
   {
     servoLock();
