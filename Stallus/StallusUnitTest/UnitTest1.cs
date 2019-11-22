@@ -13,6 +13,7 @@ namespace StallusUnitTest
             DateTime dateTime = new DateTime(2001, 05, 23);
             Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
             Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
+            Customer customer2 = new Customer("hansDV@hotmail.com", "HansiePansie123", 0);
             Assert.AreEqual("Hans", customer.FirstName);
             Assert.AreEqual("de Vries", customer.LastName);
             Assert.AreEqual("ww", customer.Password);
@@ -20,6 +21,9 @@ namespace StallusUnitTest
             Assert.AreEqual("hansdv@gmail.com", customer.Email);
             Assert.AreEqual(10, customer.Balance);
             Assert.AreEqual(address, customer.Address);
+            Assert.AreEqual("hansDV@hotmail.com", customer2.Email);
+            Assert.AreEqual("HansiePansie123", customer2.Password);
+            Assert.AreEqual(0, customer2.Balance);
         }
 
         [TestMethod]
@@ -75,24 +79,5 @@ namespace StallusUnitTest
         }
 
 
-        [TestMethod]
-        public void RecievePasswordOutOfDatabase()
-        {
-            Database database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
-            Assert.AreEqual("stallus", database.StallusLogin("admin"));
-            Assert.AreEqual(null, database.StallusLogin("Hoi"));
-        }
-
-        [TestMethod]
-        public void TestValuesInDatabase()
-        {
-            DateTime dateTime = new DateTime(2001, 05, 23);
-            Address address = new Address("Wega", "9", "5505TL", "Veldhoven");
-            Customer customer = new Customer("Hans", "de Vries", "ww", dateTime, "hansdv@gmail.com", 10, address);
-            Database database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
-            Assert.AreEqual(0, database.StallusRegistrate(customer));
-            // When we dont use VPN
-            //Assert.AreEqual(-1, database.StallusRegistrate(customer));
-        }
     }
 }

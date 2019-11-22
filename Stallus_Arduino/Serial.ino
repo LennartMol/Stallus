@@ -27,11 +27,11 @@ void MessageHandler(String message) {
   if (message == "unlockBicycleStand")
   {
     servoUnLock();
-    Serial.println("bicycleIsUnlocked%");
+    Serial.println("bicycleIsUnlocked");
   }
   if (message == "lockBicycleStand")
   {
     servoLock();
-    Serial.println("bicycleIslocked%");
+    Serial.println("bicycleIslocked");
   }
 }

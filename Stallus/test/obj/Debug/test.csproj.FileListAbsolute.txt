@@ -42,4 +42,3 @@ C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\test\obj\Debug\test.Pr
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\test\obj\Debug\test.csproj.GenerateResource.cache
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\test\obj\Debug\test.exe
 C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\test\obj\Debug\test.pdb
-C:\Users\mpcme\OneDrive\Documenten\GitHub\Stallus\Stallus\test\obj\Debug\test.csproj.CoreCompileInputs.cache

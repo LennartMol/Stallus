@@ -12,12 +12,10 @@ namespace Stallus
 {
     public partial class LoginForm : Form
     {
-        private Database database;
         private TCP_Client client;
         public LoginForm()
         {
             InitializeComponent();
-            database = new Database("Server = studmysql01.fhict.local; Uid = dbi413213; Database = dbi413213; Pwd = helmond;");
         }
 
         private void BtLogin_Click(object sender, EventArgs e)
