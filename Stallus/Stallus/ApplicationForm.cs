@@ -14,9 +14,14 @@ namespace Stallus
 {
     public partial class ApplicationForm : Form
     {
+        User loggedinUser;
         TCP_Client client;
-        public ApplicationForm()
+
+        public User LoggedinUser { get => loggedinUser; set => loggedinUser = value; }
+
+        public ApplicationForm(User loggedinUser)
         {
+            LoggedinUser = loggedinUser;
             InitializeComponent();
             client = new TCP_Client();
         }
@@ -47,25 +52,21 @@ namespace Stallus
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
         {
-            //Customer aangemaakt ---- moet uit de database gehaald worden
-            DateTime dateTime = new DateTime(1889, 04, 20);
-            Address address = new Address("Yeet", "10B", "8888HH", "Berlijn", "Duitsland");
-            User customer = new User("Adolf", "HITLER", "SichHeil", dateTime, "Ubermench88@hotmail.du", 0, address);
             if (rb5.Checked)
             {
-                customer.RaiseBalance(5);
+                LoggedinUser.RaiseBalance(5);
             }
             else if (rb10.Checked)
             {
-                customer.RaiseBalance(10);
+                LoggedinUser.RaiseBalance(10);
             }
             else if (rb15.Checked)
             {
-                customer.RaiseBalance(15);
+                LoggedinUser.RaiseBalance(15);
             }
             else if (rb10.Checked)
             {
-                customer.RaiseBalance(20);
+                LoggedinUser.RaiseBalance(20);
             }
         }
 

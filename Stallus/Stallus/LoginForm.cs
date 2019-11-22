@@ -30,7 +30,7 @@ namespace Stallus
                 {
                     client.SendMessage($"DB_REQ_USER:{client.ReceivedData[0]}");
                     loggedInUser = new User(client.ReceivedData[1], client.ReceivedData[2], client.ReceivedData[5], client.ConvertStringToDateTime(client.ReceivedData[3]), client.ReceivedData[4], Convert.ToDecimal(client.ReceivedData[7]), client.GetAddress(client.ReceivedData[6]));
-                    ApplicationForm app = new ApplicationForm();
+                    ApplicationForm app = new ApplicationForm(loggedInUser);
                     this.Hide();
                     app.ShowDialog();
                 }

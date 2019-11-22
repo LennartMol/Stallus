@@ -8,7 +8,7 @@ namespace Stallus
 {
     public class User : IUser
     {
-
+        private int userId;
         private string firstName;
         private string lastName;
         private string password;
@@ -90,11 +90,23 @@ namespace Stallus
             }
         }
 
+        public int UserId
+        {
+            get { return userId; }
+            set
+            {
+                if (value != 0)
+                {
+                    userId = value;
+                }
+            }
+        }
 
-        public User(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        public User(int userId, string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
         {
             if (firstName != null || LastName != null || password != null || address != null || email != null)
             {
+                UserId = userId;
                 FirstName = firstName;
                 LastName = lastName;
                 Password = password;
@@ -124,11 +136,8 @@ namespace Stallus
 
         public decimal RaiseBalance(decimal raiseValue)
         {
-            if (raiseValue > 0)
-            {
-                return Balance = Balance + raiseValue;
-            }
-            else return Balance;
+            TCP_Client client = new TCP_Client();
+            client.SendMessage("DB_CHANGE_BALANCE:{userid}/{value};");
         }
 
         public override string ToString()
