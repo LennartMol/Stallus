@@ -5,7 +5,7 @@
 #include <Wire.h>
 Servo myservo;  // create servo object to control a servo
 
-#define SENSORPIN 4
+#define SENSORPIN 4 
 
 int pos =0; // variable to store the servo position
 const int buttonPin = 2;  // the number of the pushbutton pin
@@ -19,7 +19,7 @@ void setup() {
   digitalWrite(SENSORPIN, HIGH); // turn on the pullup
   myservo.attach(8);  // attaches the servo on pin 8 to the servo object
   myservo.write(pos);   
-  Serial.setTimeout(20);
+  //Serial.setTimeout(20);
   Serial.begin(9600);
   //use pins A4 & A5
   Wire.begin();        // join i2c bus (address optional for master)
