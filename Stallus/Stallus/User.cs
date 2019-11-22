@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    public class Customer : ICustomer
+    public class User : IUser
     {
-
+        private int userId;
         private string firstName;
         private string lastName;
         private string password;
@@ -90,8 +90,44 @@ namespace Stallus
             }
         }
 
+        public int UserId
+        {
+            get { return userId; }
+            set
+            {
+                if (value != 0)
+                {
+                    userId = value;
+                }
+            }
+        }
 
-        public Customer(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        public User(int userId, string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        {
+            if (firstName != null || LastName != null || password != null || address != null || email != null)
+            {
+                UserId = userId;
+                FirstName = firstName;
+                LastName = lastName;
+                Password = password;
+                DateOfBirth = dateOfBirth;
+                Address = address;
+                Email = email;
+                Balance = balance;
+            }
+            else
+            {
+                throw new ArgumentNullException("Values can't be null");
+            }
+        }
+
+        /// <summary>
+        /// Login user info
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="balance"></param>
+        public User(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
         {
             if (firstName != null || LastName != null || password != null || address != null || email != null)
             {
@@ -109,26 +145,13 @@ namespace Stallus
             }
         }
 
-        /// <summary>
-        /// Login customer info
-        /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <param name="balance"></param>
-        public Customer(string email, string password, decimal balance)
-        {
-            Email = email;
-            Password = password;
-            Balance = balance;
-        }
-
         public decimal RaiseBalance(decimal raiseValue)
         {
-            if (raiseValue > 0)
-            {
-                return Balance = Balance + raiseValue;
-            }
-            else return Balance;
+            TCP_Client client = new TCP_Client();
+            client.SendMessage($"DB_CHANGE_BALANCE:{UserId}/{raiseValue};");
+            client.GetMessage();
+            Balance = Convert.ToDecimal(client.ReceivedData[1]);
+            return Balance;
         }
 
         public override string ToString()

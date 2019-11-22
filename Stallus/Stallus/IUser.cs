@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    interface ICustomer
+    interface IUser
     {
         string FirstName { get; }
         string LastName { get; }
