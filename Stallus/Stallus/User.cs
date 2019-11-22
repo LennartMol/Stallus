@@ -127,17 +127,31 @@ namespace Stallus
         /// <param name="email"></param>
         /// <param name="password"></param>
         /// <param name="balance"></param>
-        public User(string email, string password, decimal balance)
+        public User(string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
         {
-            Email = email;
-            Password = password;
-            Balance = balance;
+            if (firstName != null || LastName != null || password != null || address != null || email != null)
+            {
+                FirstName = firstName;
+                LastName = lastName;
+                Password = password;
+                DateOfBirth = dateOfBirth;
+                Address = address;
+                Email = email;
+                Balance = balance;
+            }
+            else
+            {
+                throw new ArgumentNullException("Values can't be null");
+            }
         }
 
         public decimal RaiseBalance(decimal raiseValue)
         {
             TCP_Client client = new TCP_Client();
-            client.SendMessage("DB_CHANGE_BALANCE:{userid}/{value};");
+            client.SendMessage($"DB_CHANGE_BALANCE:{UserId}/{raiseValue};");
+            client.GetMessage();
+            Balance = Convert.ToDecimal(client.ReceivedData[1]);
+            return Balance;
         }
 
         public override string ToString()

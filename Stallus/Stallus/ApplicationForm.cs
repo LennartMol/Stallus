@@ -52,22 +52,27 @@ namespace Stallus
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
         {
-            if (rb5.Checked)
+            client = new TCP_Client();
+            if (client.CheckConnection())
             {
-                LoggedinUser.RaiseBalance(5);
+                if (rb5.Checked)
+                {
+                    LoggedinUser.RaiseBalance(5);
+                }
+                else if (rb10.Checked)
+                {
+                    LoggedinUser.RaiseBalance(10);
+                }
+                else if (rb15.Checked)
+                {
+                    LoggedinUser.RaiseBalance(15);
+                }
+                else if (rb10.Checked)
+                {
+                    LoggedinUser.RaiseBalance(20);
+                }
             }
-            else if (rb10.Checked)
-            {
-                LoggedinUser.RaiseBalance(10);
-            }
-            else if (rb15.Checked)
-            {
-                LoggedinUser.RaiseBalance(15);
-            }
-            else if (rb10.Checked)
-            {
-                LoggedinUser.RaiseBalance(20);
-            }
+            else MessageBox.Show("Problem with connecting to the server");
         }
 
     }
