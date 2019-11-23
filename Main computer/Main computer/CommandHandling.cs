@@ -61,6 +61,10 @@ namespace Main_computer
             {
                 BikeLocked();
             }
+            else if (Command.StartsWith("DB_USER_UNLOCKED"))
+            {
+                BikeStandPaid();
+            }
         }
 
         public void ArduinoCommandsHandler()
@@ -203,10 +207,11 @@ namespace Main_computer
         private void BikeStandPaid()
         {
             string verification_key = Data[0];
+            string userid = Data[1];
             string stand_id = Database.GetStandID_linkedToKey(verification_key);
             if (stand_id != null)
             {
-                if ()
+                if (Database.UserPaidForBikeStand(verification_key, userid))
                 {
 
                 }

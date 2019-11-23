@@ -31,8 +31,11 @@ namespace Main_computer
                     foreach (string message in messages)
                     {
                         Console.WriteLine(prefix + message);
-                        handling = new CommandHandling(message, serialMessenger);
-                        handling.DatabaseCommandsHandler();
+                        if (message.StartsWith("DB"))
+                        {
+                            handling = new CommandHandling(message, serialMessenger);
+                            handling.DatabaseCommandsHandler();
+                        }
                     }
                 }
                 else if (serialMessenger.IsDisconnected)
