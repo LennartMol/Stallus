@@ -18,8 +18,10 @@ namespace TCP_Client_Console
             IPAddress ip = IPAddress.Parse("145.93.72.231");
             clientSock.Connect(ip, port);
             Console.WriteLine("Connected !");
-            //string test = "DB_INSERT_REGISTRATE:TestFirst/TestLast/01_04_2001/test@test.nl/testpassword/Teststraat_1_0000NN_Test_Netherlands; DB_REQ_LOGIN:test@test.nl;";
-            string test = "DB_CHANGE_BALANCE:1/-75,0;"; //DB_INSERT_REGISTRATE:TestFirst/TestLast/01_04_2001/test@test.nl/testpassword/Teststraat_1_0000NN_Test_Netherlands; DB_REQ_LOGIN:test@test.nl;
+            uint key = 7499;
+            uint userid = 1;
+            uint key_userid = key | (userid << 16);
+            string test = $"DB_USER_UNLOCKED:;"; 
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(test);
             Console.WriteLine($"Sending message to the Server: {test}");

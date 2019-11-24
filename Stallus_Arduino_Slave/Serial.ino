@@ -1,5 +1,4 @@
 String message = "";
-String* messagePtr = &message;
 bool messageState = false;
 
 void CheckForSerialCom() {
@@ -8,28 +7,30 @@ void CheckForSerialCom() {
     char readChar = (char)Serial.read();
     if (readChar == '#')
     {
-      *messagePtr += readChar;
+      message += readChar;
       messageState = true;
     }
     else if (readChar == '%')
     {
-      *messagePtr += readChar;
+      message += readChar;
       messageState = false;
-      MessageHandler(messagePtr);
-      *messagePtr = "";
+      MessageHandler(message);
+      message = "";
     }
     else if (messageState == true)
     {
-      *messagePtr += readChar;
+      message += readChar;
     }
   }  
 }
 
-void MessageHandler(String* messagePtr) {
-  char sendLine[10];
-  message.toCharArray(sendLine, 11);
-  for(int x = 0; x < 10; x++){
+void MessageHandler(String command) {
+  Serial.println(command);
+  char sendLine[command.length()];
+  command.toCharArray(sendLine, command.length()+1);
+  for(int x = 0; x < command.length(); x++){
     Serial.print(sendLine[x]);
+    //Wire.write(sendLine[x]);
   }
   Serial.println("");
   Wire.write(sendLine);

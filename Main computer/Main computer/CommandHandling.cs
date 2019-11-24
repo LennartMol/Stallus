@@ -213,7 +213,8 @@ namespace Main_computer
             {
                 if (Database.UserPaidForBikeStand(verification_key, userid))
                 {
-
+                    string send = $"unlockBicycleStand";
+                    SendMessageToSerialPort(send);
                 }
             }
         }
