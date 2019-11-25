@@ -63,6 +63,16 @@ namespace Generate_QR_Code.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Lake {
+            get {
+                object obj = ResourceManager.GetObject("Lake", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pepe {
             get {
                 object obj = ResourceManager.GetObject("pepe", resourceCulture);

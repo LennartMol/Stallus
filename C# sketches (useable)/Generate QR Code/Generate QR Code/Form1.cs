@@ -27,11 +27,11 @@ namespace Generate_QR_Code
             uint key = 7499;
             uint userid = 1;
             uint key_userid = key | (userid << 16);
-            MessageBox.Show(key_userid.ToString());
+            //MessageBox.Show(key_userid.ToString());
             QRCodeData qrCodeData = qrGenerator.CreateQrCode($"#{key_userid}%", QRCodeGenerator.ECCLevel.H);
             QRCode qrCode = new QRCode(qrCodeData);     
             Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.pepe);
-            //Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.i878185);
+            //Bitmap customImage = new Bitmap(Generate_QR_Code.Properties.Resources.Lake);
             Bitmap qrCodeImage = qrCode.GetGraphic(20, Color.Black, Color.White, customImage, 27);
             pictureBox1.Image = qrCodeImage;
         }
