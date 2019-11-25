@@ -9,8 +9,8 @@ namespace Main_computer
 {
     public class Verification
     {
-        private RNGCryptoServiceProvider RNGCryptoService;
-        private byte[] Bytes;
+        private readonly RNGCryptoServiceProvider RNGCryptoService;
+        private readonly byte[] Bytes;
         public Verification()
         {
             RNGCryptoService = new RNGCryptoServiceProvider();
