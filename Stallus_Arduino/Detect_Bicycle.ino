@@ -11,7 +11,7 @@ void DetectBicycle()
     pressedDown = millis();
   }
   if (digitalRead(SENSORPIN) == LOW && millis() % 2000 == 0) {
-    Serial.println("#ARD_DISCONNECTED%");
+    Serial.println("#ARD_STAND_DISCONNECTED%");
   }
   if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle avedeble
     pressedDown = millis();
