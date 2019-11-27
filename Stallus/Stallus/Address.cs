@@ -8,17 +8,11 @@ namespace Stallus
 {
     public class Address
     {
-        string street;
-        string number;
-        string zipcode;
-        string city;
-        string country;
-
-        public string Street { get => street; set => street = value; }
-        public string Number { get => number; set => number = value; }
-        public string Zipcode { get => zipcode; set => zipcode = value; }
-        public string City { get => city; set => city = value; }
-        public string Country { get => country; set => country = value; }
+        public string Street { get; private set; }
+        public string Number { get; private set; }
+        public string Zipcode { get ; private set; }
+        public string City { get; private set; }
+        public string Country { get; private set; }
 
         public Address(string street, string number, string zipcode, string city, string country)
         {
@@ -27,12 +21,11 @@ namespace Stallus
             Zipcode = zipcode;
             City = city;
             Country = country;
-
         }
 
         public override string ToString()
         {
-            return $"Address: {Street}, {Number}, {Zipcode}, {City}, {Country}";
+            return $"{Street} {Number}, {Zipcode}, {City}, {Country}";
         }
     }
 }

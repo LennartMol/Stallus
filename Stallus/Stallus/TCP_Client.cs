@@ -11,25 +11,24 @@ namespace Stallus
     class TCP_Client
     {
         TcpClient clientSock = null;
-
+        public IPAddress IPAddress { get; private set; }
         public int Port { get; private set; }
         public string ReceivedString { get; private set; }
-
         public string[] ReceivedData { get; set; }
 
-        public TCP_Client()
+        public TCP_Client(IPAddress ip)
         {
+            IPAddress = ip;
             Port = 13000;
         }
 
         public bool CheckConnection()
         {
-            clientSock = new TcpClient();
-            IPAddress ip = IPAddress.Parse("145.93.72.193");
             try
             {
-                clientSock.Connect(ip, Port);
+                clientSock.Connect(IPAddress, Port);
                 clientSock.Close();
+                clientSock.Dispose();
                 return true;
             }
             catch

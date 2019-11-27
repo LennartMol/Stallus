@@ -80,7 +80,6 @@ namespace Main_computer
                         if (Password == serverPassword)
                         {
                             shuttingDown = true;
-                            Environment.Exit(0);
                         }
                         else
                         {
@@ -178,6 +177,7 @@ namespace Main_computer
                     Console.WriteLine($"{serverPrefix}'{command}' is not a command.");
                 }
             }
+            Environment.Exit(0);
         }
 
         private static bool CheckIfCommandExists(string [] existingCommands, string command)

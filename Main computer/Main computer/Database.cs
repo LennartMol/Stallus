@@ -237,7 +237,7 @@ namespace Main_computer
             }
         }
 
-        public bool LockBikeStand(string stand_id, string verification_key)
+        public bool AutoLockBikeStand(string stand_id, string verification_key)
         {
             MySqlCommand cmd = Connection.CreateCommand();
             cmd.CommandText = "INSERT INTO sessions (`stand_id`, `lock_moment`, `verification_key`) VALUES(@1, now(), @2);";
@@ -250,16 +250,30 @@ namespace Main_computer
             {
                 return true;
             }
-            else
+            return false;
+        }
+
+        public bool LockBikeStand(string stand_id, string userid, string verification_key)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `userid`, `lock_moment`, `verification_key`) VALUES(@1, @2, now(), @3);";
+            cmd.Parameters.AddWithValue("@1", stand_id);
+            cmd.Parameters.AddWithValue("@2", userid);
+            cmd.Parameters.AddWithValue("@3", verification_key);
+            Connection.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            Connection.Close();
+            if (rowsAffected > 0)
             {
-                return false;
+                return true;
             }
+            return false;
         }
 
         public string GetStandID_linkedToKey(string verification_key)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "SELECT `stand_id` FROM `session` WHERE verification_key = @1";
+            cmd.CommandText = "SELECT `stand_id` FROM `sessions` WHERE verification_key = @1";
             cmd.Parameters.AddWithValue("@1", verification_key);
             Connection.Open();
             cmd.ExecuteNonQuery();
@@ -279,6 +293,21 @@ namespace Main_computer
             }
         }
 
+        public bool UserPaidForBikeStand(string verification_key)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = now(), has_paid = !has_paid WHERE verification_key = @1;";
+            cmd.Parameters.AddWithValue("@1", verification_key);
+            Connection.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            Connection.Close();
+            if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public bool UserPaidForBikeStand(string verification_key, string userid)
         {
             MySqlCommand cmd = Connection.CreateCommand();
@@ -292,10 +321,23 @@ namespace Main_computer
             {
                 return true;
             }
-            else
+            return false;
+        }
+
+        public bool AddUserIDforExistingSession(string verification_key, string userid)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "UPDATE `sessions` SET userid = @1 WHERE verification_key = @2;";
+            cmd.Parameters.AddWithValue("@1", userid);
+            cmd.Parameters.AddWithValue("@2", verification_key);
+            Connection.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            Connection.Close();
+            if (rowsAffected > 0)
             {
-                return false;
+                return true;
             }
+            return false;
         }
     }
 }
