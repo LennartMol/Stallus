@@ -1,6 +1,6 @@
 int currentState = 0;
 int previousState = 0;
-long wait = 5000;
+long wait = 30000;
 
 void DetectBicycle()
 {
@@ -8,8 +8,10 @@ void DetectBicycle()
   if(currentState == HIGH){
   }
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
-    Serial.println("disconnected");
     pressedDown = millis();
+  }
+  if (digitalRead(SENSORPIN) == LOW && millis() % 2000 == 0) {
+    Serial.println("#ARD_DISCONNECTED%");
   }
   if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle avedeble
     pressedDown = millis();
