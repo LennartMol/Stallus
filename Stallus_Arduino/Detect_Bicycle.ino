@@ -25,7 +25,7 @@ void DetectBicycle()
 void TakeAction() {
   if (isLocked == false)
   {
-    Serial.println("#DB_BIKE_LOCKED:1%");
+    Serial.println("#DB_BIKE_AUTOLOCKED:1%");
     servoLock();
   }
 }
