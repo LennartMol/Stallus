@@ -14,14 +14,12 @@ namespace Stallus
 {
     public partial class ApplicationForm : Form
     {
-        User loggedinUser;
-        TCP_Client client;
-
-        public User LoggedinUser { get => loggedinUser; set => loggedinUser = value; }
+        private TCP_Client client;
+        private User loggedinUser;
 
         public ApplicationForm(User loggedinUser)
         {
-            LoggedinUser = loggedinUser;
+            this.loggedinUser = loggedinUser;
             InitializeComponent();
             client = new TCP_Client();
         }
@@ -34,20 +32,9 @@ namespace Stallus
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
         {
-            // A QR code is generated and the message within the QR code is sent to the main computer.
-
-            string generatedString = Path.GetRandomFileName(); // Create random string.
-            generatedString = generatedString.Replace(".", ""); // Remove period.
-            generatedString = generatedString.Substring(0, 8);  // Return 8 character string.
-            client.SendMessage("User ID + Unlock bicycle + " + generatedString); // Send message to TCP server.
-
-            QRCodeGenerator qrGenerator = new QRCodeGenerator(); // Create a QR with the generatedString.
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("#" + generatedString + "%", QRCodeGenerator.ECCLevel.H);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            pbQRCode.Image = qrCodeImage;
-
-            lShowString.Text = "String in QR code: " + generatedString;
+            QRcode qRcode = new QRcode("7499");
+            lShowString.Text = "String in QR code: " + qRcode.QrString;
+            pbQRCode.Image = qRcode.GenerateQrCode();
         }
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
@@ -57,19 +44,19 @@ namespace Stallus
             {
                 if (rb5.Checked)
                 {
-                    LoggedinUser.RaiseBalance(5);
+                    loggedinUser.RaiseBalance(5);
                 }
                 else if (rb10.Checked)
                 {
-                    LoggedinUser.RaiseBalance(10);
+                    loggedinUser.RaiseBalance(10);
                 }
                 else if (rb15.Checked)
                 {
-                    LoggedinUser.RaiseBalance(15);
+                    loggedinUser.RaiseBalance(15);
                 }
                 else if (rb10.Checked)
                 {
-                    LoggedinUser.RaiseBalance(20);
+                    loggedinUser.RaiseBalance(20);
                 }
             }
             else MessageBox.Show("Problem with connecting to the server");

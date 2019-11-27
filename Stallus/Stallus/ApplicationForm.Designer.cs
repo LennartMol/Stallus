@@ -28,10 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cbLocation = new System.Windows.Forms.ComboBox();
-            this.lInCheckTime = new System.Windows.Forms.Label();
             this.lOutCheckTime = new System.Windows.Forms.Label();
-            this.btnLockBicycle = new System.Windows.Forms.Button();
             this.btnUnlockBicycle = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -46,29 +43,14 @@
             this.btnRaiseBalance = new System.Windows.Forms.Button();
             this.lSaldo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnLockBicycle = new System.Windows.Forms.Button();
+            this.lInCheckTime = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // cbLocation
-            // 
-            this.cbLocation.FormattingEnabled = true;
-            this.cbLocation.Location = new System.Drawing.Point(5, 6);
-            this.cbLocation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cbLocation.Name = "cbLocation";
-            this.cbLocation.Size = new System.Drawing.Size(121, 24);
-            this.cbLocation.TabIndex = 0;
-            // 
-            // lInCheckTime
-            // 
-            this.lInCheckTime.AutoSize = true;
-            this.lInCheckTime.Location = new System.Drawing.Point(5, 80);
-            this.lInCheckTime.Name = "lInCheckTime";
-            this.lInCheckTime.Size = new System.Drawing.Size(46, 17);
-            this.lInCheckTime.TabIndex = 1;
-            this.lInCheckTime.Text = "label1";
             // 
             // lOutCheckTime
             // 
@@ -78,17 +60,6 @@
             this.lOutCheckTime.Size = new System.Drawing.Size(46, 17);
             this.lOutCheckTime.TabIndex = 2;
             this.lOutCheckTime.Text = "label1";
-            // 
-            // btnLockBicycle
-            // 
-            this.btnLockBicycle.Location = new System.Drawing.Point(5, 116);
-            this.btnLockBicycle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnLockBicycle.Name = "btnLockBicycle";
-            this.btnLockBicycle.Size = new System.Drawing.Size(103, 25);
-            this.btnLockBicycle.TabIndex = 3;
-            this.btnLockBicycle.Text = "Lock bicycle";
-            this.btnLockBicycle.UseVisualStyleBackColor = true;
-            this.btnLockBicycle.Click += new System.EventHandler(this.BtnLockBicycle_Click);
             // 
             // btnUnlockBicycle
             // 
@@ -114,10 +85,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.lShowString);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.pbQRCode);
-            this.tabPage1.Controls.Add(this.cbLocation);
             this.tabPage1.Controls.Add(this.btnUnlockBicycle);
             this.tabPage1.Controls.Add(this.lOutCheckTime);
             this.tabPage1.Controls.Add(this.btnLockBicycle);
@@ -255,6 +226,35 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Saldo:";
             // 
+            // btnLockBicycle
+            // 
+            this.btnLockBicycle.Location = new System.Drawing.Point(32, 116);
+            this.btnLockBicycle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLockBicycle.Name = "btnLockBicycle";
+            this.btnLockBicycle.Size = new System.Drawing.Size(103, 25);
+            this.btnLockBicycle.TabIndex = 3;
+            this.btnLockBicycle.Text = "Lock bicycle";
+            this.btnLockBicycle.UseVisualStyleBackColor = true;
+            this.btnLockBicycle.Click += new System.EventHandler(this.BtnLockBicycle_Click);
+            // 
+            // lInCheckTime
+            // 
+            this.lInCheckTime.AutoSize = true;
+            this.lInCheckTime.Location = new System.Drawing.Point(32, 80);
+            this.lInCheckTime.Name = "lInCheckTime";
+            this.lInCheckTime.Size = new System.Drawing.Size(46, 17);
+            this.lInCheckTime.TabIndex = 1;
+            this.lInCheckTime.Text = "label1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(29, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 17);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "label1";
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -274,11 +274,7 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cbLocation;
-        private System.Windows.Forms.Label lInCheckTime;
         private System.Windows.Forms.Label lOutCheckTime;
-        private System.Windows.Forms.Button btnLockBicycle;
         private System.Windows.Forms.Button btnUnlockBicycle;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -293,6 +289,9 @@
         private System.Windows.Forms.PictureBox pbQRCode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lShowString;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btnLockBicycle;
+        private System.Windows.Forms.Label lInCheckTime;
     }
 }
 
