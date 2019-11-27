@@ -57,13 +57,29 @@ namespace Main_computer
             {
                 ChangeBalance();
             }
-            else if (Command.StartsWith("DB_BIKE_LOCKED"))
+            else if (Command.StartsWith("DB_BIKE_AUTOLOCKED"))
             {
-                BikeLocked();
+                BikeAutoLocked();
+            }
+            else if (Command.StartsWith("DB_LOCK_BIKE"))
+            {
+                LockBike();
             }
             else if (Command.StartsWith("DB_USER_UNLOCKED"))
             {
-                BikeStandPaid();
+                if (Command.Contains("/"))
+                {
+                    BikeStandPaid_withUserID();
+                }
+                else
+                {
+                    BikeStandPaid();
+                }
+                
+            }
+            else if (Command.StartsWith("DB_ADD_USERID_TO_SESSION"))
+            {
+
             }
         }
 
@@ -187,12 +203,12 @@ namespace Main_computer
             }
         }
 
-        private void BikeLocked()
+        private void BikeAutoLocked()
         {
             string stand_id = Data[0];
             Verification ver = new Verification();
             string verification_key = ver.GetNewKey();
-            if (Database.LockBikeStand(stand_id, verification_key))
+            if (Database.AutoLockBikeStand(stand_id, verification_key))
             {
                 string send = $"ACK_BIKE_LOCKED:{stand_id};";
                 SendMessageToSerialPort(send);
@@ -204,7 +220,26 @@ namespace Main_computer
             }
         }
 
-        private void BikeStandPaid()
+        private void LockBike()
+        {
+            string stand_id = Data[0];
+            string userid = Data[1];
+            Verification ver = new Verification();
+            string verification_key = ver.GetNewKey();
+            if (Database.LockBikeStand(stand_id, userid, verification_key))
+            {
+                string send = $"ACK_BIKE_LOCKED:{stand_id};";
+                SendMessageToSocket(send);
+                SendMessageToSerialPort(send);
+            }
+            else
+            {
+                string send = $"NACK_BIKE_LOCKED:{stand_id};";
+                SendMessageToSocket(send);
+            }
+        }
+
+        private void BikeStandPaid_withUserID()
         {
             string verification_key = Data[0];
             string userid = Data[1];
@@ -218,6 +253,22 @@ namespace Main_computer
                 }
             }
         }
+
+        private void BikeStandPaid()
+        {
+            string verification_key = Data[0];
+            string stand_id = Database.GetStandID_linkedToKey(verification_key);
+            if (stand_id != null)
+            {
+                if (Database.UserPaidForBikeStand(verification_key))
+                {
+                    string send = $"unlockBicycleStand";
+                    SendMessageToSerialPort(send);
+                }
+            }
+        }
+
+        
 
         private string[] CommandStringTrimmer(string stringToTrim)
         {

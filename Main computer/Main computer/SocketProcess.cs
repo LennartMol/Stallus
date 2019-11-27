@@ -15,7 +15,7 @@ namespace Main_computer
         public int DataTimeReadout { get; private set; }
         public int StorageSize { get; private set; }
         public byte[] ReceivedBuffer { get; private set; }
-        private string prefix = "<SocketProcess>";
+        private readonly string prefix = "<SocketProcess>";
         private WaitHandle[] waitHandles;
         private Socket listener;
         public SocketProcess(IPAddress iPAddress, int port, int maxThreads, int dataTimeReadout, int storageSize)
