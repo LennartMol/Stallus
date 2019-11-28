@@ -15,13 +15,13 @@ namespace TCP_Client_Console
             //TcpListener server;
             TcpClient clientSock = new TcpClient();
             Console.WriteLine("Connecting to Server ...");
-            IPAddress ip = IPAddress.Parse("145.93.72.231");
+            IPAddress ip = IPAddress.Parse("192.168.1.110");
             clientSock.Connect(ip, port);
             Console.WriteLine("Connected !");
             uint key = 7499;
             uint userid = 1;
             uint key_userid = key | (userid << 16);
-            string test = $"DB_USER_UNLOCKED:;"; 
+            string test = $"DB_LOCK_BIKE:1/1;"; 
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(test);
             Console.WriteLine($"Sending message to the Server: {test}");

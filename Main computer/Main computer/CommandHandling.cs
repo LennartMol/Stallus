@@ -9,11 +9,13 @@ namespace Main_computer
 {
     public class CommandHandling
     {
-        public string Command { get; private set; }
+        public string Command { get; set; }
         public string[] Data { get; private set; }
         public Socket ClientSocket { get; private set; }
         public Database Database { get; private set; }
         public SerialMessenger SerialMessenger { get; private set; }
+        private LockProcedure procedure;
+        private LocalSafe localSafe;
 
         public CommandHandling(string command, Socket clientSocket)
         {
@@ -21,6 +23,7 @@ namespace Main_computer
             ClientSocket = clientSocket;
             Database = new Database();
             Data = CommandStringTrimmer(command);
+            localSafe = new LocalSafe();
         }
 
         public CommandHandling(string command, SerialMessenger messenger)
@@ -29,6 +32,7 @@ namespace Main_computer
             SerialMessenger = messenger;
             Database = new Database();
             Data = CommandStringTrimmer(command);
+            localSafe = new LocalSafe();
         }
 
         public void DatabaseCommandsHandler()
@@ -65,6 +69,10 @@ namespace Main_computer
             {
                 LockBike();
             }
+            else if (Command.StartsWith("DB_STAND_DISCONNECTED"))
+            {
+                AssumeNewSessionStarting_fromStand();
+            }
             else if (Command.StartsWith("DB_USER_UNLOCKED"))
             {
                 if (Command.Contains("/"))
@@ -81,6 +89,7 @@ namespace Main_computer
             {
 
             }
+            
         }
 
         public void ArduinoCommandsHandler()
@@ -224,19 +233,49 @@ namespace Main_computer
         {
             string stand_id = Data[0];
             string userid = Data[1];
-            Verification ver = new Verification();
-            string verification_key = ver.GetNewKey();
-            if (Database.LockBikeStand(stand_id, userid, verification_key))
+            bool sessionAbleToStart = false;
+            List<LockProcedure> instances = localSafe.Load();
+            instances.Reverse();
+            foreach (LockProcedure procedure in instances)
             {
-                string send = $"ACK_BIKE_LOCKED:{stand_id};";
-                SendMessageToSocket(send);
-                SendMessageToSerialPort(send);
+                if (procedure.StandID == stand_id)
+                {
+                    sessionAbleToStart = true;
+                    break;
+                }
+            }
+            if (sessionAbleToStart)
+            {
+                Verification ver = new Verification();
+                string verification_key = ver.GetNewKey();
+                if (Database.LockBikeStand(stand_id, userid, verification_key))
+                {
+                    string send = $"ACK_BIKE_LOCKED:{procedure};";
+                    SendMessageToSocket(send);
+                }
+                else
+                {
+                    string send = $"NACK_BIKE_LOCKED:{procedure};";
+                    SendMessageToSocket(send);
+                }
+                instances.Reverse();
+                localSafe.Save(instances);
             }
             else
             {
-                string send = $"NACK_BIKE_LOCKED:{stand_id};";
-                SendMessageToSocket(send);
+                instances.Reverse();
+                instances.Add(new LockProcedure(userid, LockProcedure.StartingWith.UserID));
+                localSafe.Save(instances);
             }
+        }
+
+        private void AssumeNewSessionStarting_fromStand()
+        {
+            string stand_id = Data[0];
+            List<LockProcedure> instances = localSafe.Load();
+            procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+            instances.Add(procedure);
+            localSafe.Save(instances);
         }
 
         private void BikeStandPaid_withUserID()

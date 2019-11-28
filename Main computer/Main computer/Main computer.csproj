@@ -66,6 +66,8 @@
     <Compile Include="Address.cs" />
     <Compile Include="CommandHandling.cs" />
     <Compile Include="IUserable.cs" />
+    <Compile Include="LocalSafe.cs" />
+    <Compile Include="LockProcedure.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DbCheck.cs" />

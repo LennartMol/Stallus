@@ -10,8 +10,8 @@ void DetectBicycle()
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
     pressedDown = millis();
   }
-  if (digitalRead(SENSORPIN) == LOW && millis() % 2000 == 0) {
-    Serial.println("#DB_STAND_DISCONNECTED%");
+  if (digitalRead(SENSORPIN) == LOW && millis() % 2000 == 0 && isLocked == false) {
+    Serial.println("#DB_STAND_DISCONNECTED:1%");
   }
   if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle avedeble
     pressedDown = millis();
