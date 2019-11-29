@@ -139,10 +139,10 @@ namespace Main_computer
 
         private void ReqLogin()
         {
-            string username = Data[0];
-            string userid = Database.RetrieveUserID(username);
-            string password = Database.RetrievePassword(username);
-            string send = $"ACK_REQ_LOGIN:{userid}/{username}/{password};";
+            string email_address = Data[0];
+            string userid = Database.RetrieveUserID(email_address);
+            string password = Database.RetrievePassword(email_address);
+            string send = $"ACK_REQ_LOGIN:{userid}/{email_address}/{password};";
             SendMessageToSocket(send);
         }
 

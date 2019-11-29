@@ -83,6 +83,7 @@
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="QRcode.cs" />
+    <Compile Include="Settings.cs" />
     <Compile Include="User.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>

@@ -8,7 +8,7 @@ namespace Stallus
 {
     public class User
     {
-        private int userId;
+        private string userId;
         private string firstName;
         private string lastName;
         private string password;
@@ -90,19 +90,19 @@ namespace Stallus
             }
         }
 
-        public int UserId
+        public string UserId
         {
             get { return userId; }
             set
             {
-                if (value != 0)
+                if (!string.IsNullOrWhiteSpace(value))
                 {
                     userId = value;
                 }
             }
         }
 
-        public User(int userId, string firstName, string lastName, string password, DateTime dateOfBirth, string email, decimal balance, Address address)
+        public User(string userId, string firstName, string lastName, DateTime dateOfBirth, string email, string password, Address address, decimal balance)
         {
             if (firstName != null || LastName != null || password != null || address != null || email != null)
             {

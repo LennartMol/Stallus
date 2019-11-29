@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net;
 
 namespace Stallus
 {
@@ -24,16 +25,24 @@ namespace Stallus
             client = new TCP_Client();
             if (client.CheckConnection())
             {
-                if (client.LoginCheck(tbLoginEmail.Text, tbLoginPassword.Text))
+                if (client.ReqLogin(tbLoginEmail.Text, tbLoginPassword.Text))
                 {
-                    loggedInUser = new User(Convert.ToInt32(client.ReceivedData[0]), client.ReceivedData[1], client.ReceivedData[2], client.ReceivedData[5], client.ConvertStringToDateTime(client.ReceivedData[3]), client.ReceivedData[4], Convert.ToDecimal(client.ReceivedData[7]), client.GetAddress(client.ReceivedData[6]));
-                    ApplicationForm app = new ApplicationForm(loggedInUser);
-                    this.Hide();
-                    app.ShowDialog();
+                    string userid = client.ReceivedData[0];
+                    loggedInUser = client.ReqUser(userid);
+                    if (loggedInUser != null)
+                    {
+                        ApplicationForm app = new ApplicationForm(loggedInUser);
+                        this.Hide();
+                        app.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Problem with connecting to server");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Password doesn't match the email address");
+                    MessageBox.Show("Password doesn't match the emailaddress");
                 }
             }
             else MessageBox.Show("Problem with connecting to server");
