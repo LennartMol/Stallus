@@ -84,7 +84,6 @@
     </Compile>
     <Compile Include="QRcode.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="IUser.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

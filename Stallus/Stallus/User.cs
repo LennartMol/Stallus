@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stallus
 {
-    public class User : IUser
+    public class User
     {
         private int userId;
         private string firstName;

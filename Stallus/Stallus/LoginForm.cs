@@ -24,11 +24,8 @@ namespace Stallus
             client = new TCP_Client();
             if (client.CheckConnection())
             {
-                client.SendMessage($"DB_REQ_LOGIN:{tbLoginEmail.Text}");
-                client.GetMessage();
-                if (client.ReceivedData[2] == tbLoginPassword.Text)
+                if (client.LoginCheck(tbLoginEmail.Text, tbLoginPassword.Text))
                 {
-                    client.SendMessage($"DB_REQ_USER:{client.ReceivedData[0]}");
                     loggedInUser = new User(Convert.ToInt32(client.ReceivedData[0]), client.ReceivedData[1], client.ReceivedData[2], client.ReceivedData[5], client.ConvertStringToDateTime(client.ReceivedData[3]), client.ReceivedData[4], Convert.ToDecimal(client.ReceivedData[7]), client.GetAddress(client.ReceivedData[6]));
                     ApplicationForm app = new ApplicationForm(loggedInUser);
                     this.Hide();
