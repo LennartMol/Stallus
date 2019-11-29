@@ -250,12 +250,12 @@ namespace Main_computer
                 string verification_key = ver.GetNewKey();
                 if (Database.LockBikeStand(stand_id, userid, verification_key))
                 {
-                    string send = $"ACK_BIKE_LOCKED:{procedure};";
+                    string send = $"ACK_BIKE_LOCKED:{stand_id}/{stand_id};";
                     SendMessageToSocket(send);
                 }
                 else
                 {
-                    string send = $"NACK_BIKE_LOCKED:{procedure};";
+                    string send = $"NACK_BIKE_LOCKED:{stand_id}/{stand_id};";
                     SendMessageToSocket(send);
                 }
                 instances.Reverse();

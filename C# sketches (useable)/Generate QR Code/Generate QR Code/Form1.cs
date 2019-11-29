@@ -24,7 +24,7 @@ namespace Generate_QR_Code
             //ulong time_context_2 = Convert.ToUInt32(DateTime.Now.Second) | Convert.ToUInt32(DateTime.Now.Minute) << 6 | Convert.ToUInt32(DateTime.Now.Hour) << 12;
             //ulong date_context_2 = Convert.ToUInt32(DateTime.Now.Year - 2000) | Convert.ToUInt32(DateTime.Now.Month) << 7 | Convert.ToUInt32(DateTime.Now.Day) << 11;
             //ulong context = user_id << 33 | date_context_2 << 17 | time_context_2;
-            uint key = 7499;
+            uint key = 54725;
             uint userid = 1;
             uint key_userid = key | (userid << 16);
             //MessageBox.Show(key_userid.ToString());

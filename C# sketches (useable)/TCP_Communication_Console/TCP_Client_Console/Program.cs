@@ -15,7 +15,7 @@ namespace TCP_Client_Console
             //TcpListener server;
             TcpClient clientSock = new TcpClient();
             Console.WriteLine("Connecting to Server ...");
-            IPAddress ip = IPAddress.Parse("192.168.1.110");
+            IPAddress ip = IPAddress.Parse("145.93.72.240");
             clientSock.Connect(ip, port);
             Console.WriteLine("Connected !");
             uint key = 7499;
