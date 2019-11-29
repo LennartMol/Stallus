@@ -89,9 +89,22 @@ namespace Stallus
             return new User(userid, first_name, last_name, date_of_birth, email_address, password, address, balance);
         }
 
-        public bool Registrate()
+        public bool Registrate(string first_name, string last_name, DateTime date_of_birth, string email, string password, Address address)
         {
-            return true;
+            if (first_name != null && last_name != null && date_of_birth != null && password != null && address != null)
+            {
+                if (CheckConnection())
+                {
+                    SendMessage($"DB_INSERT_REGISTRATE:{first_name}/{last_name}/{date_of_birth}/{email}/{address}/{password}");
+                    GetMessage();
+                    if (ReceivedData.Contains("ACK"))
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            return false;
         }
 
         public bool ChangeBalance(decimal amount)
@@ -112,7 +125,7 @@ namespace Stallus
         private DateTime ParseBirthDate(string s)
         {
             List<int> indexes = UnderscoreIndexes(s);
-            int day = Convert.ToInt32(s.Substring(0,2));
+            int day = Convert.ToInt32(s.Substring(0, 2));
             int month = Convert.ToInt32(s.Substring(3, 2));
             int year = Convert.ToInt32(s.Substring(6, 4));
             return new DateTime(year, month, day);
