@@ -14,9 +14,12 @@ namespace Stallus
 {
     public partial class ApplicationForm : Form
     {
-        TCP_Client client;
-        public ApplicationForm()
+        private TCP_Client client;
+        private User loggedinUser;
+
+        public ApplicationForm(User loggedinUser)
         {
+            this.loggedinUser = loggedinUser;
             InitializeComponent();
             client = new TCP_Client();
         }
@@ -29,44 +32,34 @@ namespace Stallus
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
         {
-            // A QR code is generated and the message within the QR code is sent to the main computer.
-
-            string generatedString = Path.GetRandomFileName(); // Create random string.
-            generatedString = generatedString.Replace(".", ""); // Remove period.
-            generatedString = generatedString.Substring(0, 8);  // Return 8 character string.
-            client.SendMessage("User ID + Unlock bicycle + " + generatedString); // Send message to TCP server.
-
-            QRCodeGenerator qrGenerator = new QRCodeGenerator(); // Create a QR with the generatedString.
-            QRCodeData qrCodeData = qrGenerator.CreateQrCode("#" + generatedString + "%", QRCodeGenerator.ECCLevel.H);
-            QRCode qrCode = new QRCode(qrCodeData);
-            Bitmap qrCodeImage = qrCode.GetGraphic(20);
-            pbQRCode.Image = qrCodeImage;
-
-            lShowString.Text = "String in QR code: " + generatedString;
+            QRcode qRcode = new QRcode("7499");
+            lShowString.Text = "String in QR code: " + qRcode.QrString;
+            pbQRCode.Image = qRcode.GenerateQrCode();
         }
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
         {
-            //Customer aangemaakt ---- moet uit de database gehaald worden
-            DateTime dateTime = new DateTime(1889, 04, 20);
-            Address address = new Address("Yeet", "10B", "8888HH", "Berlijn");
-            Customer customer = new Customer("Adolf", "HITLER", "SichHeil", dateTime, "Ubermench88@hotmail.du", 0, address);
-            if (rb5.Checked)
+            client = new TCP_Client();
+            if (client.CheckConnection())
             {
-                customer.RaiseBalance(5);
+                if (rb5.Checked)
+                {
+                    loggedinUser.RaiseBalance(5);
+                }
+                else if (rb10.Checked)
+                {
+                    loggedinUser.RaiseBalance(10);
+                }
+                else if (rb15.Checked)
+                {
+                    loggedinUser.RaiseBalance(15);
+                }
+                else if (rb10.Checked)
+                {
+                    loggedinUser.RaiseBalance(20);
+                }
             }
-            else if (rb10.Checked)
-            {
-                customer.RaiseBalance(10);
-            }
-            else if (rb15.Checked)
-            {
-                customer.RaiseBalance(15);
-            }
-            else if (rb10.Checked)
-            {
-                customer.RaiseBalance(20);
-            }
+            else MessageBox.Show("Problem with connecting to the server");
         }
 
     }

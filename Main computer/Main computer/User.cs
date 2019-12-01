@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Main_computer
 {
-    public class User
+    public class User : IUserable
     {
-
         private string firstName;
         private string lastName;
         private string password;
@@ -120,15 +119,6 @@ namespace Main_computer
             Email = email;
             Password = password;
             Balance = balance;
-        }
-
-        public decimal RaiseBalance(decimal raiseValue)
-        {
-            if (raiseValue > 0)
-            {
-                return Balance = Balance + raiseValue;
-            }
-            else return Balance;
         }
 
         public override string ToString()

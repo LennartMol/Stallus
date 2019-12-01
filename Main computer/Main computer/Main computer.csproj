@@ -65,9 +65,11 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="CommandHandling.cs" />
+    <Compile Include="IUserable.cs" />
+    <Compile Include="LocalSafe.cs" />
+    <Compile Include="LockProcedure.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Database.cs" />
-    <Compile Include="DatabaseNotReachableException.cs" />
     <Compile Include="DbCheck.cs" />
     <Compile Include="MessageBuilder.cs" />
     <Compile Include="Program.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="SerialMessenger.cs" />
     <Compile Include="SerialProcess.cs" />
     <Compile Include="SocketProcess.cs" />
+    <Compile Include="Verification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

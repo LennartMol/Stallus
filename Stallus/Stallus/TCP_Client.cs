@@ -11,59 +11,174 @@ namespace Stallus
     class TCP_Client
     {
         TcpClient clientSock = null;
-
         public int Port { get; private set; }
-        public string ReceivedMessage { get; private set; }
+        public string ReceivedString { get; private set; }
+        public string[] ReceivedData { get; set; }
 
         public TCP_Client()
         {
             Port = 13000;
         }
 
+        public bool CheckConnection()
+        {
+            try
+            {
+                clientSock.Connect(Settings.IPAddress, Port);
+                clientSock.Close();
+                clientSock.Dispose();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public void SendMessage(string message)
         {
             clientSock = new TcpClient();
-            IPAddress ip = IPAddress.Parse("145.93.72.193");
-            clientSock.Connect(ip, Port);
+            clientSock.Connect(Settings.IPAddress, Port);
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(message);
             stream.Write(data, 0, data.Length);
             clientSock.Close();
         }
 
-        public bool GetMessage()
+        public void GetMessage()
         {
             byte[] bytes = new byte[1024];
-
             clientSock = new TcpClient();
             Console.WriteLine("Connecting to Server ...");
-            IPAddress ip = IPAddress.Parse("145.93.72.193"); //Mine 145.93.73.179 Marc 145.93.85.114 Home 169.254.23.36
-            clientSock.Connect(ip, Port);
+            clientSock.Connect(Settings.IPAddress, Port);
             Console.WriteLine("Connected !");
             NetworkStream stream = clientSock.GetStream();
-            stream = clientSock.GetStream();
             int num = stream.Read(bytes, 0, bytes.Length);
-            ReceivedMessage = Encoding.ASCII.GetString(bytes, 0, num);
+            ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
+            ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
+            ReceivedData = CommandStringTrimmer(ReceivedString);
             clientSock.Close();
-            return !string.IsNullOrWhiteSpace(ReceivedMessage);
         }
 
-
-        public string[] MessageHandler()
+        public bool ReqLogin(string email_address, string password)
         {
-            //if (GetMessage())
-            //{
-            ReceivedMessage = "ACK_REQ_LOGIN:USERNAME/PASSWORD";
-                if (ReceivedMessage.StartsWith("ACK"))
-                {
-                    ReceivedMessage = ReceivedMessage.Substring(ReceivedMessage.IndexOf('_') + 1);
-                    Console.WriteLine(ReceivedMessage);
-                    return CommandStringTrimmer(ReceivedMessage);
-                }
+            SendMessage($"DB_REQ_LOGIN:{email_address};");
+            GetMessage();
+            string rPassword = ReceivedData[2];
+            if (rPassword == password)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
-                //ACK_REQ_LOGIN:USERNAME/PASSWORD
-            //}
-            return null;
+        public User ReqUser(string userid)
+        {
+            SendMessage($"DB_REQ_USER:{userid};");
+            GetMessage();
+            string first_name = ReceivedData[1];
+            string last_name = ReceivedData[2];
+            DateTime date_of_birth = ParseBirthDate(ReceivedData[3]);
+            string email_address = ReceivedData[4];
+            string password = ReceivedData[5];
+            Address address = ParseAddress(ReceivedData[6]);
+            decimal balance = Convert.ToDecimal(ReceivedData[7]);
+            return new User(userid, first_name, last_name, date_of_birth, email_address, password, address, balance);
+        }
+
+        public bool Registrate(string first_name, string last_name, DateTime date_of_birth, string email, string password, Address address)
+        {
+            if (first_name != null && last_name != null && date_of_birth != null && password != null && address != null)
+            {
+                if (CheckConnection())
+                {
+                    SendMessage($"DB_INSERT_REGISTRATE:{first_name}/{last_name}/{date_of_birth}/{email}/{address}/{password}");
+                    GetMessage();
+                    if (ReceivedData.Contains("ACK"))
+                    {
+                        return true;
+                    }
+                    else return false;
+                }
+            }
+            return false;
+        }
+
+        public bool ChangeBalance(decimal amount)
+        {
+            return true;
+        }
+
+        public DateTime ConvertStringToDateTime(string datetimeString)
+        {
+            string[] data = new string[3];
+            data[0] = datetimeString.Remove(datetimeString.IndexOf('-'));
+            data[1] = datetimeString.Substring(datetimeString.IndexOf('-') + 1).Remove(datetimeString.IndexOf('-') - 2);
+            data[2] = datetimeString.Substring(datetimeString.IndexOf('-')).Substring(datetimeString.IndexOf('-'));
+            DateTime dateTime = new DateTime(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), Convert.ToInt32(data[2]));
+            return dateTime;
+        }
+
+        private DateTime ParseBirthDate(string s)
+        {
+            List<int> indexes = UnderscoreIndexes(s);
+            int day = Convert.ToInt32(s.Substring(0, 2));
+            int month = Convert.ToInt32(s.Substring(3, 2));
+            int year = Convert.ToInt32(s.Substring(6, 4));
+            return new DateTime(year, month, day);
+        }
+
+        public Address GetAddress(string address)
+        {
+            List<int> commaindexes = CommaIndexes(address);
+            string street = address.Substring(0, address.IndexOf(' '));
+            string number = address.Substring(street.Length + 1, commaindexes[0] - street.Length - 1);
+            string zipcode = address.Substring(commaindexes[0] + 2, commaindexes[1] - commaindexes[0] - 2);
+            string city = address.Substring(commaindexes[1] + 2, commaindexes[2] - commaindexes[1] - 2);
+            string country = address.Substring(commaindexes[2] + 2);
+            return new Address(street, number, zipcode, city, country);
+        }
+
+        private Address ParseAddress(string s)
+        {
+            List<int> divisor_indexes = UnderscoreIndexes(s);
+            string street = s.Substring(0, divisor_indexes[0]);
+            string number = s.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1);
+            string zipcode = s.Substring(divisor_indexes[1] + 1, divisor_indexes[2] - divisor_indexes[1] - 1);
+            string city = s.Substring(divisor_indexes[2] + 1, divisor_indexes[3] - divisor_indexes[2] - 1);
+            string country = s.Substring(divisor_indexes[3] + 1);
+            return new Address(street, number, zipcode, city, country);
+        }
+
+        private List<int> CommaIndexes(string s)
+        {
+            List<int> indexes = new List<int>();
+            char[] s_array = s.ToCharArray();
+            for (int i = 0; i < s_array.Length; i++)
+            {
+                if (s_array[i] == ',')
+                {
+                    indexes.Add(i);
+                }
+            }
+            return indexes;
+        }
+
+        private List<int> UnderscoreIndexes(string s)
+        {
+            List<int> indexes = new List<int>();
+            char[] s_array = s.ToCharArray();
+            for (int i = 0; i < s_array.Length; i++)
+            {
+                if (s_array[i] == '_')
+                {
+                    indexes.Add(i);
+                }
+            }
+            return indexes;
         }
 
         public string[] CommandStringTrimmer(string stringToTrim)
