@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy Subject", "Proxy\Proxy Subject.csproj", "{FCF4839F-6B43-4127-AAC0-92A06F0B1CFD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Proxy Subject", "Proxy\Proxy Subject.csproj", "{FCF4839F-6B43-4127-AAC0-92A06F0B1CFD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy Database", "Proxy Database\Proxy Database.csproj", "{1EA7599D-802C-4248-B6E8-C307C365B215}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proxy Bikestand", "Proxy Bikestand\Proxy Bikestand.csproj", "{83B28E8C-CAD2-4D7D-91C6-1086132CE234}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{FCF4839F-6B43-4127-AAC0-92A06F0B1CFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF4839F-6B43-4127-AAC0-92A06F0B1CFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF4839F-6B43-4127-AAC0-92A06F0B1CFD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1EA7599D-802C-4248-B6E8-C307C365B215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EA7599D-802C-4248-B6E8-C307C365B215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EA7599D-802C-4248-B6E8-C307C365B215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EA7599D-802C-4248-B6E8-C307C365B215}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83B28E8C-CAD2-4D7D-91C6-1086132CE234}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83B28E8C-CAD2-4D7D-91C6-1086132CE234}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83B28E8C-CAD2-4D7D-91C6-1086132CE234}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83B28E8C-CAD2-4D7D-91C6-1086132CE234}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
