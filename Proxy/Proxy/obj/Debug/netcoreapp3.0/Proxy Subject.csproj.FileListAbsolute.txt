@@ -1,0 +1,11 @@
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.exe
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.deps.json
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.runtimeconfig.json
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.runtimeconfig.dev.json
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.dll
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\bin\Debug\netcoreapp3.0\Proxy Subject.pdb
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\obj\Debug\netcoreapp3.0\Proxy Subject.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\obj\Debug\netcoreapp3.0\Proxy Subject.AssemblyInfoInputs.cache
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\obj\Debug\netcoreapp3.0\Proxy Subject.AssemblyInfo.cs
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\obj\Debug\netcoreapp3.0\Proxy Subject.dll
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy\obj\Debug\netcoreapp3.0\Proxy Subject.pdb

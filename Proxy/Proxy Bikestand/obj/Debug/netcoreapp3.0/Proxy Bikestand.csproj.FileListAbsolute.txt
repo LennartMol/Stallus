@@ -1,0 +1,4 @@
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy Bikestand\obj\Debug\netcoreapp3.0\Proxy Bikestand.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy Bikestand\obj\Debug\netcoreapp3.0\Proxy Bikestand.csproj.ResolveComReference.cache
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy Bikestand\obj\Debug\netcoreapp3.0\Proxy Bikestand.AssemblyInfoInputs.cache
+D:\GitHub\LennartMol\Stallus\Proxy\Proxy Bikestand\obj\Debug\netcoreapp3.0\Proxy Bikestand.AssemblyInfo.cs
