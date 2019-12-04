@@ -50,41 +50,15 @@ namespace Stallus
 
         private void btnRegistrate_Click(object sender, EventArgs e)
         {
-            bool emailCheck = false;
             client = new TCP_Client();
-            string name = tbRegistrateFirstName.Text + " " + tbRegistrateLastName.Text;
-            if (!string.IsNullOrWhiteSpace(tbRegistrateStreet.Text) && !string.IsNullOrWhiteSpace(tbRegistrateNumber.Text) && !string.IsNullOrWhiteSpace(tbRegistrateZipcode.Text) && !string.IsNullOrWhiteSpace(tbRegistrateCity.Text) && !string.IsNullOrWhiteSpace(tbRegistrateCountry.Text))
-            {
-                Address address = new Address(tbRegistrateStreet.Text, tbRegistrateNumber.Text, tbRegistrateZipcode.Text, tbRegistrateCity.Text, tbRegistrateCountry.Text);
-                string cooperation = tbRegistrateEmail.Text.Substring(tbRegistrateEmail.Text.IndexOf('@'));
-                string domain = cooperation.Substring(cooperation.IndexOf('.'));
-                if (!string.IsNullOrWhiteSpace(cooperation) && !string.IsNullOrWhiteSpace(domain) && cooperation.Length > 1 && domain.Length > 1)
-                {
-                    emailCheck = true;
-                }
-                else
-                {
-                    MessageBox.Show("Not a valid emailaddress");
-                }
+            Address address = new Address(tbRegistrateStreet.Text, tbRegistrateNumber.Text, tbRegistrateZipcode.Text, tbRegistrateCity.Text, tbRegistrateCountry.Text);
+            client.Registrate(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, tbRegistratePassword.Text, address);
+        }
 
-
-                if (client.CheckConnection())
-                {
-                    if (!string.IsNullOrWhiteSpace(name) && tbRegistratePassword.Text.Length > 6 && emailCheck)
-                    {
-                        User customer = new User(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, tbRegistratePassword.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, 0, address);
-
-                        client.SendMessage($"DB_INSERT_REGISTRATE:{customer.FirstName}/{customer.LastName}/{customer.DateOfBirth}/{customer.Email}/{customer.Address}/{customer.Password}");
-                    }
-                    else
-                    {
-                        MessageBox.Show("The password has to be bigger then 6 characters");
-                    }
-                }
-                else MessageBox.Show("Problem with connecting to server");
-
-            }
-            else MessageBox.Show("Make sure you fill all the textboxes");
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DateTime time = DateTime.Now;
+            button1.Text = time.ToShortTimeString();
         }
     }
 }

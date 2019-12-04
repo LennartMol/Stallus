@@ -145,13 +145,9 @@ namespace Stallus
             }
         }
 
-        public decimal RaiseBalance(decimal raiseValue)
+        public void RaiseBalance(decimal newBalance)
         {
-            TCP_Client client = new TCP_Client();
-            client.SendMessage($"DB_CHANGE_BALANCE:{UserId}/{raiseValue};");
-            client.GetMessage();
-            Balance = Convert.ToDecimal(client.ReceivedData[1]);
-            return Balance;
+            Balance = newBalance;
         }
 
         public override string ToString()

@@ -190,6 +190,50 @@ namespace Stallus
             return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
         }
 
+        private string[] ValuesStringTrimmer(string stringToTrim)
+        {
+            if (!stringToTrim.Contains("%"))
+            {
+                return new string[] { stringToTrim };
+            }
+            return stringToTrim.Split('%');
+        }
 
+        public void RaiseBalance(User loggedinUser, decimal value)
+        {
+            SendMessage($"DB_CHANGE_BALANCE:{loggedinUser.UserId}/{value};");
+            GetMessage();
+            if (ReceivedData.Contains("ACK"))
+            {
+                decimal newbalance;
+                if (decimal.TryParse(ReceivedData[1], out newbalance))
+                {
+                    loggedinUser.RaiseBalance(newbalance);
+                }
+            }
+        }
+
+        public bool LockBike(string standId, User loggedInUser)
+        {
+            SendMessage($"DB_LOCK_BIKE:{standId}/{loggedInUser.UserId};");
+            GetMessage();
+            if (ReceivedData.Contains("ACK"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        public string[] Req_AllStandId()
+        {
+            SendMessage("DB_REQ_ALLSTANDID");
+            GetMessage();
+            if (ReceivedData.Contains("ACK"))
+            {
+                return ReceivedData;
+            }
+            return null;
+        }
     }
 }

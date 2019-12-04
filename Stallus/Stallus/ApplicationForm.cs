@@ -21,13 +21,17 @@ namespace Stallus
         {
             this.loggedinUser = loggedinUser;
             InitializeComponent();
+            ProcessAllStandId();
             client = new TCP_Client();
         }
 
         private void BtnLockBicycle_Click(object sender, EventArgs e)
         {
-            // A message is sent to the main computer to lock the bicycle.
-            client.SendMessage("User ID + Lock bicycle");
+            if (client.LockBike(cbStandIds.SelectedText, loggedinUser))
+            {
+                DateTime time = DateTime.Now;
+                lInCheckTime.Text = time.ToShortTimeString();
+            }
         }
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
@@ -39,27 +43,34 @@ namespace Stallus
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
         {
-            client = new TCP_Client();
             if (client.CheckConnection())
             {
                 if (rb5.Checked)
                 {
-                    loggedinUser.RaiseBalance(5);
+                    client.RaiseBalance(loggedinUser, 5);
                 }
                 else if (rb10.Checked)
                 {
-                    loggedinUser.RaiseBalance(10);
+                    client.RaiseBalance(loggedinUser, 10);
                 }
                 else if (rb15.Checked)
                 {
-                    loggedinUser.RaiseBalance(15);
+                    client.RaiseBalance(loggedinUser, 15);
                 }
                 else if (rb10.Checked)
                 {
-                    loggedinUser.RaiseBalance(20);
+                    client.RaiseBalance(loggedinUser, 20);
                 }
             }
             else MessageBox.Show("Problem with connecting to the server");
+        }
+
+        private void ProcessAllStandId()
+        {
+            foreach (string standId in client.Req_AllStandId())
+            {
+                cbStandIds.Items.Add(standId);
+            }
         }
 
     }
