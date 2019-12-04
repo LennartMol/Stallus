@@ -339,5 +339,61 @@ namespace Main_computer
             }
             return false;
         }
+
+        public string GetVerificationKey(string userid)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT `verification_key` FROM `sessions` WHERE userid = @1;";
+            cmd.Parameters.AddWithValue("@1", userid);
+            Connection.Open();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            string verification_key;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                verification_key = reader.GetString(0);
+            }
+            else
+            {
+                verification_key = null;
+            }
+            Connection.Close();
+            return verification_key;
+        } 
+
+        public string GetPrice(string verification_key)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT `lock_moment` FROM `sessions` WHERE `verification_key` = @1";
+            cmd.Parameters.AddWithValue("@1", verification_key);
+            Connection.Open();
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            double minutes = 0;
+            if (reader.HasRows)
+            {
+                reader.Read();
+                minutes = MinutesDifference(reader.GetDateTime(0).Ticks, DateTime.Now.Ticks);
+            }
+            else
+            {
+                minutes = -1;
+            }
+            double pricePerMinute = 0.05; //5 cent per minute
+            double price = pricePerMinute * minutes;
+            if (price < 0)
+            {
+                return null;
+            }
+            return price.ToString();
+        }
+
+        private double MinutesDifference(long start, long end)
+        {
+            TimeSpan startSpan = TimeSpan.FromTicks(start);
+            TimeSpan endSpan = TimeSpan.FromTicks(end);
+            return endSpan.TotalMinutes - startSpan.TotalMinutes;
+        }
     }
 }

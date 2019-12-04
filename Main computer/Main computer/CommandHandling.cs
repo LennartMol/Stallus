@@ -9,7 +9,7 @@ namespace Main_computer
 {
     public class CommandHandling
     {
-        public string Command { get; set; }
+        public string Command { get; private set; }
         public string[] Data { get; private set; }
         public Socket ClientSocket { get; private set; }
         public Database Database { get; private set; }
@@ -73,6 +73,10 @@ namespace Main_computer
             {
                 AssumeNewSessionStarting_fromStand();
             }
+            else if (Command.StartsWith("DB_REQ_PRICE"))
+            {
+                ReqPrice();
+            }
             else if (Command.StartsWith("DB_USER_UNLOCKED"))
             {
                 if (Command.Contains("/"))
@@ -83,13 +87,15 @@ namespace Main_computer
                 {
                     BikeStandPaid();
                 }
-                
             }
             else if (Command.StartsWith("DB_ADD_USERID_TO_SESSION"))
             {
 
             }
-            
+            else if (Command.StartsWith(""))
+            {
+
+            }
         }
 
         public void ArduinoCommandsHandler()
@@ -278,6 +284,23 @@ namespace Main_computer
             localSafe.Save(instances);
         }
 
+        private void ReqPrice()
+        {
+            string userid = Data[0];
+            string verification_key = Database.GetVerificationKey(userid);
+            string price = Database.GetPrice(verification_key);
+            if (verification_key != null && price != null)
+            {
+                string send = $"ACK_REQ_PRICE:{userid}/{price};";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = $"NACK_REQ_PRICE:{userid};";
+                SendMessageToSocket(send);
+            }
+        }
+
         private void BikeStandPaid_withUserID()
         {
             string verification_key = Data[0];
@@ -307,7 +330,10 @@ namespace Main_computer
             }
         }
 
-        
+        private void ReqAllStands()
+        {
+
+        }
 
         private string[] CommandStringTrimmer(string stringToTrim)
         {
