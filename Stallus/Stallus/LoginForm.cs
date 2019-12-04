@@ -57,8 +57,16 @@ namespace Stallus
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DateTime time = DateTime.Now;
-            button1.Text = time.ToShortTimeString();
+            Console.WriteLine(ValuesStringTrimmer("Hallo%Yeet%Kut;")[1]);
+        }
+
+        private string[] ValuesStringTrimmer(string stringToTrim)
+        {
+            if (!stringToTrim.Contains("%"))
+            {
+                return new string[] { stringToTrim };
+            }
+            return stringToTrim.Split('%');
         }
     }
 }

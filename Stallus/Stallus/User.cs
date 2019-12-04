@@ -150,6 +150,16 @@ namespace Stallus
             Balance = newBalance;
         }
 
+        public bool CheckAmount(decimal price)
+        {
+            if (price <= Balance)
+            {
+                Balance = Balance - price;
+                return true;
+            }
+            return false;
+        }
+
         public override string ToString()
         {
             return $"Name: {FirstName} {LastName} \n" +

@@ -36,42 +36,68 @@ namespace Stallus
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
         {
-            QRcode qRcode = new QRcode("7499");
-            lShowString.Text = "String in QR code: " + qRcode.QrString;
-            pbQRCode.Image = qRcode.GenerateQrCode();
-        }
-
-        private void btnRaiseBalance_Click(object sender, EventArgs e)
-        {
-            if (client.CheckConnection())
+            if (loggedinUser.CheckAmount(client.Req_Price(loggedinUser)))
             {
-                if (rb5.Checked)
-                {
-                    client.RaiseBalance(loggedinUser, 5);
-                }
-                else if (rb10.Checked)
-                {
-                    client.RaiseBalance(loggedinUser, 10);
-                }
-                else if (rb15.Checked)
-                {
-                    client.RaiseBalance(loggedinUser, 15);
-                }
-                else if (rb10.Checked)
-                {
-                    client.RaiseBalance(loggedinUser, 20);
-                }
-            }
-            else MessageBox.Show("Problem with connecting to the server");
-        }
-
-        private void ProcessAllStandId()
-        {
-            foreach (string standId in client.Req_AllStandId())
-            {
-                cbStandIds.Items.Add(standId);
+                QRcode qRcode = new QRcode(client.Req_VerificationKey(loggedinUser));
+                pbQRCode.Image = qRcode.GenerateQrCode();
             }
         }
 
+    private void btnRaiseBalance_Click(object sender, EventArgs e)
+    {
+        if (client.CheckConnection())
+        {
+            if (rb5.Checked)
+            {
+                client.RaiseBalance(loggedinUser, 5);
+            }
+            else if (rb10.Checked)
+            {
+                client.RaiseBalance(loggedinUser, 10);
+            }
+            else if (rb15.Checked)
+            {
+                client.RaiseBalance(loggedinUser, 15);
+            }
+            else if (rb10.Checked)
+            {
+                client.RaiseBalance(loggedinUser, 20);
+            }
+        }
+        else MessageBox.Show("Problem with connecting to the server");
+    }
+
+    private void ProcessAllStandId()
+    {
+        foreach (string standId in client.Req_AllStandId())
+        {
+            cbStandIds.Items.Add(standId);
+        }
+    }
+
+        private void btnRegistrate_Click(object sender, EventArgs e)
+        {
+            string columNames = "";
+            if (!string.IsNullOrWhiteSpace(tbChangeFirstname.Text))
+            {
+                columNames += "First_name%";
+            }
+            if (!string.IsNullOrWhiteSpace(tbChangeLastname.Text))
+            {
+                columNames += "Last_name%";
+            }
+            if (!string.IsNullOrWhiteSpace(tbChangeEmail.Text))
+            {
+                columNames += "Email_Address%";
+            }
+            if (!string.IsNullOrWhiteSpace(tbChangePassword.Text))
+            {
+                columNames += "Password%";
+            }
+            if (!string.IsNullOrWhiteSpace(tbChangeStreet.Text) && !string.IsNullOrWhiteSpace(tbChangeNumber.Text) && !string.IsNullOrWhiteSpace(tbChangeZipcode.Text) && !string.IsNullOrWhiteSpace(tbChangeCity.Text) && !string.IsNullOrWhiteSpace(tbChangeCountry.Text))
+            {
+                columNames += "Adress%";
+            }
+        }
     }
 }

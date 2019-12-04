@@ -60,6 +60,7 @@ namespace Stallus
             clientSock.Close();
         }
 
+
         public bool ReqLogin(string email_address, string password)
         {
             SendMessage($"DB_REQ_LOGIN:{email_address};");
@@ -231,9 +232,64 @@ namespace Stallus
             GetMessage();
             if (ReceivedData.Contains("ACK"))
             {
-                return ReceivedData;
+                string allStands = ReceivedData[0];
+                return ValuesStringTrimmer(allStands);
             }
             return null;
         }
+
+        public decimal Req_Price(User loggedInUser)
+        {
+            SendMessage($"DB_REQ_PRICE:{loggedInUser.UserId};");
+            GetMessage();
+            if (ReceivedData.Contains("ACK"))
+            {
+                decimal price;
+                if (decimal.TryParse(ReceivedData[1], out price))
+                return price;
+            }
+            return 0;
+        }
+
+
+        public string Req_VerificationKey(User loggedInUser)
+        {
+            SendMessage($"DB_REQ_VERIFICATIONKEY:{loggedInUser.UserId};");
+            GetMessage();
+            if (ReceivedData.Contains("ACK"))
+            {
+                return ReceivedData[1];
+            }
+            return null;
+        }
+
+        /*public string[] ChangeDetails(string[] columNames, string[] newValues)
+        {
+            string command = "DB_UPDATE_DETAILS:";
+            for (int i = 0; i < columNames.Length; i++)
+            {
+                if (i + 1 == columNames.Length)
+                {
+                    command += columNames[i] + "/";
+                }
+                else
+                {
+                    command += columNames[i] + "%";
+                }
+            }
+            for (int i = 0; i < newValues.Length; i++)
+            {
+                if (i + 1 == newValues.Length)
+                {
+                    command += newValues[i] + ";";
+                }
+                else
+                {
+                    command += newValues[i] + "%";
+                }
+            }
+            SendMessage(command);
+            GetMessage();
+        }*/
     }
 }
