@@ -191,7 +191,7 @@ namespace Stallus
             return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
         }
 
-        private string[] ValuesStringTrimmer(string stringToTrim)
+        public string[] ValuesStringTrimmer(string stringToTrim)
         {
             if (!stringToTrim.Contains("%"))
             {
@@ -263,7 +263,7 @@ namespace Stallus
             return null;
         }
 
-        /*public string[] ChangeDetails(string[] columNames, string[] newValues)
+        public string[] ChangeDetails(string[] columNames, string[] newValues)
         {
             string command = "DB_UPDATE_DETAILS:";
             for (int i = 0; i < columNames.Length; i++)
@@ -290,6 +290,11 @@ namespace Stallus
             }
             SendMessage(command);
             GetMessage();
-        }*/
+
+            if (ReceivedData.Contains("ACK"))
+            {
+
+            }
+        }
     }
 }

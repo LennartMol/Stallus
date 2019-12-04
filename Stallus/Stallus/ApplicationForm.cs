@@ -78,26 +78,34 @@ namespace Stallus
         private void btnRegistrate_Click(object sender, EventArgs e)
         {
             string columNames = "";
+            string newValues = ""; 
             if (!string.IsNullOrWhiteSpace(tbChangeFirstname.Text))
             {
                 columNames += "First_name%";
+                newValues += tbChangeFirstname.Text;
             }
             if (!string.IsNullOrWhiteSpace(tbChangeLastname.Text))
             {
                 columNames += "Last_name%";
+                newValues += tbChangeLastname.Text;
             }
             if (!string.IsNullOrWhiteSpace(tbChangeEmail.Text))
             {
                 columNames += "Email_Address%";
+                newValues += tbChangeEmail.Text;
             }
             if (!string.IsNullOrWhiteSpace(tbChangePassword.Text))
             {
                 columNames += "Password%";
+                newValues += tbChangePassword.Text;
             }
             if (!string.IsNullOrWhiteSpace(tbChangeStreet.Text) && !string.IsNullOrWhiteSpace(tbChangeNumber.Text) && !string.IsNullOrWhiteSpace(tbChangeZipcode.Text) && !string.IsNullOrWhiteSpace(tbChangeCity.Text) && !string.IsNullOrWhiteSpace(tbChangeCountry.Text))
             {
                 columNames += "Adress%";
+                Address address = new Address(tbChangeStreet.Text, tbChangeNumber.Text, tbChangeZipcode.Text, tbChangeCity.Text, tbChangeCountry.Text);
+                newValues += address;
             }
+            client.ChangeDetails(client.ValuesStringTrimmer(columNames), client.ValuesStringTrimmer(newValues));
         }
     }
 }
