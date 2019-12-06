@@ -395,5 +395,29 @@ namespace Main_computer
             TimeSpan endSpan = TimeSpan.FromTicks(end);
             return endSpan.TotalMinutes - startSpan.TotalMinutes;
         }
+
+        public List<string> LoadStandIDs()
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT `stand_id` FROM `stands`;";
+            Connection.Open();
+            List<string> stand_ids = new List<string>();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+            if (adapter != null)
+            {
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);   
+                foreach (DataRow row in dt.Rows)
+                {
+                    stand_ids.Add(row[0].ToString());
+                }
+            }
+            else
+            {
+                stand_ids = null;
+            }
+            Connection.Close();
+            return stand_ids;
+        }
     }
 }

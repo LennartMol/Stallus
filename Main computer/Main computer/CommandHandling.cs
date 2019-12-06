@@ -92,9 +92,9 @@ namespace Main_computer
             {
 
             }
-            else if (Command.StartsWith(""))
+            else if (Command.StartsWith("DB_REQ_ALLSTANDID"))
             {
-
+                ReqAllStands();
             }
         }
 
@@ -332,7 +332,17 @@ namespace Main_computer
 
         private void ReqAllStands()
         {
-
+            List<string> stands = Database.LoadStandIDs();
+            if (stands != null)
+            {
+                string send = $"ACK_REQ_ALLSTANDID:{ListToString(stands)};";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = $"NACK_REQ_ALLSTANDID:;";
+                SendMessageToSocket(send);
+            }
         }
 
         private string[] CommandStringTrimmer(string stringToTrim)
@@ -351,6 +361,23 @@ namespace Main_computer
                 return new string[] { stringToTrim };
             }
             return stringToTrim.Split('%');
+        }
+
+        private string ListToString(List<string> values)
+        {
+            string s = "";
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (i + 1 == values.Count)
+                {
+                    s += values[i];
+                }
+                else
+                {
+                    s += values[i] + "%";
+                }
+            }
+            return s;
         }
 
         private DateTime ParseDateTime(string date)
