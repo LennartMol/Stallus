@@ -32,6 +32,7 @@
             this.btnUnlockBicycle = new System.Windows.Forms.Button();
             this.tcApplication = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.cbStandIds = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lShowString = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,27 +47,26 @@
             this.btnRaiseBalance = new System.Windows.Forms.Button();
             this.lSaldo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cbStandIds = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label12 = new System.Windows.Forms.Label();
-            this.tbChangeCountry = new System.Windows.Forms.TextBox();
-            this.tbChangeFirstname = new System.Windows.Forms.TextBox();
+            this.tbCountry = new System.Windows.Forms.TextBox();
+            this.tbFirstname = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.tbChangeLastname = new System.Windows.Forms.TextBox();
+            this.tbLastname = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.tbChangeCity = new System.Windows.Forms.TextBox();
-            this.tbChangeNumber = new System.Windows.Forms.TextBox();
+            this.tbCity = new System.Windows.Forms.TextBox();
+            this.tbNumber = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.tbChangeZipcode = new System.Windows.Forms.TextBox();
+            this.tbZipcode = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.tbChangeEmail = new System.Windows.Forms.TextBox();
+            this.tbEmail = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.tbChangeStreet = new System.Windows.Forms.TextBox();
+            this.tbStreet = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.btnRegistrate = new System.Windows.Forms.Button();
-            this.tbChangePassword = new System.Windows.Forms.TextBox();
+            this.btnChangeDetails = new System.Windows.Forms.Button();
+            this.tbPassword = new System.Windows.Forms.TextBox();
             this.tcApplication.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
@@ -125,6 +125,14 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Stand";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // cbStandIds
+            // 
+            this.cbStandIds.FormattingEnabled = true;
+            this.cbStandIds.Location = new System.Drawing.Point(157, 25);
+            this.cbStandIds.Name = "cbStandIds";
+            this.cbStandIds.Size = new System.Drawing.Size(121, 24);
+            this.cbStandIds.TabIndex = 10;
             // 
             // label3
             // 
@@ -279,35 +287,27 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Saldo:";
             // 
-            // cbStandIds
-            // 
-            this.cbStandIds.FormattingEnabled = true;
-            this.cbStandIds.Location = new System.Drawing.Point(157, 25);
-            this.cbStandIds.Name = "cbStandIds";
-            this.cbStandIds.Size = new System.Drawing.Size(121, 24);
-            this.cbStandIds.TabIndex = 10;
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.tbChangeCountry);
-            this.tabPage3.Controls.Add(this.tbChangeFirstname);
+            this.tabPage3.Controls.Add(this.tbCountry);
+            this.tabPage3.Controls.Add(this.tbFirstname);
             this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.tbChangeLastname);
+            this.tabPage3.Controls.Add(this.tbLastname);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.tbChangeCity);
-            this.tabPage3.Controls.Add(this.tbChangeNumber);
+            this.tabPage3.Controls.Add(this.tbCity);
+            this.tabPage3.Controls.Add(this.tbNumber);
             this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.tbChangeZipcode);
+            this.tabPage3.Controls.Add(this.tbZipcode);
             this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.tbChangeEmail);
+            this.tabPage3.Controls.Add(this.tbEmail);
             this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.tbChangeStreet);
+            this.tabPage3.Controls.Add(this.tbStreet);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.btnRegistrate);
-            this.tabPage3.Controls.Add(this.tbChangePassword);
+            this.tabPage3.Controls.Add(this.btnChangeDetails);
+            this.tabPage3.Controls.Add(this.tbPassword);
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -325,19 +325,21 @@
             this.label12.TabIndex = 48;
             this.label12.Text = "Country:";
             // 
-            // tbChangeCountry
+            // tbCountry
             // 
-            this.tbChangeCountry.Location = new System.Drawing.Point(377, 191);
-            this.tbChangeCountry.Name = "tbChangeCountry";
-            this.tbChangeCountry.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeCountry.TabIndex = 47;
+            this.tbCountry.Location = new System.Drawing.Point(377, 191);
+            this.tbCountry.Name = "tbCountry";
+            this.tbCountry.Size = new System.Drawing.Size(164, 22);
+            this.tbCountry.TabIndex = 8;
+            this.tbCountry.Tag = "country";
             // 
-            // tbChangeFirstname
+            // tbFirstname
             // 
-            this.tbChangeFirstname.Location = new System.Drawing.Point(87, 116);
-            this.tbChangeFirstname.Name = "tbChangeFirstname";
-            this.tbChangeFirstname.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeFirstname.TabIndex = 28;
+            this.tbFirstname.Location = new System.Drawing.Point(87, 116);
+            this.tbFirstname.Name = "tbFirstname";
+            this.tbFirstname.Size = new System.Drawing.Size(164, 22);
+            this.tbFirstname.TabIndex = 0;
+            this.tbFirstname.Tag = "first_name";
             // 
             // label10
             // 
@@ -348,12 +350,13 @@
             this.label10.TabIndex = 45;
             this.label10.Text = "First name:";
             // 
-            // tbChangeLastname
+            // tbLastname
             // 
-            this.tbChangeLastname.Location = new System.Drawing.Point(87, 147);
-            this.tbChangeLastname.Name = "tbChangeLastname";
-            this.tbChangeLastname.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeLastname.TabIndex = 29;
+            this.tbLastname.Location = new System.Drawing.Point(87, 147);
+            this.tbLastname.Name = "tbLastname";
+            this.tbLastname.Size = new System.Drawing.Size(164, 22);
+            this.tbLastname.TabIndex = 1;
+            this.tbLastname.Tag = "last_name";
             // 
             // label4
             // 
@@ -373,19 +376,21 @@
             this.label9.TabIndex = 43;
             this.label9.Text = "City:";
             // 
-            // tbChangeCity
+            // tbCity
             // 
-            this.tbChangeCity.Location = new System.Drawing.Point(377, 155);
-            this.tbChangeCity.Name = "tbChangeCity";
-            this.tbChangeCity.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeCity.TabIndex = 38;
+            this.tbCity.Location = new System.Drawing.Point(377, 155);
+            this.tbCity.Name = "tbCity";
+            this.tbCity.Size = new System.Drawing.Size(164, 22);
+            this.tbCity.TabIndex = 7;
+            this.tbCity.Tag = "city";
             // 
-            // tbChangeNumber
+            // tbNumber
             // 
-            this.tbChangeNumber.Location = new System.Drawing.Point(87, 286);
-            this.tbChangeNumber.Name = "tbChangeNumber";
-            this.tbChangeNumber.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeNumber.TabIndex = 34;
+            this.tbNumber.Location = new System.Drawing.Point(87, 286);
+            this.tbNumber.Name = "tbNumber";
+            this.tbNumber.Size = new System.Drawing.Size(164, 22);
+            this.tbNumber.TabIndex = 5;
+            this.tbNumber.Tag = "number";
             // 
             // label7
             // 
@@ -396,12 +401,13 @@
             this.label7.TabIndex = 42;
             this.label7.Text = "Zipcode:";
             // 
-            // tbChangeZipcode
+            // tbZipcode
             // 
-            this.tbChangeZipcode.Location = new System.Drawing.Point(377, 114);
-            this.tbChangeZipcode.Name = "tbChangeZipcode";
-            this.tbChangeZipcode.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeZipcode.TabIndex = 36;
+            this.tbZipcode.Location = new System.Drawing.Point(377, 114);
+            this.tbZipcode.Name = "tbZipcode";
+            this.tbZipcode.Size = new System.Drawing.Size(164, 22);
+            this.tbZipcode.TabIndex = 6;
+            this.tbZipcode.Tag = "zipcode";
             // 
             // label8
             // 
@@ -412,12 +418,13 @@
             this.label8.TabIndex = 41;
             this.label8.Text = "Number:";
             // 
-            // tbChangeEmail
+            // tbEmail
             // 
-            this.tbChangeEmail.Location = new System.Drawing.Point(87, 181);
-            this.tbChangeEmail.Name = "tbChangeEmail";
-            this.tbChangeEmail.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeEmail.TabIndex = 30;
+            this.tbEmail.Location = new System.Drawing.Point(87, 181);
+            this.tbEmail.Name = "tbEmail";
+            this.tbEmail.Size = new System.Drawing.Size(164, 22);
+            this.tbEmail.TabIndex = 2;
+            this.tbEmail.Tag = "email_address";
             // 
             // label5
             // 
@@ -428,12 +435,13 @@
             this.label5.TabIndex = 40;
             this.label5.Text = "Street:";
             // 
-            // tbChangeStreet
+            // tbStreet
             // 
-            this.tbChangeStreet.Location = new System.Drawing.Point(87, 246);
-            this.tbChangeStreet.Name = "tbChangeStreet";
-            this.tbChangeStreet.Size = new System.Drawing.Size(164, 22);
-            this.tbChangeStreet.TabIndex = 32;
+            this.tbStreet.Location = new System.Drawing.Point(87, 246);
+            this.tbStreet.Name = "tbStreet";
+            this.tbStreet.Size = new System.Drawing.Size(164, 22);
+            this.tbStreet.TabIndex = 4;
+            this.tbStreet.Tag = "street";
             // 
             // label6
             // 
@@ -453,23 +461,24 @@
             this.label13.TabIndex = 33;
             this.label13.Text = "Password:";
             // 
-            // btnRegistrate
+            // btnChangeDetails
             // 
-            this.btnRegistrate.Location = new System.Drawing.Point(227, 354);
-            this.btnRegistrate.Name = "btnRegistrate";
-            this.btnRegistrate.Size = new System.Drawing.Size(110, 42);
-            this.btnRegistrate.TabIndex = 39;
-            this.btnRegistrate.Text = "Change details";
-            this.btnRegistrate.UseVisualStyleBackColor = true;
-            this.btnRegistrate.Click += new System.EventHandler(this.btnRegistrate_Click);
+            this.btnChangeDetails.Location = new System.Drawing.Point(227, 354);
+            this.btnChangeDetails.Name = "btnChangeDetails";
+            this.btnChangeDetails.Size = new System.Drawing.Size(110, 42);
+            this.btnChangeDetails.TabIndex = 9;
+            this.btnChangeDetails.Text = "Change details";
+            this.btnChangeDetails.UseVisualStyleBackColor = true;
+            this.btnChangeDetails.Click += new System.EventHandler(this.btnChangeDetails_Click);
             // 
-            // tbChangePassword
+            // tbPassword
             // 
-            this.tbChangePassword.Location = new System.Drawing.Point(87, 215);
-            this.tbChangePassword.Name = "tbChangePassword";
-            this.tbChangePassword.PasswordChar = '*';
-            this.tbChangePassword.Size = new System.Drawing.Size(164, 22);
-            this.tbChangePassword.TabIndex = 31;
+            this.tbPassword.Location = new System.Drawing.Point(87, 215);
+            this.tbPassword.Name = "tbPassword";
+            this.tbPassword.PasswordChar = '*';
+            this.tbPassword.Size = new System.Drawing.Size(164, 22);
+            this.tbPassword.TabIndex = 3;
+            this.tbPassword.Tag = "password";
             // 
             // ApplicationForm
             // 
@@ -513,24 +522,24 @@
         private System.Windows.Forms.ComboBox cbStandIds;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox tbChangeCountry;
-        private System.Windows.Forms.TextBox tbChangeFirstname;
+        private System.Windows.Forms.TextBox tbCountry;
+        private System.Windows.Forms.TextBox tbFirstname;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbChangeLastname;
+        private System.Windows.Forms.TextBox tbLastname;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox tbChangeCity;
-        private System.Windows.Forms.TextBox tbChangeNumber;
+        private System.Windows.Forms.TextBox tbCity;
+        private System.Windows.Forms.TextBox tbNumber;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox tbChangeZipcode;
+        private System.Windows.Forms.TextBox tbZipcode;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox tbChangeEmail;
+        private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox tbChangeStreet;
+        private System.Windows.Forms.TextBox tbStreet;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button btnRegistrate;
-        private System.Windows.Forms.TextBox tbChangePassword;
+        private System.Windows.Forms.Button btnChangeDetails;
+        private System.Windows.Forms.TextBox tbPassword;
     }
 }
 

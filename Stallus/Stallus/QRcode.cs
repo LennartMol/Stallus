@@ -10,7 +10,18 @@ namespace Stallus
 {
     public class QRcode
     {
-        public string QrString { get; private set; }
+        private string qrString;
+        public string QrString 
+        { 
+            get { return qrString ; }
+            private set 
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    qrString = value;
+                }
+            }
+        }
         public QRcode(string qrString)
         {
             QrString = qrString;
