@@ -113,15 +113,6 @@ namespace Stallus
             return true;
         }
 
-        public DateTime ConvertStringToDateTime(string datetimeString)
-        {
-            string[] data = new string[3];
-            data[0] = datetimeString.Remove(datetimeString.IndexOf('-'));
-            data[1] = datetimeString.Substring(datetimeString.IndexOf('-') + 1).Remove(datetimeString.IndexOf('-') - 2);
-            data[2] = datetimeString.Substring(datetimeString.IndexOf('-')).Substring(datetimeString.IndexOf('-'));
-            DateTime dateTime = new DateTime(Convert.ToInt32(data[0]), Convert.ToInt32(data[1]), Convert.ToInt32(data[2]));
-            return dateTime;
-        }
 
         private DateTime ParseBirthDate(string s)
         {
@@ -132,16 +123,6 @@ namespace Stallus
             return new DateTime(year, month, day);
         }
 
-        public Address GetAddress(string address)
-        {
-            List<int> commaindexes = CommaIndexes(address);
-            string street = address.Substring(0, address.IndexOf(' '));
-            string number = address.Substring(street.Length + 1, commaindexes[0] - street.Length - 1);
-            string zipcode = address.Substring(commaindexes[0] + 2, commaindexes[1] - commaindexes[0] - 2);
-            string city = address.Substring(commaindexes[1] + 2, commaindexes[2] - commaindexes[1] - 2);
-            string country = address.Substring(commaindexes[2] + 2);
-            return new Address(street, number, zipcode, city, country);
-        }
 
         private Address ParseAddress(string s)
         {
@@ -263,7 +244,7 @@ namespace Stallus
             return null;
         }
 
-        /*public string[] ChangeDetails(string[] columNames, string[] newValues)
+        public string[] ChangeDetails(string[] columNames, string[] newValues)
         {
             string command = "DB_UPDATE_DETAILS:";
             for (int i = 0; i < columNames.Length; i++)
@@ -290,6 +271,6 @@ namespace Stallus
             }
             SendMessage(command);
             GetMessage();
-        }*/
+        }       
     }
 }

@@ -55,18 +55,5 @@ namespace Stallus
             client.Registrate(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, tbRegistratePassword.Text, address);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(ValuesStringTrimmer("Hallo%Yeet%Kut;")[1]);
-        }
-
-        private string[] ValuesStringTrimmer(string stringToTrim)
-        {
-            if (!stringToTrim.Contains("%"))
-            {
-                return new string[] { stringToTrim };
-            }
-            return stringToTrim.Split('%');
-        }
     }
 }
