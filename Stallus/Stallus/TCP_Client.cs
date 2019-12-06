@@ -244,8 +244,10 @@ namespace Stallus
             return null;
         }
 
-        public string[] ChangeDetails(string[] columNames, string[] newValues)
+        public string[] ChangeDetails(string colums, string values)
         {
+            string[] columNames = ValuesStringTrimmer(colums);
+            string[] newValues = ValuesStringTrimmer(values);
             string command = "DB_UPDATE_DETAILS:";
             for (int i = 0; i < columNames.Length; i++)
             {
@@ -276,6 +278,7 @@ namespace Stallus
             {
 
             }
+            return null;
         }
     }
 }

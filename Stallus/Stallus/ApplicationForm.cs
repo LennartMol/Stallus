@@ -69,43 +69,101 @@ namespace Stallus
 
     private void ProcessAllStandId()
     {
-        foreach (string standId in client.Req_AllStandId())
+       foreach (string standId in client.Req_AllStandId())
         {
             cbStandIds.Items.Add(standId);
         }
     }
 
-        private void btnRegistrate_Click(object sender, EventArgs e)
+        private void btnChangeDetails_Click(object sender, EventArgs e)
         {
-            string columNames = "";
-            string newValues = ""; 
-            if (!string.IsNullOrWhiteSpace(tbChangeFirstname.Text))
+            List<TextBox> textBoxes = new List<TextBox>();
+            List<string> textBoxInfo = new List<string>();
+            string[] columNames = new string[8];
+            string[] newValues = new string[8];
+            int index = 0;
+            
+            foreach (Control control in tabPage3.Controls)
             {
-                columNames += "First_name%";
-                newValues += tbChangeFirstname.Text;
+                if (control is TextBox)
+                {
+                    textBoxInfo.Add(control.Text);
+                    textBoxes.Add((TextBox)control);
+                    Console.WriteLine(control);
+                }
             }
-            if (!string.IsNullOrWhiteSpace(tbChangeLastname.Text))
+
+            foreach (TextBox tb in textBoxes)
             {
-                columNames += "Last_name%";
-                newValues += tbChangeLastname.Text;
+                if ((string)tb.Tag == "first_name")
+                {
+                    if (tb.Text != loggedinUser.FirstName)
+                    {
+                        columNames[index] = tb.Tag + "%";
+                        newValues[index] = tb.Text;
+                        index++;
+                    }
+                }
+                else if ((string)tb.Tag == "last_name")
+                {
+                    if (tb.Text != loggedinUser.LastName)
+                    {
+                        columNames[index] = tb.Tag + "%";
+                        newValues[index] = tb.Text;
+                        index++;
+                    }
+                }
+                else if((string)tb.Tag == "email_address")
+                {
+                    if (tb.Text != loggedinUser.Email)
+                    {
+                        columNames[index] = tb.Tag + "%";
+                        newValues[index] = tb.Text;
+                        index++;
+                    }
+                }
+                else if((string)tb.Tag == "password")
+                {
+                    if (tb.Text != loggedinUser.Password)
+                    {
+                        columNames[index] = tb.Tag + "%";
+                        newValues[index] = tb.Text;
+                        index++;
+                    }
+                }
+                else if((string)tb.Tag == "street" || (string)tb.Tag == "number" || (string)tb.Tag == "zipcode" || (string)tb.Tag == "city" || (string)tb.Tag == "country")
+                {
+                    Address address = loggedinUser.Address;
+                    if (!loggedinUser.Address.ToString().Contains(tbStreet.Text))
+                    {
+                        address.ChangeStreet(tb.Text);
+                    }
+                    else if (!loggedinUser.Address.ToString().Contains(tbNumber.Text))
+                    {
+                        address.ChangeNumber(tb.Text);
+                    }
+                    else if (!loggedinUser.Address.ToString().Contains(tbZipcode.Text))
+                    {
+                        address.ChangeZipcode(tb.Text);
+                    }
+                    else if (!loggedinUser.Address.ToString().Contains(tbCity.Text))
+                    {
+                        address.ChangeCity(tb.Text);
+                    }
+                    else if (!loggedinUser.Address.ToString().Contains(tbCountry.Text))
+                    {
+                        address.ChangeCounty(tb.Text);
+                    }
+                    columNames[index] = "physical_address";
+                    newValues[index] = address.ToString();
+                    index++;
+                }
             }
-            if (!string.IsNullOrWhiteSpace(tbChangeEmail.Text))
-            {
-                columNames += "Email_Address%";
-                newValues += tbChangeEmail.Text;
-            }
-            if (!string.IsNullOrWhiteSpace(tbChangePassword.Text))
-            {
-                columNames += "Password%";
-                newValues += tbChangePassword.Text;
-            }
-            if (!string.IsNullOrWhiteSpace(tbChangeStreet.Text) && !string.IsNullOrWhiteSpace(tbChangeNumber.Text) && !string.IsNullOrWhiteSpace(tbChangeZipcode.Text) && !string.IsNullOrWhiteSpace(tbChangeCity.Text) && !string.IsNullOrWhiteSpace(tbChangeCountry.Text))
-            {
-                columNames += "Adress%";
-                Address address = new Address(tbChangeStreet.Text, tbChangeNumber.Text, tbChangeZipcode.Text, tbChangeCity.Text, tbChangeCountry.Text);
-                newValues += address;
-            }
-            client.ChangeDetails(client.ValuesStringTrimmer(columNames), client.ValuesStringTrimmer(newValues));
+
+
+
         }
+
+
     }
 }

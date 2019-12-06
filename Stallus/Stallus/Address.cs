@@ -16,16 +16,41 @@ namespace Stallus
 
         public Address(string street, string number, string zipcode, string city, string country)
         {
-            Street = street;
-            Number = number;
-            Zipcode = zipcode;
-            City = city;
-            Country = country;
+            if (street != null && number != null && zipcode != null && city != null && country != null)
+            {
+                Street = street;
+                Number = number;
+                Zipcode = zipcode;
+                City = city;
+                Country = country;
+            }
         }
 
         public override string ToString()
         {
             return $"{Street} {Number}, {Zipcode}, {City}, {Country}";
         }
+
+        public void ChangeStreet(string changedStreet)
+        {
+            Street = changedStreet;
+        }
+        public void ChangeNumber(string changedNumber)
+        {
+            Number = changedNumber;
+        }
+        public void ChangeZipcode(string changedZipcode)
+        {
+            Zipcode = changedZipcode;
+        }
+        public void ChangeCity(string changedCity)
+        {
+            City = changedCity;
+        }
+        public void ChangeCounty(string changedCountry)
+        {
+            Country = changedCountry;
+        }
+
     }
 }
