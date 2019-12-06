@@ -55,5 +55,8 @@ namespace Stallus
             client.Registrate(tbRegistrateFirstName.Text, tbRegistrateLastName.Text, dtpRegistrateDateOfBirth.Value, tbRegistrateEmail.Text, tbRegistratePassword.Text, address);
         }
 
+
+
+
     }
 }

@@ -172,7 +172,7 @@ namespace Stallus
             return stringToTrim.Substring(stringToTrim.IndexOf(':') + 1).Split('/');
         }
 
-        private string[] ValuesStringTrimmer(string stringToTrim)
+        public string[] ValuesStringTrimmer(string stringToTrim)
         {
             if (!stringToTrim.Contains("%"))
             {
@@ -271,6 +271,11 @@ namespace Stallus
             }
             SendMessage(command);
             GetMessage();
-        }       
+
+            if (ReceivedData.Contains("ACK"))
+            {
+
+            }
+        }
     }
 }

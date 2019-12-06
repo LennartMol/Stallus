@@ -92,7 +92,11 @@ namespace Main_computer
 
         public User(string firstName, string lastName, DateTime dateOfBirth, string email, string password, Address address, decimal balance)
         {
-            if (firstName != null || LastName != null || password != null || address != null || email != null)
+            if (firstName == null || lastName == null || password == null || address == null || email == null)
+            {
+                throw new ArgumentNullException("Values can't be null");
+            }
+            else
             {
                 FirstName = firstName;
                 LastName = lastName;
@@ -101,10 +105,6 @@ namespace Main_computer
                 Password = password;
                 Address = address;
                 Balance = balance;
-            }
-            else
-            {
-                throw new ArgumentNullException("Values can't be null");
             }
         }
 
