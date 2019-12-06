@@ -35,7 +35,6 @@ namespace Stallus
                         ApplicationForm app = new ApplicationForm(loggedInUser);
                         this.Hide();
                         app.ShowDialog();
-            
                     }
                     else
                     {
@@ -47,7 +46,7 @@ namespace Stallus
                     MessageBox.Show("Password doesn't match the emailaddress");
                 }
             }
-            else MessageBox.Show("Problem with connecting to server");*/
+            else MessageBox.Show("Problem with connecting to server");
         }
 
         private void btnRegistrate_Click(object sender, EventArgs e)

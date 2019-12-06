@@ -10,7 +10,7 @@ namespace Stallus
 {
     class TCP_Client
     {
-        TcpClient clientSock = null;
+        TcpClient clientSock;
         public int Port { get; private set; }
         public string ReceivedString { get; private set; }
         public string[] ReceivedData { get; set; }
@@ -18,6 +18,7 @@ namespace Stallus
         public TCP_Client()
         {
             Port = 13000;
+            clientSock = new TcpClient();
         }
 
         public bool CheckConnection()
@@ -25,8 +26,8 @@ namespace Stallus
             try
             {
                 clientSock.Connect(Settings.IPAddress, Port);
+                SendMessage("DB_CHECK:;");
                 clientSock.Close();
-                clientSock.Dispose();
                 return true;
             }
             catch
@@ -42,29 +43,28 @@ namespace Stallus
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(message);
             stream.Write(data, 0, data.Length);
+            byte[] bytes = new byte[1024];
+            bool received = false;
+            while (!received)
+            {
+                int num = stream.Read(bytes, 0, bytes.Length);
+                ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
+                ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
+                if (ReceivedString.Contains("ACK"))
+                {
+                    received = true;
+                    
+                }
+                ReceivedData = CommandStringTrimmer(ReceivedString);
+            }
             clientSock.Close();
         }
 
-        public void GetMessage()
-        {
-            byte[] bytes = new byte[1024];
-            clientSock = new TcpClient();
-            Console.WriteLine("Connecting to Server ...");
-            clientSock.Connect(Settings.IPAddress, Port);
-            Console.WriteLine("Connected !");
-            NetworkStream stream = clientSock.GetStream();
-            int num = stream.Read(bytes, 0, bytes.Length);
-            ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
-            ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
-            ReceivedData = CommandStringTrimmer(ReceivedString);
-            clientSock.Close();
-        }
 
 
         public bool ReqLogin(string email_address, string password)
         {
             SendMessage($"DB_REQ_LOGIN:{email_address};");
-            GetMessage();
             string rPassword = ReceivedData[2];
             if (rPassword == password)
             {
@@ -79,7 +79,6 @@ namespace Stallus
         public User ReqUser(string userid)
         {
             SendMessage($"DB_REQ_USER:{userid};");
-            GetMessage();
             string first_name = ReceivedData[1];
             string last_name = ReceivedData[2];
             DateTime date_of_birth = ParseBirthDate(ReceivedData[3]);
@@ -97,8 +96,7 @@ namespace Stallus
                 if (CheckConnection())
                 {
                     SendMessage($"DB_INSERT_REGISTRATE:{first_name}/{last_name}/{date_of_birth}/{email}/{address}/{password}");
-                    GetMessage();
-                    if (ReceivedData.Contains("ACK"))
+                    if (ReceivedString.StartsWith("ACK"))
                     {
                         return true;
                     }
@@ -106,11 +104,6 @@ namespace Stallus
                 }
             }
             return false;
-        }
-
-        public bool ChangeBalance(decimal amount)
-        {
-            return true;
         }
 
 
@@ -181,11 +174,11 @@ namespace Stallus
             return stringToTrim.Split('%');
         }
 
-        public void RaiseBalance(User loggedinUser, decimal value)
+        public void ChangeBalance(User loggedinUser, decimal value)
         {
             SendMessage($"DB_CHANGE_BALANCE:{loggedinUser.UserId}/{value};");
-            GetMessage();
-            if (ReceivedData.Contains("ACK"))
+            //GetMessage();
+            if (ReceivedString.Contains("ACK"))
             {
                 decimal newbalance;
                 if (decimal.TryParse(ReceivedData[1], out newbalance))
@@ -198,8 +191,7 @@ namespace Stallus
         public bool LockBike(string standId, User loggedInUser)
         {
             SendMessage($"DB_LOCK_BIKE:{standId}/{loggedInUser.UserId};");
-            GetMessage();
-            if (ReceivedData.Contains("ACK"))
+            if (ReceivedString.Contains("ACK"))
             {
                 return true;
             }
@@ -209,12 +201,11 @@ namespace Stallus
 
         public string[] Req_AllStandId()
         {
-            SendMessage("DB_REQ_ALLSTANDID");
-            GetMessage();
-            if (ReceivedData.Contains("ACK"))
+            SendMessage("DB_REQ_ALLSTANDID;");
+            if (ReceivedString.Contains("ACK"))
             {
-                string allStands = ReceivedData[0];
-                return ValuesStringTrimmer(allStands);
+                string[] allStands = ValuesStringTrimmer(ReceivedData[0]);
+                return allStands;
             }
             return null;
         }
@@ -222,8 +213,8 @@ namespace Stallus
         public decimal Req_Price(User loggedInUser)
         {
             SendMessage($"DB_REQ_PRICE:{loggedInUser.UserId};");
-            GetMessage();
-            if (ReceivedData.Contains("ACK"))
+            //GetMessage();
+            if (ReceivedString.Contains("ACK"))
             {
                 decimal price;
                 if (decimal.TryParse(ReceivedData[1], out price))
@@ -236,8 +227,8 @@ namespace Stallus
         public string Req_VerificationKey(User loggedInUser)
         {
             SendMessage($"DB_REQ_VERIFICATIONKEY:{loggedInUser.UserId};");
-            GetMessage();
-            if (ReceivedData.Contains("ACK"))
+            //GetMessage();
+            if (ReceivedString.Contains("ACK"))
             {
                 return ReceivedData[1];
             }
@@ -272,13 +263,14 @@ namespace Stallus
                 }
             }
             SendMessage(command);
-            GetMessage();
+            //GetMessage();
 
-            if (ReceivedData.Contains("ACK"))
+            if (ReceivedString.Contains("ACK"))
             {
 
             }
             return null;
         }
+
     }
 }

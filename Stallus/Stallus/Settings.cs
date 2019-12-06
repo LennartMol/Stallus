@@ -9,6 +9,6 @@ namespace Stallus
 {
     public class Settings
     {
-        public static IPAddress IPAddress = IPAddress.Parse("");
+        public static IPAddress IPAddress = IPAddress.Parse("145.93.72.244");
     }
 }

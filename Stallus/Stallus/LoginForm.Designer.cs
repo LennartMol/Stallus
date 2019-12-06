@@ -80,6 +80,7 @@
             this.tbLoginEmail.Name = "tbLoginEmail";
             this.tbLoginEmail.Size = new System.Drawing.Size(164, 22);
             this.tbLoginEmail.TabIndex = 1;
+            this.tbLoginEmail.Text = "admin";
             // 
             // label1
             // 
@@ -107,6 +108,7 @@
             this.tbLoginPassword.PasswordChar = '*';
             this.tbLoginPassword.Size = new System.Drawing.Size(164, 22);
             this.tbLoginPassword.TabIndex = 2;
+            this.tbLoginPassword.Text = "stallus";
             // 
             // tabControl1
             // 
