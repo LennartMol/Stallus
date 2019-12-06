@@ -37,7 +37,11 @@ namespace Main_computer
 
         public void DatabaseCommandsHandler()
         {
-            if (Command.StartsWith("DB_INSERT_REGISTRATE"))
+            if (Command.StartsWith("DB_CHECK"))
+            {
+                Check();
+            }
+            else if (Command.StartsWith("DB_INSERT_REGISTRATE"))
             {
                 InsertRegistrate();
             }
@@ -113,6 +117,12 @@ namespace Main_computer
         {
             SerialMessenger.SendMessage(message);
             Console.WriteLine($"Sent: {message}");
+        }
+
+        private void Check()
+        {
+            string send = "ACK;";
+            SendMessageToSocket(send);
         }
 
         private void InsertRegistrate()
@@ -247,6 +257,7 @@ namespace Main_computer
                 if (procedure.StandID == stand_id)
                 {
                     sessionAbleToStart = true;
+                    procedure.IsLocked = true;
                     break;
                 }
             }
@@ -279,9 +290,24 @@ namespace Main_computer
         {
             string stand_id = Data[0];
             List<LockProcedure> instances = localSafe.Load();
-            procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
-            instances.Add(procedure);
-            localSafe.Save(instances);
+            instances.Reverse();
+            bool found = false;
+            foreach (LockProcedure procedure in instances)
+            {
+                if (stand_id == procedure.StandID && procedure.IsLocked)
+                {
+                    string send = "lockBicycleStand";
+                    SendMessageToSerialPort(send);
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+                instances.Add(procedure);
+                localSafe.Save(instances);
+            }
         }
 
         private void ReqPrice()

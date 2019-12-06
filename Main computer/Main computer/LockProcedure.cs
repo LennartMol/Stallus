@@ -13,6 +13,7 @@ namespace Main_computer
         public string UserID { get; set; }
         public enum StartingWith { StandID, UserID }
         public StartingWith StartingType { get; private set; }
+        public bool IsLocked { get; set; }
         public LockProcedure(string either, StartingWith type)
         {
             if (type == StartingWith.StandID)
@@ -25,6 +26,7 @@ namespace Main_computer
                 UserID = either;
                 StandID = "";
             }
+            IsLocked = false;
         }
 
         public override string ToString()

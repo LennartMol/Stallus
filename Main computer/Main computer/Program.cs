@@ -15,7 +15,7 @@ namespace Main_computer
         private static int port = 13000;
         private static int maxThreads = 4;
         private static int dataTimeReadout = 2_000_000;
-        private static int storageSize = 1024 * 256;
+        private static int storageSize = 1024 /* 256*/;
         static SocketProcess socketProcess;
         static SerialProcess serialProcess;
         private static string serverPassword = "password";

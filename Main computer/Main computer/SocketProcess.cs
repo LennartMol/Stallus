@@ -85,19 +85,19 @@ namespace Main_computer
             if (state.ClientSocket.Poll(DataTimeReadout, SelectMode.SelectRead))
             {
                 state.ClientSocket.Receive(ReceivedBuffer);
+                DivideIncomingMessage(ReceivedBuffer, state.ClientSocket);
+                Cleanup(state);
             }
             else
             {
-                Console.WriteLine($"{prefix}Got no data, aborting");
+                Console.WriteLine($"{prefix}Got no data, aborting. Thread {state.ThreadIndex}");
                 Cleanup(state);
             }
-            DivideIncomingMessage(ReceivedBuffer, state.ClientSocket);
-            Cleanup(state);
         }
 
         private void Cleanup(ThreadParams state)
         {
-            Console.WriteLine($"{prefix}Doing clean up tasks.");
+            Console.WriteLine($"{prefix}Doing clean up tasks. Thread {state.ThreadIndex}");
             state.ClientSocket.Shutdown(SocketShutdown.Both);
             state.ClientSocket.Close();
             state.ClientSocket.Dispose();
@@ -108,10 +108,10 @@ namespace Main_computer
         private void DivideIncomingMessage(byte[] context, Socket socket)
         {
             string command = Encoding.ASCII.GetString(context);
-            string cleanCommand = command.Substring(0, command.IndexOf(';')/* + 1*/);
+            //Console.WriteLine("Received: " + command);
+            string cleanCommand = command.Substring(0, command.IndexOf(';'));
             Console.WriteLine("Received: " + cleanCommand);
             Database db = new Database();
-            
             if (cleanCommand.StartsWith("DB"))
             {
                 DbCheck check = db.IsDatabaseReachable();

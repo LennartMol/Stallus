@@ -21,7 +21,7 @@ namespace TCP_Client_Console
             uint key = 7499;
             uint userid = 1;
             uint key_userid = key | (userid << 16);
-            string test = $"DB_REQ_ALLSTANDID:;";
+            string test = $"DB_REQ_LOGIN:admin;";
             NetworkStream stream = clientSock.GetStream();
             byte[] data = Encoding.ASCII.GetBytes(test);
             Console.WriteLine($"Sending message to the Server: {test}");
