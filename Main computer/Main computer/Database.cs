@@ -253,13 +253,13 @@ namespace Main_computer
             return false;
         }
 
-        public bool LockBikeStand(string stand_id, string userid, string verification_key)
+        public bool LockBikeStand(LockProcedure lp)
         {
             MySqlCommand cmd = Connection.CreateCommand();
             cmd.CommandText = "INSERT INTO sessions (`stand_id`, `userid`, `lock_moment`, `verification_key`) VALUES(@1, @2, now(), @3);";
-            cmd.Parameters.AddWithValue("@1", stand_id);
-            cmd.Parameters.AddWithValue("@2", userid);
-            cmd.Parameters.AddWithValue("@3", verification_key);
+            cmd.Parameters.AddWithValue("@1", lp.StandID);
+            cmd.Parameters.AddWithValue("@2", lp.UserID);
+            cmd.Parameters.AddWithValue("@3", lp.Key);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();

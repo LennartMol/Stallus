@@ -13,6 +13,7 @@ namespace Main_computer
         public string UserID { get; set; }
         public enum StartingWith { StandID, UserID }
         public StartingWith StartingType { get; private set; }
+        public string Key { get; set; }
         public bool IsLocked { get; set; }
         public LockProcedure(string either, StartingWith type)
         {
@@ -29,9 +30,17 @@ namespace Main_computer
             IsLocked = false;
         }
 
+        public LockProcedure(string stand_id, string userid, string key)
+        {
+            StandID = stand_id;
+            UserID = userid;
+            Key = key;
+            IsLocked = false;
+        }
+
         public override string ToString()
         {
-            return $"{StandID}/{UserID}";
+            return $"{StandID}/{UserID}/{Key}/{IsLocked}";
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Main_computer
 {
     public class LocalSafe
     {
-        private readonly string path = "D:/GitHub/LennartMol/Stallus/LocalSafe/Instances.txt";
+        private readonly string path = "././LocalSafe/Instances.txt";
         public List<LockProcedure> Instances { get; private set; }
         public LocalSafe()
         {

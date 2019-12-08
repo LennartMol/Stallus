@@ -252,6 +252,7 @@ namespace Main_computer
             bool sessionAbleToStart = false;
             List<LockProcedure> instances = localSafe.Load();
             instances.Reverse();
+            LockProcedure found;
             foreach (LockProcedure procedure in instances)
             {
                 if (procedure.StandID == stand_id)
@@ -265,18 +266,21 @@ namespace Main_computer
             {
                 Verification ver = new Verification();
                 string verification_key = ver.GetNewKey();
-                if (Database.LockBikeStand(stand_id, userid, verification_key))
+                found = new LockProcedure(stand_id, userid, verification_key);
+                instances.Add(found);
+                List<LockProcedure> cleared = ClearStandInstances(found, instances);
+                if (Database.LockBikeStand(found))
                 {
-                    string send = $"ACK_BIKE_LOCKED:{stand_id}/{stand_id};";
+                    string send = $"ACK_BIKE_LOCKED:{found};";
                     SendMessageToSocket(send);
                 }
                 else
                 {
-                    string send = $"NACK_BIKE_LOCKED:{stand_id}/{stand_id};";
+                    string send = $"NACK_BIKE_LOCKED:{found};";
                     SendMessageToSocket(send);
                 }
-                instances.Reverse();
-                localSafe.Save(instances);
+                cleared.Reverse();
+                localSafe.Save(cleared);
             }
             else
             {
@@ -284,6 +288,18 @@ namespace Main_computer
                 instances.Add(new LockProcedure(userid, LockProcedure.StartingWith.UserID));
                 localSafe.Save(instances);
             }
+        }
+
+        private List<LockProcedure> ClearStandInstances(LockProcedure procedureToKeep, List<LockProcedure> list)
+        {
+            foreach (LockProcedure lp in list)
+            {
+                if (lp != procedureToKeep)
+                {
+                    list.Remove(lp);
+                }
+            }
+            return list;
         }
 
         private void AssumeNewSessionStarting_fromStand()
