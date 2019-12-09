@@ -343,7 +343,7 @@ namespace Main_computer
         public string GetVerificationKey(string userid)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "SELECT `verification_key` FROM `sessions` WHERE userid = @1;";
+            cmd.CommandText = "SELECT `verification_key` FROM `sessions` WHERE userid = @1 AND has_paid = 0 GROUP BY sessionid DESC LIMIT 1;";
             cmd.Parameters.AddWithValue("@1", userid);
             Connection.Open();
             cmd.ExecuteNonQuery();
@@ -391,9 +391,7 @@ namespace Main_computer
 
         private double MinutesDifference(long start, long end)
         {
-            TimeSpan startSpan = TimeSpan.FromTicks(start);
-            TimeSpan endSpan = TimeSpan.FromTicks(end);
-            return endSpan.TotalMinutes - startSpan.TotalMinutes;
+            return new TimeSpan(end - start).TotalMinutes;
         }
 
         public List<string> LoadStandIDs()

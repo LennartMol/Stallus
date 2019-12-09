@@ -333,7 +333,7 @@ namespace Main_computer
                     localSafe.Save(instances);
                 }
             }
-            else //This has to get better
+            else 
             {
                 procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
                 instances.Add(procedure);
