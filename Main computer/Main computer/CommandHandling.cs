@@ -273,19 +273,19 @@ namespace Main_computer
                 {
                     string send = $"ACK_BIKE_LOCKED:{found};";
                     SendMessageToSocket(send);
+                    cleared.Reverse();
+                    localSafe.Save(cleared);
                 }
                 else
                 {
                     string send = $"NACK_BIKE_LOCKED:{found};";
                     SendMessageToSocket(send);
                 }
-                cleared.Reverse();
-                localSafe.Save(cleared);
             }
             else
             {
                 instances.Reverse();
-                instances.Add(new LockProcedure(userid, LockProcedure.StartingWith.UserID));
+                instances.Add(new LockProcedure(stand_id, userid));
                 localSafe.Save(instances);
             }
         }
@@ -294,7 +294,7 @@ namespace Main_computer
         {
             foreach (LockProcedure lp in list)
             {
-                if (lp != procedureToKeep)
+                if (lp != procedureToKeep  && lp.StandID != procedureToKeep.StandID)
                 {
                     list.Remove(lp);
                 }
@@ -308,17 +308,32 @@ namespace Main_computer
             List<LockProcedure> instances = localSafe.Load();
             instances.Reverse();
             bool found = false;
+            string userid = "";
             foreach (LockProcedure procedure in instances)
             {
-                if (stand_id == procedure.StandID && procedure.IsLocked)
+                if (stand_id == procedure.StandID && procedure.IsLocked == false)
                 {
-                    string send = "lockBicycleStand";
-                    SendMessageToSerialPort(send);
                     found = true;
+                    procedure.IsLocked = true;
+                    userid = procedure.UserID;
                     break;
                 }
             }
-            if (!found)
+            if (found)
+            {
+                Verification ver = new Verification();
+                string verification_key = ver.GetNewKey();
+                LockProcedure newProcedure = new LockProcedure(stand_id, userid, verification_key);
+                if (Database.LockBikeStand(newProcedure)) 
+                {
+                    string send = "lockBicycleStand";
+                    SendMessageToSerialPort(send);
+                    instances.Reverse();
+                    instances.Add(newProcedure);
+                    localSafe.Save(instances);
+                }
+            }
+            else //This has to get better
             {
                 procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
                 instances.Add(procedure);

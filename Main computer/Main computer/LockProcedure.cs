@@ -38,6 +38,14 @@ namespace Main_computer
             IsLocked = false;
         }
 
+        public LockProcedure(string stand_id, string userid)
+        {
+            StandID = stand_id;
+            UserID = userid;
+            Key = null;
+            IsLocked = false;
+        }
+
         public override string ToString()
         {
             return $"{StandID}/{UserID}/{Key}/{IsLocked}";
