@@ -13,8 +13,9 @@ namespace Main_computer
         public string UserID { get; set; }
         public enum StartingWith { StandID, UserID }
         public StartingWith StartingType { get; private set; }
-        public string Key { get; set; }
+        public string Key { get; private set; }
         public bool IsLocked { get; set; }
+        public DateTime DateTime { get; private set; }
         public LockProcedure(string either, StartingWith type)
         {
             if (type == StartingWith.StandID)
@@ -28,6 +29,7 @@ namespace Main_computer
                 StandID = "";
             }
             IsLocked = false;
+            DateTime = DateTime.Now;
         }
 
         public LockProcedure(string stand_id, string userid, string key)
@@ -36,6 +38,7 @@ namespace Main_computer
             UserID = userid;
             Key = key;
             IsLocked = false;
+            DateTime = DateTime.Now;
         }
 
         public LockProcedure(string stand_id, string userid)
@@ -44,11 +47,12 @@ namespace Main_computer
             UserID = userid;
             Key = null;
             IsLocked = false;
+            DateTime = DateTime.Now;
         }
 
         public override string ToString()
         {
-            return $"{StandID}/{UserID}/{Key}/{IsLocked}";
+            return $"{StandID}/{UserID}/{Key}/{IsLocked}/{DateTime.ToString("hh:mm:ss DD-MM-YYYY")}";
         }
     }
 }

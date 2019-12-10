@@ -255,7 +255,7 @@ namespace Main_computer
             LockProcedure found;
             foreach (LockProcedure procedure in instances)
             {
-                if (procedure.StandID == stand_id)
+                if (procedure.StandID == stand_id && procedure.IsLocked == false)
                 {
                     sessionAbleToStart = true;
                     procedure.IsLocked = true;
@@ -271,14 +271,14 @@ namespace Main_computer
                 List<LockProcedure> cleared = ClearStandInstances(found, instances);
                 if (Database.LockBikeStand(found))
                 {
-                    string send = $"ACK_BIKE_LOCKED:{found};";
+                    string send = $"ACK_BIKE_LOCKED:{stand_id}/{userid};";
                     SendMessageToSocket(send);
                     cleared.Reverse();
                     localSafe.Save(cleared);
                 }
                 else
                 {
-                    string send = $"NACK_BIKE_LOCKED:{found};";
+                    string send = $"NACK_BIKE_LOCKED:{stand_id}/{userid};";
                     SendMessageToSocket(send);
                 }
             }

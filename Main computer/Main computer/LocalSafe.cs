@@ -11,11 +11,11 @@ namespace Main_computer
 {
     public class LocalSafe
     {
-        private readonly string path = "././LocalSafe/Instances.txt";
-        public List<LockProcedure> Instances { get; private set; }
+        private readonly string path = "../../../../LocalSafe/Instances.txt";
+        private List<LockProcedure> instances;
         public LocalSafe()
         {
-            Instances = new List<LockProcedure>();
+            instances = new List<LockProcedure>();
         }
 
         public void Save(List<LockProcedure> instances)
@@ -43,8 +43,8 @@ namespace Main_computer
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                Instances = (List<LockProcedure>)formatter.Deserialize(fs);
-                return Instances;
+                instances = (List<LockProcedure>)formatter.Deserialize(fs);
+                return instances;
             }
             catch (SerializationException e)
             {

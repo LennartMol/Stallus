@@ -65,7 +65,7 @@ namespace Main_computer
 
         private static void CommandCentre()
         {
-            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", "check db", string.Empty };
+            string[] commands = { "scrash", "config", "config socket", "config serial", "socket start", "serial start", "help", "check db", "sessions list" , string.Empty };
             while (!shuttingDown)
             {
                 string command = Console.ReadLine();
@@ -169,6 +169,18 @@ namespace Main_computer
                         else
                         {
                             Console.WriteLine($"{serverPrefix}Server has not been configured for Socket connection.");
+                        }
+                    }
+                    else if (command == "sessions list")
+                    {
+                        LocalSafe localSafe = new LocalSafe();
+                        List<LockProcedure> sessionlist = localSafe.Load();
+                        if (sessionlist.Count != 0)
+                        {
+                            foreach (LockProcedure lp in sessionlist)
+                            {
+                                Console.WriteLine(lp);
+                            }
                         }
                     }
                 }
