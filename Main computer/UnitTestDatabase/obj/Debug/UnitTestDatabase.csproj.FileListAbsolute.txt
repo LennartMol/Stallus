@@ -1,0 +1,13 @@
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\UnitTestDatabase.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\UnitTestDatabase.pdb
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\HBO\PTT\Main computer\UnitTestDatabase\bin\Debug\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\HBO\PTT\Main computer\UnitTestDatabase\obj\Debug\UnitTestDatabase.csprojAssemblyReference.cache
+D:\HBO\PTT\Main computer\UnitTestDatabase\obj\Debug\UnitTestDatabase.csproj.CopyComplete
+D:\HBO\PTT\Main computer\UnitTestDatabase\obj\Debug\UnitTestDatabase.dll
+D:\HBO\PTT\Main computer\UnitTestDatabase\obj\Debug\UnitTestDatabase.pdb
