@@ -48,14 +48,21 @@ namespace Stallus
             while (!received)
             {
                 int num = stream.Read(bytes, 0, bytes.Length);
-                ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
-                ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
-                if (ReceivedString.Contains("ACK"))
+                try
                 {
-                    received = true;
-                    
+                    ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
+                    ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
+                    if (ReceivedString.Contains("ACK"))
+                    {
+                        received = true;
+
+                    }
+                    ReceivedData = CommandStringTrimmer(ReceivedString);
                 }
-                ReceivedData = CommandStringTrimmer(ReceivedString);
+                catch (ArgumentOutOfRangeException)
+                {
+                    clientSock.Close();
+                }
             }
             clientSock.Close();
         }
