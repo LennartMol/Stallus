@@ -256,10 +256,11 @@ namespace Main_computer
         public bool LockBikeStand(LockProcedure lp)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `userid`, `lock_moment`, `verification_key`) VALUES(@1, @2, now(), @3);";
+            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `userid`, `lock_moment`, `verification_key`) VALUES(@1, @2, @3, @4);";
             cmd.Parameters.AddWithValue("@1", lp.StandID);
             cmd.Parameters.AddWithValue("@2", lp.UserID);
-            cmd.Parameters.AddWithValue("@3", lp.Key);
+            cmd.Parameters.AddWithValue("@3", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            cmd.Parameters.AddWithValue("@4", lp.Key);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
@@ -296,8 +297,9 @@ namespace Main_computer
         public bool UserPaidForBikeStand(string verification_key)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = now(), has_paid = !has_paid WHERE verification_key = @1;";
-            cmd.Parameters.AddWithValue("@1", verification_key);
+            cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = @1, has_paid = !has_paid WHERE verification_key = @2;";
+            cmd.Parameters.AddWithValue("@1", DateTime.Now.ToString());
+            cmd.Parameters.AddWithValue("@2", verification_key);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
@@ -311,7 +313,7 @@ namespace Main_computer
         public bool UserPaidForBikeStand(string verification_key, string userid)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "UPDATE `sessions` SET userid = @1, lock_moment = lock_moment, unlock_moment = now(), has_paid = !has_paid WHERE verification_key = @2;";
+            cmd.CommandText = "UPDATE `sessions` lock_moment = lock_moment, unlock_moment = now(), has_paid = !has_paid WHERE verification_key = @2;";
             cmd.Parameters.AddWithValue("@1", userid);
             cmd.Parameters.AddWithValue("@2", verification_key);
             Connection.Open();

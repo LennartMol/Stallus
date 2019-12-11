@@ -14,13 +14,13 @@ namespace Main_computer
         public Verification()
         {
             RNGCryptoService = new RNGCryptoServiceProvider();
-            Bytes = new byte[3];
+            Bytes = new byte[2];
         }
 
         public string GetNewKey()
         {
             RNGCryptoService.GetBytes(Bytes);
-            long key = Bytes[0] | Bytes[1] << 8 | Bytes[2] << 16;
+            long key = Bytes[0] | Bytes[1] << 8;
             return key.ToString();
         }
     }

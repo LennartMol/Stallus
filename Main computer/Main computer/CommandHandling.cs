@@ -83,14 +83,7 @@ namespace Main_computer
             }
             else if (Command.StartsWith("DB_USER_UNLOCKED"))
             {
-                if (Command.Contains("/"))
-                {
-                    BikeStandPaid_withUserID();
-                }
-                else
-                {
-                    BikeStandPaid();
-                }
+                BikeStandPaid();
             }
             else if (Command.StartsWith("DB_ADD_USERID_TO_SESSION"))
             {
@@ -99,6 +92,10 @@ namespace Main_computer
             else if (Command.StartsWith("DB_REQ_ALLSTANDID"))
             {
                 ReqAllStands();
+            }
+            else if (Command.StartsWith("DB_REQ_VERIFICATIONKEY"))
+            {
+                ReqVerificationKey();
             }
         }
 
@@ -292,9 +289,9 @@ namespace Main_computer
 
         private List<LockProcedure> ClearStandInstances(LockProcedure procedureToKeep, List<LockProcedure> list)
         {
-            foreach (LockProcedure lp in list)
+            foreach (LockProcedure lp in list.ToList())
             {
-                if (lp != procedureToKeep  && lp.StandID != procedureToKeep.StandID)
+                if (lp != procedureToKeep && lp.StandID != procedureToKeep.StandID)
                 {
                     list.Remove(lp);
                 }
@@ -306,39 +303,47 @@ namespace Main_computer
         {
             string stand_id = Data[0];
             List<LockProcedure> instances = localSafe.Load();
-            instances.Reverse();
-            bool found = false;
-            string userid = "";
-            foreach (LockProcedure procedure in instances)
+            //bool found = false;
+            //string userid = "";
+            for (int i = instances.Count - 1; i >= 0; i--)
             {
-                if (stand_id == procedure.StandID && procedure.IsLocked == false)
-                {
-                    found = true;
-                    procedure.IsLocked = true;
-                    userid = procedure.UserID;
-                    break;
-                }
-            }
-            if (found)
-            {
-                Verification ver = new Verification();
-                string verification_key = ver.GetNewKey();
-                LockProcedure newProcedure = new LockProcedure(stand_id, userid, verification_key);
-                if (Database.LockBikeStand(newProcedure)) 
+                if (instances[i].IsLocked)
                 {
                     string send = "lockBicycleStand";
                     SendMessageToSerialPort(send);
-                    instances.Reverse();
-                    instances.Add(newProcedure);
                     localSafe.Save(instances);
                 }
             }
-            else 
+            for (int i = instances.Count - 1; i >= 0; i--)
             {
-                procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
-                instances.Add(procedure);
-                localSafe.Save(instances);
+                if (instances[i].StandID == stand_id && instances[i].IsLocked == false)
+                {
+                    procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+                    instances.Add(procedure);
+                    localSafe.Save(instances);
+                    break;
+                }
             }
+            //if (found)
+            //{
+            //    Verification ver = new Verification();
+            //    string verification_key = ver.GetNewKey();
+            //    LockProcedure newProcedure = new LockProcedure(stand_id, userid, verification_key);
+            //    if (Database.LockBikeStand(newProcedure))
+            //    {
+            //        string send = "lockBicycleStand";
+            //        SendMessageToSerialPort(send);
+            //        instances.Reverse();
+            //        instances.Add(newProcedure);
+            //        localSafe.Save(instances);
+            //    }
+            //}
+            //else
+            //{
+            //    procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+            //    instances.Add(procedure);
+            //    localSafe.Save(instances);
+            //}
         }
 
         private void ReqPrice()
@@ -398,6 +403,22 @@ namespace Main_computer
             else
             {
                 string send = $"NACK_REQ_ALLSTANDID:;";
+                SendMessageToSocket(send);
+            }
+        }
+
+        private void ReqVerificationKey()
+        {
+            string userid = Data[0];
+            string verification_key = Database.GetVerificationKey(userid);
+            if (verification_key != null)
+            {
+                string send = $"ACK_REQ_VERIFICATIONKEY:{userid}/{verification_key};";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = $"NACK_REQ_VERIFICATIONKEY:{userid};";
                 SendMessageToSocket(send);
             }
         }
