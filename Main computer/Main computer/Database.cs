@@ -240,9 +240,10 @@ namespace Main_computer
         public bool AutoLockBikeStand(string stand_id, string verification_key)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `lock_moment`, `verification_key`) VALUES(@1, now(), @2);";
+            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `lock_moment`, `verification_key`) VALUES(@1, @2, @3);";
             cmd.Parameters.AddWithValue("@1", stand_id);
-            cmd.Parameters.AddWithValue("@2", verification_key);
+            cmd.Parameters.AddWithValue("@2", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            cmd.Parameters.AddWithValue("@3", verification_key);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
@@ -256,7 +257,7 @@ namespace Main_computer
         public bool LockBikeStand(LockProcedure lp)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO sessions (`stand_id`, `userid`, `lock_moment`, `verification_key`) VALUES(@1, @2, @3, @4);";
+            cmd.CommandText = "INSERT INTO `sessions`(`userid`, `stand_id`, `lock_moment`, `verification_key`) VALUES (@1, @2, @3, @4); UPDATE stands SET taken = true WHERE stand_id = @1;";
             cmd.Parameters.AddWithValue("@1", lp.StandID);
             cmd.Parameters.AddWithValue("@2", lp.UserID);
             cmd.Parameters.AddWithValue("@3", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));

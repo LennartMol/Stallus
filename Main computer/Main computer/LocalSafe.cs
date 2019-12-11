@@ -43,12 +43,10 @@ namespace Main_computer
             try
             {
                 BinaryFormatter formatter = new BinaryFormatter();
-                instances = (List<LockProcedure>)formatter.Deserialize(fs);
-                return instances;
+                return (List<LockProcedure>)formatter.Deserialize(fs);
             }
             catch (SerializationException)
             {
-                //Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
                 return new List<LockProcedure>();
             }
             finally
