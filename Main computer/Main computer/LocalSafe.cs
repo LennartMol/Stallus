@@ -46,9 +46,9 @@ namespace Main_computer
                 instances = (List<LockProcedure>)formatter.Deserialize(fs);
                 return instances;
             }
-            catch (SerializationException e)
+            catch (SerializationException)
             {
-                Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
+                //Console.WriteLine("Failed to deserialize. Reason: " + e.Message);
                 return new List<LockProcedure>();
             }
             finally

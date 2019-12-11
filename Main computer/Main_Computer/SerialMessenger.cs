@@ -117,7 +117,7 @@ namespace Main_Computer
             {
                 //try
                 //{
-                serialPort.Write(messageBuilder.MessageBeginMarker + message + messageBuilder.MessageEndMarker);
+                //serialPort.Write(messageBuilder.MessageBeginMarker + message + messageBuilder.MessageEndMarker);
                 return true;
                 //}
                 //catch (Exception exception) // Not very nice to catch Exception...but for now it's good enough.

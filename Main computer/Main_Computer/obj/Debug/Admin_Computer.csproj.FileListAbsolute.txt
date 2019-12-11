@@ -1,0 +1,9 @@
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Admin_Computer.csprojAssemblyReference.cache
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.Form1.resources
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.Properties.Resources.resources
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Admin_Computer.csproj.GenerateResource.cache
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.exe
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\obj\Debug\Main_Computer.pdb
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.exe.config
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.exe
+D:\GitHub\LennartMol\Stallus\Main computer\Main_Computer\bin\Debug\Main_Computer.pdb
