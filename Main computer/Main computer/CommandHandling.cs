@@ -274,26 +274,36 @@ namespace Main_computer
         {
             string stand_id = Data[0];
             List<LockProcedure> instances = localSafe.Load();
+            List<string> standIDsToSkip = new List<string>();
+            bool notFound = true;
             for (int i = instances.Count - 1; i >= 0; i--)
             {
-                if (instances[i].IsLocked)
+                if (instances[i].StandID == stand_id && instances[i].IsLocked && CheckIfStandAlreadyLocked(standIDsToSkip, instances[i].StandID))
                 {
+                    standIDsToSkip.Add(instances[i].StandID);
+                    notFound = false;
                     string send = "lockBicycleStand";
                     SendMessageToSerialPort(send);
-                    localSafe.Save(instances);
-                    break;
                 }
             }
-            for (int i = instances.Count - 1; i >= 0; i--)
+            if (notFound)
             {
-                if (instances[i].StandID == stand_id && instances[i].IsLocked == false)
+                procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+                instances.Add(procedure);
+            }
+            localSafe.Save(instances);
+        }
+
+        private bool CheckIfStandAlreadyLocked(List<string> stands, string stand)
+        {
+            foreach (string s in stands)
+            {
+                if (s == stand)
                 {
-                    procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
-                    instances.Add(procedure);
-                    localSafe.Save(instances);
-                    break;
+                    return true;
                 }
             }
+            return false;
         }
 
         private void ReqPrice()
