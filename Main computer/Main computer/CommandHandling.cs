@@ -75,7 +75,7 @@ namespace Main_computer
             }
             else if (Command.StartsWith("DB_STAND_DISCONNECTED"))
             {
-                AssumeNewSessionStarting_fromStand();
+                ProcessLockProcedure();
             }
             else if (Command.StartsWith("DB_REQ_PRICE"))
             {
@@ -246,104 +246,64 @@ namespace Main_computer
         {
             string stand_id = Data[0];
             string userid = Data[1];
-            bool sessionAbleToStart = false;
             List<LockProcedure> instances = localSafe.Load();
-            instances.Reverse();
-            LockProcedure found;
-            foreach (LockProcedure procedure in instances)
+            for (int i = instances.Count - 1; i >= 0; i--)
             {
-                if (procedure.StandID == stand_id && procedure.IsLocked == false)
+                if (instances[i].IsLocked == false && instances[i].StandID == stand_id)
                 {
-                    sessionAbleToStart = true;
-                    procedure.IsLocked = true;
-                    break;
+                    instances[i].UserID = userid;
+                    Verification ver = new Verification();
+                    instances[i].Key = ver.GetNewKey();
+                    if (Database.LockBikeStand(instances[i]))
+                    {
+                        instances[i].IsLocked = true;
+                        localSafe.Save(instances);
+                        string send = $"ACK_BIKE_LOCKED:{stand_id}/{userid};";
+                        SendMessageToSocket(send);
+                    }
+                    else
+                    {
+                        string send = $"NACK_BIKE_LOCKED:{stand_id}/{userid};";
+                        SendMessageToSocket(send);
+                    }
                 }
-            }
-            if (sessionAbleToStart)
-            {
-                Verification ver = new Verification();
-                string verification_key = ver.GetNewKey();
-                found = new LockProcedure(stand_id, userid, verification_key);
-                instances.Add(found);
-                List<LockProcedure> cleared = ClearStandInstances(found, instances);
-                if (Database.LockBikeStand(found))
-                {
-                    string send = $"ACK_BIKE_LOCKED:{stand_id}/{userid};";
-                    SendMessageToSocket(send);
-                    cleared.Reverse();
-                    localSafe.Save(cleared);
-                }
-                else
-                {
-                    string send = $"NACK_BIKE_LOCKED:{stand_id}/{userid};";
-                    SendMessageToSocket(send);
-                }
-            }
-            else
-            {
-                instances.Reverse();
-                instances.Add(new LockProcedure(stand_id, userid));
-                localSafe.Save(instances);
             }
         }
 
-        private List<LockProcedure> ClearStandInstances(LockProcedure procedureToKeep, List<LockProcedure> list)
-        {
-            foreach (LockProcedure lp in list.ToList())
-            {
-                if (lp != procedureToKeep && lp.StandID != procedureToKeep.StandID)
-                {
-                    list.Remove(lp);
-                }
-            }
-            return list;
-        }
-
-        private void AssumeNewSessionStarting_fromStand()
+        private void ProcessLockProcedure()
         {
             string stand_id = Data[0];
             List<LockProcedure> instances = localSafe.Load();
-            //bool found = false;
-            //string userid = "";
+            List<string> standIDsToSkip = new List<string>();
+            bool notFound = true;
             for (int i = instances.Count - 1; i >= 0; i--)
             {
-                if (instances[i].IsLocked)
+                if (instances[i].StandID == stand_id && instances[i].IsLocked && CheckIfStandAlreadyLocked(standIDsToSkip, instances[i].StandID))
                 {
+                    standIDsToSkip.Add(instances[i].StandID);
+                    notFound = false;
                     string send = "lockBicycleStand";
                     SendMessageToSerialPort(send);
-                    localSafe.Save(instances);
                 }
             }
-            for (int i = instances.Count - 1; i >= 0; i--)
+            if (notFound)
             {
-                if (instances[i].StandID == stand_id && instances[i].IsLocked == false)
+                procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+                instances.Add(procedure);
+            }
+            localSafe.Save(instances);
+        }
+
+        private bool CheckIfStandAlreadyLocked(List<string> stands, string stand)
+        {
+            foreach (string s in stands)
+            {
+                if (s == stand)
                 {
-                    procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
-                    instances.Add(procedure);
-                    localSafe.Save(instances);
-                    break;
+                    return true;
                 }
             }
-            //if (found)
-            //{
-            //    Verification ver = new Verification();
-            //    string verification_key = ver.GetNewKey();
-            //    LockProcedure newProcedure = new LockProcedure(stand_id, userid, verification_key);
-            //    if (Database.LockBikeStand(newProcedure))
-            //    {
-            //        string send = "lockBicycleStand";
-            //        SendMessageToSerialPort(send);
-            //        instances.Reverse();
-            //        instances.Add(newProcedure);
-            //        localSafe.Save(instances);
-            //    }
-            //}
-            //else
-            //{
-            //    procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
-            //    instances.Add(procedure);
-            //    localSafe.Save(instances);
-            //}
+            return false;
         }
 
         private void ReqPrice()
