@@ -194,7 +194,8 @@ namespace Main_computer
             string userid = Data[0];
             string[] columns = ValuesStringTrimmer(Data[1]);
             string[] newValues = ValuesStringTrimmer(Data[2]);
-            if (Database.UpdateUserDetails(userid, columns, newValues))
+            string[] cleanValues = GetCleanValues(columns, newValues);
+            if (Database.UpdateUserDetails(userid, columns, cleanValues))
             {
                 string send = $"ACK_UPDATE_DETAILS:{userid};";
                 SendMessageToSocket(send);
@@ -204,6 +205,27 @@ namespace Main_computer
                 string send = $"NACK_UPDATE_DETAILS:{userid};";
                 SendMessageToSocket(send);
             }
+        }
+
+        private string[] GetCleanValues(string[] columns, string[] newValues)
+        {
+            string[] cleanValues = new string[columns.Length];
+            for (int i = 0; i < columns.Length; i++)
+            {
+                if (columns[i] == "date_of_birth")
+                {
+                    cleanValues[i] = ParseDateTime(newValues[i]).ToString();
+                }
+                else if (columns[i] == "physical_address")
+                {
+                    cleanValues[i] = ParseAddress(newValues[i]).ToString();
+                }
+                else
+                {
+                    cleanValues[i] = newValues[i];
+                }
+            }
+            return cleanValues;
         }
 
         private void ChangeBalance()

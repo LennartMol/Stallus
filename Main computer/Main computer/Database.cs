@@ -257,11 +257,12 @@ namespace Main_computer
         public bool LockBikeStand(LockProcedure lp)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO `sessions`(`userid`, `stand_id`, `lock_moment`, `verification_key`) VALUES (@1, @2, @3, @4); UPDATE stands SET taken = true WHERE stand_id = @1;";
-            cmd.Parameters.AddWithValue("@1", lp.StandID);
-            cmd.Parameters.AddWithValue("@2", lp.UserID);
+            cmd.CommandText = "INSERT INTO `sessions`(`userid`, `stand_id`, `lock_moment`, `verification_key`) VALUES (@1, @2, @3, @4); UPDATE stands SET taken = true WHERE stand_id = @5;"; //
+            cmd.Parameters.AddWithValue("@1", lp.UserID);
+            cmd.Parameters.AddWithValue("@2", lp.StandID);
             cmd.Parameters.AddWithValue("@3", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             cmd.Parameters.AddWithValue("@4", lp.Key);
+            cmd.Parameters.AddWithValue("@5", lp.StandID);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
