@@ -249,6 +249,7 @@ namespace Main_computer
         private void BikeAutoLocked()
         {
             string stand_id = Data[0];
+            List<LockProcedure> instances = localSafe.Load();
             Verification ver = new Verification();
             string verification_key = ver.GetNewKey();
             if (Database.AutoLockBikeStand(stand_id, verification_key))
@@ -261,6 +262,8 @@ namespace Main_computer
                 string send = $"NACK_BIKE_LOCKED:{stand_id};";
                 SendMessageToSerialPort(send);
             }
+            instances.Add(new LockProcedure(stand_id, verification_key));
+            localSafe.Save(instances);
         }
 
         private void LockBike()
@@ -365,14 +368,28 @@ namespace Main_computer
         {
             string verification_key = Data[0];
             string stand_id = Database.GetStandID_linkedToKey(verification_key);
+            List<LockProcedure> instances = localSafe.Load();
             if (stand_id != null)
             {
                 if (Database.UserPaidForBikeStand(verification_key))
                 {
                     string send = $"unlockBicycleStand";
                     SendMessageToSerialPort(send);
+                    localSafe.Save(ClearAllInstancesForStand(instances, stand_id));
                 }
             }
+        }
+
+        private List<LockProcedure> ClearAllInstancesForStand(List<LockProcedure> instances, string standId_ToDelete)
+        {
+            foreach (LockProcedure lp in instances)
+            {
+                if (lp.StandID == standId_ToDelete)
+                {
+                    instances.Remove(lp);
+                }
+            }
+            return instances;
         }
 
         private void ReqAllStands()

@@ -32,21 +32,12 @@ namespace Main_computer
             DateTime = DateTime.Now;
         }
 
-        public LockProcedure(string stand_id, string userid, string key)
+        public LockProcedure(string stand_id, string key)
         {
             StandID = stand_id;
-            UserID = userid;
+            UserID = "";
             Key = key;
-            IsLocked = false;
-            DateTime = DateTime.Now;
-        }
-
-        public LockProcedure(string stand_id, string userid)
-        {
-            StandID = stand_id;
-            UserID = userid;
-            Key = null;
-            IsLocked = false;
+            IsLocked = true;
             DateTime = DateTime.Now;
         }
 
