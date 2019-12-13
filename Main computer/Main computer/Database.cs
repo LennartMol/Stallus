@@ -36,7 +36,7 @@ namespace Main_computer
         public bool Registrate(string firstName, string lastName, DateTime date_of_birth, string email_address, string password, Address address)
         {
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `password`, `physical_address`) VALUES (@1, @2, @3, @4, @5, @6);";
+            cmd.CommandText = "INSERT INTO users (`first_name`, `last_name`, `date_of_birth`, `email_address`, `password`, `physical_address`, `balance`) VALUES (@1, @2, @3, @4, @5, @6, 0);";
             cmd.Parameters.AddWithValue("@1", firstName);
             cmd.Parameters.AddWithValue("@2", lastName);
             cmd.Parameters.AddWithValue("@3", date_of_birth);
@@ -299,7 +299,7 @@ namespace Main_computer
         {
             MySqlCommand cmd = Connection.CreateCommand();
             cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = @1, has_paid = !has_paid WHERE verification_key = @2;";
-            cmd.Parameters.AddWithValue("@1", DateTime.Now.ToString());
+            cmd.Parameters.AddWithValue("@1", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             cmd.Parameters.AddWithValue("@2", verification_key);
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();

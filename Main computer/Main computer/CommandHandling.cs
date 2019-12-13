@@ -14,7 +14,6 @@ namespace Main_computer
         public Socket ClientSocket { get; private set; }
         public Database Database { get; private set; }
         public SerialMessenger SerialMessenger { get; private set; }
-        private LockProcedure procedure;
         private LocalSafe localSafe;
 
         public CommandHandling(string command, Socket clientSocket)
@@ -260,11 +259,13 @@ namespace Main_computer
                         localSafe.Save(instances);
                         string send = $"ACK_BIKE_LOCKED:{stand_id}/{userid};";
                         SendMessageToSocket(send);
+                        break;
                     }
                     else
                     {
                         string send = $"NACK_BIKE_LOCKED:{stand_id}/{userid};";
                         SendMessageToSocket(send);
+                        break;
                     }
                 }
             }
@@ -278,7 +279,7 @@ namespace Main_computer
             bool notFound = true;
             for (int i = instances.Count - 1; i >= 0; i--)
             {
-                if (instances[i].StandID == stand_id && instances[i].IsLocked && CheckIfStandAlreadyLocked(standIDsToSkip, instances[i].StandID))
+                if (instances[i].StandID == stand_id && instances[i].IsLocked && !CheckIfStandAlreadyLocked(standIDsToSkip, instances[i].StandID))
                 {
                     standIDsToSkip.Add(instances[i].StandID);
                     notFound = false;
@@ -288,7 +289,7 @@ namespace Main_computer
             }
             if (notFound)
             {
-                procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
+                LockProcedure procedure = new LockProcedure(stand_id, LockProcedure.StartingWith.StandID);
                 instances.Add(procedure);
             }
             localSafe.Save(instances);
@@ -373,7 +374,9 @@ namespace Main_computer
             string verification_key = Database.GetVerificationKey(userid);
             if (verification_key != null)
             {
-                string send = $"ACK_REQ_VERIFICATIONKEY:{userid}/{verification_key};";
+                uint uid = Convert.ToUInt32(userid);
+                uint ver = Convert.ToUInt32(verification_key);
+                string send = $"ACK_REQ_VERIFICATIONKEY:{(uid <<16) | ver};";
                 SendMessageToSocket(send);
             }
             else
@@ -421,7 +424,6 @@ namespace Main_computer
         private DateTime ParseDateTime(string date)
         {
             List<int> divisor_indexes = GetDivisorIndexes(date);
-
             int year = Convert.ToInt32(date.Substring(divisor_indexes[1] + 1));
             int month = Convert.ToInt32(date.Substring(divisor_indexes[0] + 1, divisor_indexes[1] - divisor_indexes[0] - 1));
             int day = Convert.ToInt32(date.Substring(0, divisor_indexes[0]));
