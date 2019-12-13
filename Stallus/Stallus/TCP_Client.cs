@@ -8,7 +8,7 @@ using System.Net.Sockets;
 
 namespace Stallus
 {
-    class TCP_Client
+    public class TCP_Client
     {
         TcpClient clientSock;
         public int Port { get; private set; }
@@ -25,13 +25,14 @@ namespace Stallus
         {
             try
             {
-                clientSock.Connect(Settings.IPAddress, Port);
+                //clientSock.Connect(Settings.IPAddress, Port);
                 SendMessage("DB_CHECK:;");
-                clientSock.Close();
+                //clientSock.Close();
                 return true;
             }
             catch
             {
+                clientSock.Close();
                 return false;
             }
         }
@@ -91,9 +92,9 @@ namespace Stallus
             }
         }
 
-        public User ReqUser(string userid)
+        public User ReqUser(string userId)
         {
-            SendMessage($"DB_REQ_USER:{userid};");
+            SendMessage($"DB_REQ_USER:{userId};");
             string first_name = ReceivedData[1];
             string last_name = ReceivedData[2];
             DateTime date_of_birth = ParseBirthDate(ReceivedData[3]);
@@ -101,7 +102,7 @@ namespace Stallus
             string password = ReceivedData[5];
             Address address = ParseAddress(ReceivedData[6]);
             decimal balance = Convert.ToDecimal(ReceivedData[7]);
-            return new User(userid, first_name, last_name, date_of_birth, email_address, password, address, balance);
+            return new User(userId, first_name, last_name, date_of_birth, email_address, password, address, balance);
         }
 
         public bool Registrate(string first_name, string last_name, DateTime date_of_birth, string email, string password, Address address)
@@ -247,41 +248,38 @@ namespace Stallus
             return null;
         }
 
-        public string[] ChangeDetails(string colums, string values)
+        public bool ChangeDetails(User loggedInUser, List<string> columns, List<string> values)
         {
-            string[] columNames = ValuesStringTrimmer(colums);
-            string[] newValues = ValuesStringTrimmer(values);
-            string command = "DB_UPDATE_DETAILS:";
-            for (int i = 0; i < columNames.Length; i++)
+            string command = $"DB_UPDATE_DETAILS:{loggedInUser.UserId}/";
+            for (int i = 0; i < columns.Count; i++)
             {
-                if (i + 1 == columNames.Length)
+                if (i + 1 == columns.Count)
                 {
-                    command += columNames[i] + "/";
+                    command += columns[i] + "/";
                 }
                 else
                 {
-                    command += columNames[i] + "%";
+                    command += columns[i] + "%";
                 }
             }
-            for (int i = 0; i < newValues.Length; i++)
+            for (int i = 0; i < values.Count; i++)
             {
-                if (i + 1 == newValues.Length)
+                if (i + 1 == values.Count)
                 {
-                    command += newValues[i] + ";";
+                    command += values[i] + ";";
                 }
                 else
                 {
-                    command += newValues[i] + "%";
+                    command += values[i] + "%";
                 }
             }
             SendMessage(command);
-            //GetMessage();
 
             if (ReceivedString.Contains("ACK"))
             {
-
+                return true;
             }
-            return null;
+            return false;
         }
 
     }
