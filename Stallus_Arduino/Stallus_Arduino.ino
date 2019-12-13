@@ -1,32 +1,28 @@
-// bron: https://learn.adafruit.com/ir-breakbeam-sensors/arduino
-
 #include <Servo.h>
 #include <Stream.h>
 #include <Wire.h>
-Servo myservo;  // create servo object to control a servo
+
+Servo bikeLock;
 
 #define SENSORPIN 4 
+#define SERVOPIN 8 
 
-int pos =0; // variable to store the servo position
-//const int buttonPin = 2;  // the number of the pushbutton pin
+int pos = 0;
 bool isLocked = false;
 long timeAvailable;
 
 void setup() {
-  // put your setup code here, to run once:
-  //pinMode(buttonPin, INPUT);
   pinMode(SENSORPIN, INPUT);     
-  digitalWrite(SENSORPIN, HIGH); // turn on the pullup
-  myservo.attach(8);  // attaches the servo on pin 8 to the servo object
-  myservo.write(pos);   
-  //Serial.setTimeout(20);
+  digitalWrite(SENSORPIN, HIGH); 
+  
+  bikeLock.attach(SERVOPIN); 
+  bikeLock.write(pos);   
+  
   Serial.begin(9600);
-  //use pins A4 & A5
-  Wire.begin();        // join i2c bus (address optional for master)
+  Wire.begin();
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
   CheckForSerialCom();
   CheckForSlaveCom();
   DetectBicycleAvailable_TimeExpired();

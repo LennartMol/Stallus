@@ -78,6 +78,7 @@ namespace Stallus
                 }
             }
             else MessageBox.Show("Problem with connecting to the server");
+            lSaldo.Text = loggedinUser.Balance.ToString();
         }
 
         private void ProcessAllStandId()
@@ -92,10 +93,8 @@ namespace Stallus
         {
             List<TextBox> textBoxes = new List<TextBox>();
             List<string> textBoxInfo = new List<string>();
-            string[] columNames = new string[8];
-            string[] newValues = new string[8];
-            int index = 0;
-
+            List<string> columnNames = new List<string>();
+            List<string> newValues = new List<string>();
             foreach (Control control in tpAcount.Controls)
             {
                 if (control is TextBox)
@@ -108,72 +107,70 @@ namespace Stallus
 
             foreach (TextBox tb in textBoxes)
             {
-                if ((string)tb.Tag == "first_name")
+                if (!string.IsNullOrWhiteSpace(tb.Text))
                 {
-                    if (tb.Text != loggedinUser.FirstName)
+                    if ((string)tb.Tag == "first_name")
                     {
-                        columNames[index] = tb.Tag + "%";
-                        newValues[index] = tb.Text;
-                        index++;
+                        if (tb.Text != loggedinUser.FirstName)
+                        {
+                            columnNames.Add(tb.Tag.ToString());
+                            newValues.Add(tb.Text);
+                        }
                     }
-                }
-                else if ((string)tb.Tag == "last_name")
-                {
-                    if (tb.Text != loggedinUser.LastName)
+                    else if ((string)tb.Tag == "last_name")
                     {
-                        columNames[index] = tb.Tag + "%";
-                        newValues[index] = tb.Text;
-                        index++;
+                        if (tb.Text != loggedinUser.LastName)
+                        {
+                            columnNames.Add(tb.Tag.ToString());
+                            newValues.Add(tb.Text);
+                        }
                     }
-                }
-                else if ((string)tb.Tag == "email_address")
-                {
-                    if (tb.Text != loggedinUser.Email)
+                    else if ((string)tb.Tag == "email_address")
                     {
-                        columNames[index] = tb.Tag + "%";
-                        newValues[index] = tb.Text;
-                        index++;
+                        if (tb.Text != loggedinUser.Email)
+                        {
+                            columnNames.Add(tb.Tag.ToString());
+                            newValues.Add(tb.Text);
+                        }
                     }
-                }
-                else if ((string)tb.Tag == "password")
-                {
-                    if (tb.Text != loggedinUser.Password)
+                    else if ((string)tb.Tag == "password")
                     {
-                        columNames[index] = tb.Tag + "%";
-                        newValues[index] = tb.Text;
-                        index++;
+                        if (tb.Text != loggedinUser.Password)
+                        {
+                            columnNames.Add(tb.Tag.ToString());
+                            newValues.Add(tb.Text);
+                        }
                     }
-                }
-                else if ((string)tb.Tag == "street" || (string)tb.Tag == "number" || (string)tb.Tag == "zipcode" || (string)tb.Tag == "city" || (string)tb.Tag == "country")
-                {
-                    Address address = loggedinUser.Address;
-                    if (!loggedinUser.Address.ToString().Contains(tbStreet.Text))
+                    else if ((string)tb.Tag == "street" || (string)tb.Tag == "number" || (string)tb.Tag == "zipcode" || (string)tb.Tag == "city" || (string)tb.Tag == "country")
                     {
-                        address.ChangeStreet(tb.Text);
+                        Address address = loggedinUser.Address;
+                        if (!loggedinUser.Address.ToString().Contains(tbStreet.Text))
+                        {
+                            address.ChangeStreet(tb.Text);
+                        }
+                        else if (!loggedinUser.Address.ToString().Contains(tbNumber.Text))
+                        {
+                            address.ChangeNumber(tb.Text);
+                        }
+                        else if (!loggedinUser.Address.ToString().Contains(tbZipcode.Text))
+                        {
+                            address.ChangeZipcode(tb.Text);
+                        }
+                        else if (!loggedinUser.Address.ToString().Contains(tbCity.Text))
+                        {
+                            address.ChangeCity(tb.Text);
+                        }
+                        else if (!loggedinUser.Address.ToString().Contains(tbCountry.Text))
+                        {
+                            address.ChangeCounty(tb.Text);
+                        }
+                        columnNames.Add("physical_address");
+                        newValues.Add(address.ToString());
+
                     }
-                    else if (!loggedinUser.Address.ToString().Contains(tbNumber.Text))
-                    {
-                        address.ChangeNumber(tb.Text);
-                    }
-                    else if (!loggedinUser.Address.ToString().Contains(tbZipcode.Text))
-                    {
-                        address.ChangeZipcode(tb.Text);
-                    }
-                    else if (!loggedinUser.Address.ToString().Contains(tbCity.Text))
-                    {
-                        address.ChangeCity(tb.Text);
-                    }
-                    else if (!loggedinUser.Address.ToString().Contains(tbCountry.Text))
-                    {
-                        address.ChangeCounty(tb.Text);
-                    }
-                    columNames[index] = "physical_address";
-                    newValues[index] = address.ToString();
-                    index++;
                 }
             }
-
-
+            client.ChangeDetails(loggedinUser, columnNames, newValues);
 
         }
 

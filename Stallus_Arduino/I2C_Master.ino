@@ -33,8 +33,8 @@ uint32_t StringToUInt32(String stringToConvert) {
 }
 
 void SlaveMessageHandler(String slaveMessage) {
-  Serial.println(slaveMessage);
+  sendMessageToServer(slaveMessage);
   String userid = (String)(StringToUInt32(slaveMessage) >> 16);
   String key = (String)(StringToUInt32(slaveMessage) & 0b01111111111111111);
-  Serial.println("#DB_USER_UNLOCKED:" + key + "/" + userid + "%");
+  sendMessageToServer("#DB_USER_UNLOCKED:" + key + "/" + userid + "%");
 }
