@@ -25,12 +25,6 @@ namespace Stallus
                 Country = country;
             }
         }
-
-        public override string ToString()
-        {
-            return $"{Street}_{Number}_{Zipcode}_{City}_{Country}";
-        }
-
         public void ChangeStreet(string changedStreet)
         {
             Street = changedStreet;
@@ -50,6 +44,11 @@ namespace Stallus
         public void ChangeCounty(string changedCountry)
         {
             Country = changedCountry;
+        }
+
+        public override string ToString()
+        {
+            return $"{Street}_{Number}_{Zipcode}_{City}_{Country}";
         }
 
     }

@@ -172,8 +172,6 @@ namespace Stallus
             }
             client.ChangeDetails(loggedinUser, columnNames, newValues);
 
-
-
         }
 
 
