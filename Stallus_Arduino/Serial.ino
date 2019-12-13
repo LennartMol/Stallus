@@ -23,15 +23,19 @@ void CheckForSerialCom() {
 }
 
 void MessageHandler(String message) {
-  Serial.println(message);
+  sendMessageToServer(message);
   if (message == "unlockBicycleStand")
   {
     servoUnLock();
-    Serial.println("bicycleIsUnlocked");
+    sendMessageToServer("bicycleIsUnlocked");
   }
   if (message == "lockBicycleStand")
   {
     servoLock();
-    Serial.println("bicycleIslocked");
+    sendMessageToServer("bicycleIslocked");
   }
+}
+
+void sendMessageToServer(String message){
+  Serial.println(message);
 }
