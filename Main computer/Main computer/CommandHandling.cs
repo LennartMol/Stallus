@@ -84,10 +84,6 @@ namespace Main_computer
             {
                 BikeStandPaid();
             }
-            else if (Command.StartsWith("DB_ADD_USERID_TO_SESSION"))
-            {
-
-            }
             else if (Command.StartsWith("DB_REQ_ALLSTANDID"))
             {
                 ReqAllStands();
@@ -96,11 +92,10 @@ namespace Main_computer
             {
                 ReqVerificationKey();
             }
-        }
-
-        public void ArduinoCommandsHandler()
-        {
-
+            else if (Command.StartsWith("DB_CHECK_EXSISTING_SESSION_USER"))
+            {
+                CheckForExistingSessionUser();
+            }
         }
 
         private void SendMessageToSocket(string message)
@@ -421,6 +416,31 @@ namespace Main_computer
             else
             {
                 string send = $"NACK_REQ_VERIFICATIONKEY:{userid};";
+                SendMessageToSocket(send);
+            }
+        }
+
+        private void CheckForExistingSessionUser()
+        {
+            string userid = Data[0];
+            List<LockProcedure> instances = localSafe.Load();
+            LockProcedure found = null;
+            foreach (LockProcedure lp in instances)
+            {
+                if (lp.UserID == userid)
+                {
+                    found = lp;
+                    break;
+                }
+            }
+            if (found != null)
+            {
+                string send = $"ACK_CHECK_EXSISTING_SESSION_USER:{userid}/{found.StandID}/{found.DateTime.ToString("hh_mm_ss_dd_MM_yyyy")};";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = $"NACK_CHECK_EXISTING_SESSION_USER:{userid};";
                 SendMessageToSocket(send);
             }
         }
