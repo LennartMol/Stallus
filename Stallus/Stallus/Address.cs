@@ -28,7 +28,7 @@ namespace Stallus
 
         public override string ToString()
         {
-            return $"{Street} {Number}, {Zipcode}, {City}, {Country}";
+            return $"{Street}_{Number}_{Zipcode}_{City}_{Country}";
         }
 
         public void ChangeStreet(string changedStreet)

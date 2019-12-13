@@ -110,7 +110,7 @@ namespace Stallus
             {
                 if (CheckConnection())
                 {
-                    SendMessage($"DB_INSERT_REGISTRATE:{first_name}/{last_name}/{date_of_birth}/{email}/{address}/{password}");
+                    SendMessage($"DB_INSERT_REGISTRATE:{first_name}/{last_name}/{date_of_birth.Day}_{date_of_birth.Month}_{date_of_birth.Year}/{email}/{password}/{address};");
                     if (ReceivedString.StartsWith("ACK"))
                     {
                         return true;
@@ -227,7 +227,6 @@ namespace Stallus
         public decimal Req_Price(User loggedInUser)
         {
             SendMessage($"DB_REQ_PRICE:{loggedInUser.UserId};");
-            //GetMessage();
             if (ReceivedString.Contains("ACK"))
             {
                 decimal price;
@@ -243,7 +242,7 @@ namespace Stallus
             SendMessage($"DB_REQ_VERIFICATIONKEY:{loggedInUser.UserId};");
             if (ReceivedString.Contains("ACK"))
             {
-                return ReceivedData[1];
+                return ReceivedData[0];
             }
             return null;
         }

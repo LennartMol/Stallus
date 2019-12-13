@@ -443,7 +443,7 @@
             this.btnChangeDetails.Location = new System.Drawing.Point(227, 354);
             this.btnChangeDetails.Name = "btnChangeDetails";
             this.btnChangeDetails.Size = new System.Drawing.Size(110, 42);
-            this.btnChangeDetails.TabIndex = 9;
+            this.btnChangeDetails.TabIndex = 10;
             this.btnChangeDetails.Text = "Change details";
             this.btnChangeDetails.UseVisualStyleBackColor = true;
             this.btnChangeDetails.Click += new System.EventHandler(this.btnChangeDetails_Click);
