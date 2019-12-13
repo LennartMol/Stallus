@@ -28,10 +28,17 @@ namespace Stallus
 
         private void BtnLockBicycle_Click(object sender, EventArgs e)
         {
-            if (client.LockBike(cbStandIds.Text, loggedinUser))
+            try
             {
-                DateTime time = DateTime.Now;
-                lInCheckTime.Text = time.ToShortTimeString();
+                if (client.LockBike(cbStandIds.Text, loggedinUser))
+                {
+                    DateTime time = DateTime.Now;
+                    lInCheckTime.Text = time.ToShortTimeString();
+                }
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                MessageBox.Show(ex.Message + "No message received");
             }
         }
 
@@ -41,6 +48,11 @@ namespace Stallus
             {
                 QRcode qRcode = new QRcode(client.Req_VerificationKey(loggedinUser));
                 pbQRCode.Image = qRcode.GenerateQrCode();
+            }
+            else
+            {
+                MessageBox.Show("Not enough balance");
+                tpSaldo.Show();
             }
         }
 
@@ -84,7 +96,7 @@ namespace Stallus
             string[] newValues = new string[8];
             int index = 0;
 
-            foreach (Control control in tabPage3.Controls)
+            foreach (Control control in tpAcount.Controls)
             {
                 if (control is TextBox)
                 {

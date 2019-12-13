@@ -1,10 +1,10 @@
-int currentState = 0;
+//int currentState = 0;
 int previousState = 0;
 long wait = 30000;
 
 void DetectBicycle()
 {
-  currentState = digitalRead(SENSORPIN);
+  int currentState = digitalRead(SENSORPIN);
   if(currentState == HIGH){
   }
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present

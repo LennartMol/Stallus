@@ -47,22 +47,30 @@ namespace Stallus
             bool received = false;
             while (!received)
             {
-                int num = stream.Read(bytes, 0, bytes.Length);
                 try
                 {
+                    int num = stream.Read(bytes, 0, bytes.Length);
                     ReceivedString = Encoding.ASCII.GetString(bytes, 0, num);
+                }
+                catch (ObjectDisposedException)
+                {
+                    clientSock.Close();
+                }
+                try
+                {
                     ReceivedString = ReceivedString.Substring(0, ReceivedString.IndexOf(';'));
-                    if (ReceivedString.Contains("ACK"))
-                    {
-                        received = true;
-
-                    }
-                    ReceivedData = CommandStringTrimmer(ReceivedString);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
                     clientSock.Close();
                 }
+                Console.WriteLine(ReceivedString);
+                if (ReceivedString.Contains("ACK"))
+                {
+                    received = true;
+
+                }
+                ReceivedData = CommandStringTrimmer(ReceivedString);
             }
             clientSock.Close();
         }
@@ -184,7 +192,6 @@ namespace Stallus
         public void ChangeBalance(User loggedinUser, decimal value)
         {
             SendMessage($"DB_CHANGE_BALANCE:{loggedinUser.UserId}/{value};");
-            //GetMessage();
             if (ReceivedString.Contains("ACK"))
             {
                 decimal newbalance;
@@ -225,7 +232,7 @@ namespace Stallus
             {
                 decimal price;
                 if (decimal.TryParse(ReceivedData[1], out price))
-                return price;
+                    return price;
             }
             return 0;
         }
@@ -234,7 +241,6 @@ namespace Stallus
         public string Req_VerificationKey(User loggedInUser)
         {
             SendMessage($"DB_REQ_VERIFICATIONKEY:{loggedInUser.UserId};");
-            //GetMessage();
             if (ReceivedString.Contains("ACK"))
             {
                 return ReceivedData[1];

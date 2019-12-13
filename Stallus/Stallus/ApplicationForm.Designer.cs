@@ -28,18 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lOutCheckTime = new System.Windows.Forms.Label();
             this.btnUnlockBicycle = new System.Windows.Forms.Button();
             this.tcApplication = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tpStand = new System.Windows.Forms.TabPage();
             this.cbStandIds = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lShowString = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pbQRCode = new System.Windows.Forms.PictureBox();
             this.btnLockBicycle = new System.Windows.Forms.Button();
             this.lInCheckTime = new System.Windows.Forms.Label();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tpSaldo = new System.Windows.Forms.TabPage();
             this.rb20 = new System.Windows.Forms.RadioButton();
             this.rb15 = new System.Windows.Forms.RadioButton();
             this.rb10 = new System.Windows.Forms.RadioButton();
@@ -47,7 +45,7 @@
             this.btnRaiseBalance = new System.Windows.Forms.Button();
             this.lSaldo = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tpAcount = new System.Windows.Forms.TabPage();
             this.label12 = new System.Windows.Forms.Label();
             this.tbCountry = new System.Windows.Forms.TextBox();
             this.tbFirstname = new System.Windows.Forms.TextBox();
@@ -68,20 +66,11 @@
             this.btnChangeDetails = new System.Windows.Forms.Button();
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.tcApplication.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tpStand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
+            this.tpSaldo.SuspendLayout();
+            this.tpAcount.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // lOutCheckTime
-            // 
-            this.lOutCheckTime.AutoSize = true;
-            this.lOutCheckTime.Location = new System.Drawing.Point(245, 80);
-            this.lOutCheckTime.Name = "lOutCheckTime";
-            this.lOutCheckTime.Size = new System.Drawing.Size(46, 17);
-            this.lOutCheckTime.TabIndex = 2;
-            this.lOutCheckTime.Text = "label1";
             // 
             // btnUnlockBicycle
             // 
@@ -96,9 +85,9 @@
             // 
             // tcApplication
             // 
-            this.tcApplication.Controls.Add(this.tabPage1);
-            this.tcApplication.Controls.Add(this.tabPage2);
-            this.tcApplication.Controls.Add(this.tabPage3);
+            this.tcApplication.Controls.Add(this.tpStand);
+            this.tcApplication.Controls.Add(this.tpSaldo);
+            this.tcApplication.Controls.Add(this.tpAcount);
             this.tcApplication.Location = new System.Drawing.Point(12, 12);
             this.tcApplication.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tcApplication.Name = "tcApplication";
@@ -106,25 +95,23 @@
             this.tcApplication.Size = new System.Drawing.Size(591, 532);
             this.tcApplication.TabIndex = 5;
             // 
-            // tabPage1
+            // tpStand
             // 
-            this.tabPage1.Controls.Add(this.cbStandIds);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.lShowString);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.pbQRCode);
-            this.tabPage1.Controls.Add(this.btnUnlockBicycle);
-            this.tabPage1.Controls.Add(this.lOutCheckTime);
-            this.tabPage1.Controls.Add(this.btnLockBicycle);
-            this.tabPage1.Controls.Add(this.lInCheckTime);
-            this.tabPage1.Location = new System.Drawing.Point(4, 25);
-            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(583, 503);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Stand";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tpStand.Controls.Add(this.cbStandIds);
+            this.tpStand.Controls.Add(this.label3);
+            this.tpStand.Controls.Add(this.label2);
+            this.tpStand.Controls.Add(this.pbQRCode);
+            this.tpStand.Controls.Add(this.btnUnlockBicycle);
+            this.tpStand.Controls.Add(this.btnLockBicycle);
+            this.tpStand.Controls.Add(this.lInCheckTime);
+            this.tpStand.Location = new System.Drawing.Point(4, 25);
+            this.tpStand.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tpStand.Name = "tpStand";
+            this.tpStand.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tpStand.Size = new System.Drawing.Size(583, 503);
+            this.tpStand.TabIndex = 0;
+            this.tpStand.Text = "Stand";
+            this.tpStand.UseVisualStyleBackColor = true;
             // 
             // cbStandIds
             // 
@@ -142,16 +129,6 @@
             this.label3.Size = new System.Drawing.Size(122, 17);
             this.label3.TabIndex = 9;
             this.label3.Text = "Select your stand:";
-            // 
-            // lShowString
-            // 
-            this.lShowString.AutoSize = true;
-            this.lShowString.Location = new System.Drawing.Point(249, 455);
-            this.lShowString.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lShowString.Name = "lShowString";
-            this.lShowString.Size = new System.Drawing.Size(128, 17);
-            this.lShowString.TabIndex = 8;
-            this.lShowString.Text = "String in QR code: ";
             // 
             // label2
             // 
@@ -193,23 +170,23 @@
             this.lInCheckTime.TabIndex = 1;
             this.lInCheckTime.Text = "label1";
             // 
-            // tabPage2
+            // tpSaldo
             // 
-            this.tabPage2.Controls.Add(this.rb20);
-            this.tabPage2.Controls.Add(this.rb15);
-            this.tabPage2.Controls.Add(this.rb10);
-            this.tabPage2.Controls.Add(this.rb5);
-            this.tabPage2.Controls.Add(this.btnRaiseBalance);
-            this.tabPage2.Controls.Add(this.lSaldo);
-            this.tabPage2.Controls.Add(this.label1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 25);
-            this.tabPage2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage2.Size = new System.Drawing.Size(583, 503);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Saldo";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpSaldo.Controls.Add(this.rb20);
+            this.tpSaldo.Controls.Add(this.rb15);
+            this.tpSaldo.Controls.Add(this.rb10);
+            this.tpSaldo.Controls.Add(this.rb5);
+            this.tpSaldo.Controls.Add(this.btnRaiseBalance);
+            this.tpSaldo.Controls.Add(this.lSaldo);
+            this.tpSaldo.Controls.Add(this.label1);
+            this.tpSaldo.Location = new System.Drawing.Point(4, 25);
+            this.tpSaldo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tpSaldo.Name = "tpSaldo";
+            this.tpSaldo.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tpSaldo.Size = new System.Drawing.Size(583, 503);
+            this.tpSaldo.TabIndex = 1;
+            this.tpSaldo.Text = "Saldo";
+            this.tpSaldo.UseVisualStyleBackColor = true;
             // 
             // rb20
             // 
@@ -287,34 +264,34 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Saldo:";
             // 
-            // tabPage3
+            // tpAcount
             // 
-            this.tabPage3.Controls.Add(this.label12);
-            this.tabPage3.Controls.Add(this.tbCountry);
-            this.tabPage3.Controls.Add(this.tbFirstname);
-            this.tabPage3.Controls.Add(this.label10);
-            this.tabPage3.Controls.Add(this.tbLastname);
-            this.tabPage3.Controls.Add(this.label4);
-            this.tabPage3.Controls.Add(this.label9);
-            this.tabPage3.Controls.Add(this.tbCity);
-            this.tabPage3.Controls.Add(this.tbNumber);
-            this.tabPage3.Controls.Add(this.label7);
-            this.tabPage3.Controls.Add(this.tbZipcode);
-            this.tabPage3.Controls.Add(this.label8);
-            this.tabPage3.Controls.Add(this.tbEmail);
-            this.tabPage3.Controls.Add(this.label5);
-            this.tabPage3.Controls.Add(this.tbStreet);
-            this.tabPage3.Controls.Add(this.label6);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Controls.Add(this.btnChangeDetails);
-            this.tabPage3.Controls.Add(this.tbPassword);
-            this.tabPage3.Location = new System.Drawing.Point(4, 25);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(583, 503);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Acount Details";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpAcount.Controls.Add(this.label12);
+            this.tpAcount.Controls.Add(this.tbCountry);
+            this.tpAcount.Controls.Add(this.tbFirstname);
+            this.tpAcount.Controls.Add(this.label10);
+            this.tpAcount.Controls.Add(this.tbLastname);
+            this.tpAcount.Controls.Add(this.label4);
+            this.tpAcount.Controls.Add(this.label9);
+            this.tpAcount.Controls.Add(this.tbCity);
+            this.tpAcount.Controls.Add(this.tbNumber);
+            this.tpAcount.Controls.Add(this.label7);
+            this.tpAcount.Controls.Add(this.tbZipcode);
+            this.tpAcount.Controls.Add(this.label8);
+            this.tpAcount.Controls.Add(this.tbEmail);
+            this.tpAcount.Controls.Add(this.label5);
+            this.tpAcount.Controls.Add(this.tbStreet);
+            this.tpAcount.Controls.Add(this.label6);
+            this.tpAcount.Controls.Add(this.label13);
+            this.tpAcount.Controls.Add(this.btnChangeDetails);
+            this.tpAcount.Controls.Add(this.tbPassword);
+            this.tpAcount.Location = new System.Drawing.Point(4, 25);
+            this.tpAcount.Name = "tpAcount";
+            this.tpAcount.Padding = new System.Windows.Forms.Padding(3);
+            this.tpAcount.Size = new System.Drawing.Size(583, 503);
+            this.tpAcount.TabIndex = 2;
+            this.tpAcount.Text = "Acount Details";
+            this.tpAcount.UseVisualStyleBackColor = true;
             // 
             // label12
             // 
@@ -489,23 +466,22 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ApplicationForm";
             this.tcApplication.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tpStand.ResumeLayout(false);
+            this.tpStand.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tpSaldo.ResumeLayout(false);
+            this.tpSaldo.PerformLayout();
+            this.tpAcount.ResumeLayout(false);
+            this.tpAcount.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.Label lOutCheckTime;
         private System.Windows.Forms.Button btnUnlockBicycle;
         private System.Windows.Forms.TabControl tcApplication;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tpStand;
+        private System.Windows.Forms.TabPage tpSaldo;
         private System.Windows.Forms.RadioButton rb20;
         private System.Windows.Forms.RadioButton rb15;
         private System.Windows.Forms.RadioButton rb10;
@@ -515,12 +491,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pbQRCode;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lShowString;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnLockBicycle;
         private System.Windows.Forms.Label lInCheckTime;
         private System.Windows.Forms.ComboBox cbStandIds;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpAcount;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox tbCountry;
         private System.Windows.Forms.TextBox tbFirstname;
