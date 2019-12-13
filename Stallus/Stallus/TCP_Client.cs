@@ -25,9 +25,7 @@ namespace Stallus
         {
             try
             {
-                //clientSock.Connect(Settings.IPAddress, Port);
                 SendMessage("DB_CHECK:;");
-                //clientSock.Close();
                 return true;
             }
             catch

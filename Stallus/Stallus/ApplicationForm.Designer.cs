@@ -65,6 +65,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.btnChangeDetails = new System.Windows.Forms.Button();
             this.tbPassword = new System.Windows.Forms.TextBox();
+            this.lOutCheckTime = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.lPrice = new System.Windows.Forms.Label();
             this.tcApplication.SuspendLayout();
             this.tpStand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
@@ -74,10 +79,10 @@
             // 
             // btnUnlockBicycle
             // 
-            this.btnUnlockBicycle.Location = new System.Drawing.Point(249, 116);
+            this.btnUnlockBicycle.Location = new System.Drawing.Point(249, 90);
             this.btnUnlockBicycle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnUnlockBicycle.Name = "btnUnlockBicycle";
-            this.btnUnlockBicycle.Size = new System.Drawing.Size(116, 25);
+            this.btnUnlockBicycle.Size = new System.Drawing.Size(116, 103);
             this.btnUnlockBicycle.TabIndex = 4;
             this.btnUnlockBicycle.Text = "Unlock bicycle";
             this.btnUnlockBicycle.UseVisualStyleBackColor = true;
@@ -97,6 +102,11 @@
             // 
             // tpStand
             // 
+            this.tpStand.Controls.Add(this.lPrice);
+            this.tpStand.Controls.Add(this.label15);
+            this.tpStand.Controls.Add(this.label11);
+            this.tpStand.Controls.Add(this.label14);
+            this.tpStand.Controls.Add(this.lOutCheckTime);
             this.tpStand.Controls.Add(this.cbStandIds);
             this.tpStand.Controls.Add(this.label3);
             this.tpStand.Controls.Add(this.label2);
@@ -133,7 +143,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(249, 176);
+            this.label2.Location = new System.Drawing.Point(249, 211);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(266, 17);
@@ -142,7 +152,7 @@
             // 
             // pbQRCode
             // 
-            this.pbQRCode.Location = new System.Drawing.Point(249, 199);
+            this.pbQRCode.Location = new System.Drawing.Point(249, 234);
             this.pbQRCode.Margin = new System.Windows.Forms.Padding(4);
             this.pbQRCode.Name = "pbQRCode";
             this.pbQRCode.Size = new System.Drawing.Size(273, 252);
@@ -152,10 +162,10 @@
             // 
             // btnLockBicycle
             // 
-            this.btnLockBicycle.Location = new System.Drawing.Point(32, 116);
+            this.btnLockBicycle.Location = new System.Drawing.Point(48, 90);
             this.btnLockBicycle.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnLockBicycle.Name = "btnLockBicycle";
-            this.btnLockBicycle.Size = new System.Drawing.Size(103, 25);
+            this.btnLockBicycle.Size = new System.Drawing.Size(103, 103);
             this.btnLockBicycle.TabIndex = 3;
             this.btnLockBicycle.Text = "Lock bicycle";
             this.btnLockBicycle.UseVisualStyleBackColor = true;
@@ -164,11 +174,10 @@
             // lInCheckTime
             // 
             this.lInCheckTime.AutoSize = true;
-            this.lInCheckTime.Location = new System.Drawing.Point(32, 80);
+            this.lInCheckTime.Location = new System.Drawing.Point(124, 234);
             this.lInCheckTime.Name = "lInCheckTime";
-            this.lInCheckTime.Size = new System.Drawing.Size(46, 17);
+            this.lInCheckTime.Size = new System.Drawing.Size(0, 17);
             this.lInCheckTime.TabIndex = 1;
-            this.lInCheckTime.Text = "label1";
             // 
             // tpSaldo
             // 
@@ -457,6 +466,49 @@
             this.tbPassword.TabIndex = 3;
             this.tbPassword.Tag = "password";
             // 
+            // lOutCheckTime
+            // 
+            this.lOutCheckTime.AutoSize = true;
+            this.lOutCheckTime.Location = new System.Drawing.Point(124, 268);
+            this.lOutCheckTime.Name = "lOutCheckTime";
+            this.lOutCheckTime.Size = new System.Drawing.Size(0, 17);
+            this.lOutCheckTime.TabIndex = 11;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 268);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(105, 17);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Check out time:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 234);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 17);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Check in time:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(13, 300);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 17);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Price:";
+            // 
+            // lPrice
+            // 
+            this.lPrice.AutoSize = true;
+            this.lPrice.Location = new System.Drawing.Point(71, 300);
+            this.lPrice.Name = "lPrice";
+            this.lPrice.Size = new System.Drawing.Size(0, 17);
+            this.lPrice.TabIndex = 15;
+            // 
             // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -515,6 +567,11 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button btnChangeDetails;
         private System.Windows.Forms.TextBox tbPassword;
+        private System.Windows.Forms.Label lPrice;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lOutCheckTime;
     }
 }
 

@@ -23,6 +23,7 @@ namespace Stallus
             this.loggedinUser = loggedinUser;
             InitializeComponent();
             ProcessAllStandId();
+            lSaldo.Text = loggedinUser.Balance.ToString();
 
         }
 
@@ -44,8 +45,12 @@ namespace Stallus
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
         {
-            if (loggedinUser.CheckAmount(client.Req_Price(loggedinUser)))
+            decimal price = client.Req_Price(loggedinUser);
+            if (loggedinUser.CheckAmount(price))
             {
+                DateTime time = DateTime.Now;
+                lOutCheckTime.Text = time.ToShortTimeString();
+                lPrice.Text = price.ToString();
                 QRcode qRcode = new QRcode(client.Req_VerificationKey(loggedinUser));
                 pbQRCode.Image = qRcode.GenerateQrCode();
             }
@@ -72,7 +77,7 @@ namespace Stallus
                 {
                     client.ChangeBalance(loggedinUser, 15);
                 }
-                else if (rb10.Checked)
+                else if (rb20.Checked)
                 {
                     client.ChangeBalance(loggedinUser, 20);
                 }
