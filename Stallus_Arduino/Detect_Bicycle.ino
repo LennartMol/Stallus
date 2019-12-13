@@ -1,28 +1,28 @@
-//int currentState = 0;
 int previousState = 0;
-long wait = 30000;
 
-void DetectBicycle()
+
+void DetectBicycleAvailable_TimeExpired()
 {
+  const long wait = 30000;
   int currentState = digitalRead(SENSORPIN);
   if(currentState == HIGH){
   }
   if (currentState != previousState && digitalRead(SENSORPIN) == LOW) { // bycicle present
-    pressedDown = millis();
+    timeAvailable = millis();
   }
   if (digitalRead(SENSORPIN) == LOW && isLocked == false && millis() % 1000 <= 1) {
     Serial.println("#DB_STAND_DISCONNECTED:1%");
   }
   if (currentState == previousState && digitalRead(SENSORPIN) == HIGH) { // no bycicle available
-    pressedDown = millis();
+    timeAvailable = millis();
   }
-  if ((millis() - pressedDown) > wait) {
-    TakeAction();
+  if ((millis() - timeAvailable) > wait) {
+    LockBicycle();
   }
   previousState = currentState;
 }
 
-void TakeAction() {
+void LockBicycle() {
   if (isLocked == false)
   {
     Serial.println("#DB_BIKE_AUTOLOCKED:1%");

@@ -18,6 +18,6 @@ void servoUnLock()
     delay(15);    
   }
   isLocked = false;
-  pressedDown = millis();
+  timeAvailable = millis();
   myservo.detach();
 }

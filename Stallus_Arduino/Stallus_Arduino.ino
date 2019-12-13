@@ -8,13 +8,13 @@ Servo myservo;  // create servo object to control a servo
 #define SENSORPIN 4 
 
 int pos =0; // variable to store the servo position
-const int buttonPin = 2;  // the number of the pushbutton pin
+//const int buttonPin = 2;  // the number of the pushbutton pin
 bool isLocked = false;
-long pressedDown;
+long timeAvailable;
 
 void setup() {
   // put your setup code here, to run once:
-  pinMode(buttonPin, INPUT);
+  //pinMode(buttonPin, INPUT);
   pinMode(SENSORPIN, INPUT);     
   digitalWrite(SENSORPIN, HIGH); // turn on the pullup
   myservo.attach(8);  // attaches the servo on pin 8 to the servo object
@@ -29,5 +29,5 @@ void loop() {
   // put your main code here, to run repeatedly:
   CheckForSerialCom();
   CheckForSlaveCom();
-  DetectBicycle();
+  DetectBicycleAvailable_TimeExpired();
 }
