@@ -27,6 +27,10 @@ namespace Stallus
                 {
                     firstName = value;
                 }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("firstName");
+                }
             }
         }
         public string LastName
@@ -37,6 +41,10 @@ namespace Stallus
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     lastName = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("lastName");
                 }
             }
         }
@@ -50,6 +58,10 @@ namespace Stallus
                 {
                     dateOfBirth = value;
                 }
+                else
+                {
+                    throw new ArgumentNullException("dateOfBirth");
+                }
             }
         }
 
@@ -61,6 +73,10 @@ namespace Stallus
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     email = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("email");
                 }
             }
         }
@@ -76,6 +92,10 @@ namespace Stallus
                 {
                     password = value;
                 }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("Password");
+                }
             }
         }
         public Address Address
@@ -86,6 +106,10 @@ namespace Stallus
                 if (value != null)
                 {
                     address = value;
+                }
+                else
+                {
+                    throw new ArgumentNullException("address");
                 }
             }
         }
@@ -98,6 +122,10 @@ namespace Stallus
                 if (!string.IsNullOrWhiteSpace(value))
                 {
                     userId = value;
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException("userId");
                 }
             }
         }
@@ -119,6 +147,7 @@ namespace Stallus
             {
                 throw new ArgumentNullException("Values can't be null");
             }
+
         }
 
         /// <summary>

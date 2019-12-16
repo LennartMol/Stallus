@@ -24,6 +24,10 @@ namespace Stallus
                 City = city;
                 Country = country;
             }
+            else
+            {
+                throw new ArgumentNullException("Values cant be null");
+            }
         }
         public void ChangeStreet(string changedStreet)
         {

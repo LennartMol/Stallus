@@ -100,6 +100,7 @@ namespace Stallus
             List<string> textBoxInfo = new List<string>();
             List<string> columnNames = new List<string>();
             List<string> newValues = new List<string>();
+
             foreach (Control control in tpAcount.Controls)
             {
                 if (control is TextBox)
