@@ -31,6 +31,11 @@
             this.btnUnlockBicycle = new System.Windows.Forms.Button();
             this.tcApplication = new System.Windows.Forms.TabControl();
             this.tpStand = new System.Windows.Forms.TabPage();
+            this.lPrice = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.lOutCheckTime = new System.Windows.Forms.Label();
             this.cbStandIds = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -65,11 +70,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.btnChangeDetails = new System.Windows.Forms.Button();
             this.tbPassword = new System.Windows.Forms.TextBox();
-            this.lOutCheckTime = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.lPrice = new System.Windows.Forms.Label();
             this.tcApplication.SuspendLayout();
             this.tpStand.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbQRCode)).BeginInit();
@@ -123,6 +123,49 @@
             this.tpStand.Text = "Stand";
             this.tpStand.UseVisualStyleBackColor = true;
             // 
+            // lPrice
+            // 
+            this.lPrice.AutoSize = true;
+            this.lPrice.Location = new System.Drawing.Point(71, 300);
+            this.lPrice.Name = "lPrice";
+            this.lPrice.Size = new System.Drawing.Size(0, 17);
+            this.lPrice.TabIndex = 15;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(13, 300);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(44, 17);
+            this.label15.TabIndex = 14;
+            this.label15.Text = "Price:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(13, 268);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(105, 17);
+            this.label11.TabIndex = 13;
+            this.label11.Text = "Check out time:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(13, 234);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 17);
+            this.label14.TabIndex = 12;
+            this.label14.Text = "Check in time:";
+            // 
+            // lOutCheckTime
+            // 
+            this.lOutCheckTime.AutoSize = true;
+            this.lOutCheckTime.Location = new System.Drawing.Point(124, 268);
+            this.lOutCheckTime.Name = "lOutCheckTime";
+            this.lOutCheckTime.Size = new System.Drawing.Size(0, 17);
+            this.lOutCheckTime.TabIndex = 11;
+            // 
             // cbStandIds
             // 
             this.cbStandIds.FormattingEnabled = true;
@@ -143,16 +186,17 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(249, 211);
+            this.label2.Location = new System.Drawing.Point(277, 211);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(266, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "Scan this QR code to unlock your bicycle";
+           // this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // pbQRCode
             // 
-            this.pbQRCode.Location = new System.Drawing.Point(249, 234);
+            this.pbQRCode.Location = new System.Drawing.Point(270, 232);
             this.pbQRCode.Margin = new System.Windows.Forms.Padding(4);
             this.pbQRCode.Name = "pbQRCode";
             this.pbQRCode.Size = new System.Drawing.Size(273, 252);
@@ -465,49 +509,6 @@
             this.tbPassword.Size = new System.Drawing.Size(164, 22);
             this.tbPassword.TabIndex = 3;
             this.tbPassword.Tag = "password";
-            // 
-            // lOutCheckTime
-            // 
-            this.lOutCheckTime.AutoSize = true;
-            this.lOutCheckTime.Location = new System.Drawing.Point(124, 268);
-            this.lOutCheckTime.Name = "lOutCheckTime";
-            this.lOutCheckTime.Size = new System.Drawing.Size(0, 17);
-            this.lOutCheckTime.TabIndex = 11;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(13, 268);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(105, 17);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "Check out time:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(13, 234);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(96, 17);
-            this.label14.TabIndex = 12;
-            this.label14.Text = "Check in time:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(13, 300);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(44, 17);
-            this.label15.TabIndex = 14;
-            this.label15.Text = "Price:";
-            // 
-            // lPrice
-            // 
-            this.lPrice.AutoSize = true;
-            this.lPrice.Location = new System.Drawing.Point(71, 300);
-            this.lPrice.Name = "lPrice";
-            this.lPrice.Size = new System.Drawing.Size(0, 17);
-            this.lPrice.TabIndex = 15;
             // 
             // ApplicationForm
             // 

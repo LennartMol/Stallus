@@ -108,7 +108,7 @@
             this.tbLoginPassword.PasswordChar = '*';
             this.tbLoginPassword.Size = new System.Drawing.Size(164, 22);
             this.tbLoginPassword.TabIndex = 2;
-            this.tbLoginPassword.Text = "stallus";
+            this.tbLoginPassword.Text = "Stallus";
             // 
             // tabControl1
             // 

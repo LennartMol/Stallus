@@ -16,6 +16,7 @@ namespace Stallus
     {
         private TCP_Client client;
         private User loggedinUser;
+        private bool sessionStarted = false;
 
         public ApplicationForm(User loggedinUser)
         {
@@ -24,7 +25,13 @@ namespace Stallus
             InitializeComponent();
             ProcessAllStandId();
             lSaldo.Text = loggedinUser.Balance.ToString();
-
+            string session = client.Req_Check_Exsisting_session(loggedinUser);
+            if (session != null)
+            {
+                lInCheckTime.Text = session;
+                sessionStarted = true;
+            }
+            LoadForm(sessionStarted);
         }
 
         private void BtnLockBicycle_Click(object sender, EventArgs e)
@@ -34,13 +41,15 @@ namespace Stallus
                 if (client.LockBike(cbStandIds.Text, loggedinUser))
                 {
                     DateTime time = DateTime.Now;
-                    lInCheckTime.Text = time.ToShortTimeString();
+                    lInCheckTime.Text = time.ToString();
+                    sessionStarted = true;
                 }
             }
             catch (ArgumentOutOfRangeException ex)
             {
                 MessageBox.Show(ex.Message + "No message received");
             }
+            LoadForm(sessionStarted);
         }
 
         private void BtnUnlockBicycle_Click(object sender, EventArgs e)
@@ -49,16 +58,19 @@ namespace Stallus
             if (loggedinUser.CheckAmount(price))
             {
                 DateTime time = DateTime.Now;
-                lOutCheckTime.Text = time.ToShortTimeString();
-                lPrice.Text = price.ToString();
+                lOutCheckTime.Text = time.ToString();
+                double stringPrice = Convert.ToDouble(price);
+                lPrice.Text = stringPrice.ToString();
                 QRcode qRcode = new QRcode(client.Req_VerificationKey(loggedinUser));
                 pbQRCode.Image = qRcode.GenerateQrCode();
+                sessionStarted = false;
             }
             else
             {
                 MessageBox.Show("Not enough balance");
                 tpSaldo.Show();
             }
+            LoadForm(sessionStarted);
         }
 
         private void btnRaiseBalance_Click(object sender, EventArgs e)
@@ -91,6 +103,23 @@ namespace Stallus
             foreach (string standId in client.Req_AllStandId())
             {
                 cbStandIds.Items.Add(standId);
+            }
+        }
+
+        private void LoadForm(bool sessionStarted)
+        {
+            if (sessionStarted == true)
+            {
+                btnLockBicycle.Enabled = false;
+                btnUnlockBicycle.Enabled = true;
+                cbStandIds.Enabled = false;
+                lOutCheckTime.Text = "";
+            }
+            else
+            {
+                btnLockBicycle.Enabled = true;
+                btnUnlockBicycle.Enabled = false;
+                cbStandIds.Enabled = true;
             }
         }
 
@@ -179,7 +208,6 @@ namespace Stallus
             client.ChangeDetails(loggedinUser, columnNames, newValues);
 
         }
-
 
     }
 }

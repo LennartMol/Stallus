@@ -64,11 +64,7 @@ namespace Stallus
                     clientSock.Close();
                 }
                 Console.WriteLine(ReceivedString);
-                if (ReceivedString.Contains("ACK"))
-                {
-                    received = true;
-
-                }
+                received = true;
                 ReceivedData = CommandStringTrimmer(ReceivedString);
             }
             clientSock.Close();
@@ -80,27 +76,31 @@ namespace Stallus
         {
             SendMessage($"DB_REQ_LOGIN:{email_address};");
             string rPassword = ReceivedData[2];
-            if (rPassword == password)
+            if (ReceivedString.StartsWith("ACK"))
             {
-                return true;
+                if (rPassword == password)
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public User ReqUser(string userId)
         {
             SendMessage($"DB_REQ_USER:{userId};");
-            string first_name = ReceivedData[1];
-            string last_name = ReceivedData[2];
-            DateTime date_of_birth = ParseBirthDate(ReceivedData[3]);
-            string email_address = ReceivedData[4];
-            string password = ReceivedData[5];
-            Address address = ParseAddress(ReceivedData[6]);
-            decimal balance = Convert.ToDecimal(ReceivedData[7]);
-            return new User(userId, first_name, last_name, date_of_birth, email_address, password, address, balance);
+            if (ReceivedString.StartsWith("ACK"))
+            {
+                string first_name = ReceivedData[1];
+                string last_name = ReceivedData[2];
+                DateTime date_of_birth = ParseBirthDate(ReceivedData[3]);
+                string email_address = ReceivedData[4];
+                string password = ReceivedData[5];
+                Address address = ParseAddress(ReceivedData[6]);
+                decimal balance = Convert.ToDecimal(ReceivedData[7]);
+                return new User(userId, first_name, last_name, date_of_birth, email_address, password, address, balance);
+            }
+            return null;
         }
 
         public bool Registrate(string first_name, string last_name, DateTime date_of_birth, string email, string password, Address address)
@@ -123,7 +123,6 @@ namespace Stallus
 
         private DateTime ParseBirthDate(string s)
         {
-            List<int> indexes = UnderscoreIndexes(s);
             int day = Convert.ToInt32(s.Substring(0, 2));
             int month = Convert.ToInt32(s.Substring(3, 2));
             int year = Convert.ToInt32(s.Substring(6, 4));
@@ -140,6 +139,17 @@ namespace Stallus
             string city = s.Substring(divisor_indexes[2] + 1, divisor_indexes[3] - divisor_indexes[2] - 1);
             string country = s.Substring(divisor_indexes[3] + 1);
             return new Address(street, number, zipcode, city, country);
+        }
+
+        private DateTime ParseLockMoment(string s)
+        {
+            int hour = Convert.ToInt32(s.Substring(0, 2));
+            int minutes = Convert.ToInt32(s.Substring(3, 2));
+            int seconds = Convert.ToInt32(s.Substring(6, 2));
+            int day = Convert.ToInt32(s.Substring(9, 2));
+            int month = Convert.ToInt32(s.Substring(12, 2));
+            int year = Convert.ToInt32(s.Substring(15, 4));
+            return new DateTime(year, month, day, hour, minutes, seconds);
         }
 
         private List<int> CommaIndexes(string s)
@@ -191,7 +201,7 @@ namespace Stallus
         public void ChangeBalance(User loggedinUser, decimal value)
         {
             SendMessage($"DB_CHANGE_BALANCE:{loggedinUser.UserId}/{value};");
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 decimal newbalance;
                 if (decimal.TryParse(ReceivedData[1], out newbalance))
@@ -204,7 +214,7 @@ namespace Stallus
         public bool LockBike(string standId, User loggedInUser)
         {
             SendMessage($"DB_LOCK_BIKE:{standId}/{loggedInUser.UserId};");
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 return true;
             }
@@ -215,7 +225,7 @@ namespace Stallus
         public string[] Req_AllStandId()
         {
             SendMessage("DB_REQ_ALLSTANDID;");
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 string[] allStands = ValuesStringTrimmer(ReceivedData[0]);
                 return allStands;
@@ -226,7 +236,7 @@ namespace Stallus
         public decimal Req_Price(User loggedInUser)
         {
             SendMessage($"DB_REQ_PRICE:{loggedInUser.UserId};");
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 decimal price;
                 if (decimal.TryParse(ReceivedData[1], out price))
@@ -239,9 +249,20 @@ namespace Stallus
         public string Req_VerificationKey(User loggedInUser)
         {
             SendMessage($"DB_REQ_VERIFICATIONKEY:{loggedInUser.UserId};");
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 return ReceivedData[0];
+            }
+            return null;
+        }
+
+        public string Req_Check_Exsisting_session(User loggedInUser)
+        {
+            SendMessage($"DB_REQ_EXISTING_SESSION_USER:{loggedInUser.UserId};");
+            if (ReceivedString.StartsWith("ACK"))
+            {
+                DateTime dateTime = ParseLockMoment(ReceivedData[2]);
+                return dateTime.ToString("hh:mm:ss dd-MM-yyyy");
             }
             return null;
         }
@@ -273,7 +294,7 @@ namespace Stallus
             }
             SendMessage(command);
 
-            if (ReceivedString.Contains("ACK"))
+            if (ReceivedString.StartsWith("ACK"))
             {
                 return true;
             }
