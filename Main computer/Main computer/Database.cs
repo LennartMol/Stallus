@@ -298,26 +298,12 @@ namespace Main_computer
 
         public bool UserPaidForBikeStand(string verification_key)
         {
+            double price = GetPrice(verification_key);
             MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = @1, has_paid = !has_paid WHERE verification_key = @2;";
+            cmd.CommandText = "UPDATE `sessions` SET lock_moment = lock_moment, unlock_moment = @1, has_paid = !has_paid WHERE verification_key = @2; UPDATE `users` SET balance = balance - @3;";
             cmd.Parameters.AddWithValue("@1", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
             cmd.Parameters.AddWithValue("@2", verification_key);
-            Connection.Open();
-            int rowsAffected = cmd.ExecuteNonQuery();
-            Connection.Close();
-            if (rowsAffected > 0)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool UserPaidForBikeStand(string verification_key, string userid)
-        {
-            MySqlCommand cmd = Connection.CreateCommand();
-            cmd.CommandText = "UPDATE `sessions` lock_moment = lock_moment, unlock_moment = now(), has_paid = !has_paid WHERE verification_key = @2;";
-            cmd.Parameters.AddWithValue("@1", userid);
-            cmd.Parameters.AddWithValue("@2", verification_key);
+            cmd.Parameters.AddWithValue("@3", price.ToString("#,##"));
             Connection.Open();
             int rowsAffected = cmd.ExecuteNonQuery();
             Connection.Close();
@@ -366,7 +352,7 @@ namespace Main_computer
             return verification_key;
         } 
 
-        public string GetPrice(string verification_key)
+        public double GetPrice(string verification_key)
         {
             MySqlCommand cmd = Connection.CreateCommand();
             cmd.CommandText = "SELECT `lock_moment` FROM `sessions` WHERE `verification_key` = @1";
@@ -385,12 +371,13 @@ namespace Main_computer
                 minutes = -1;
             }
             double pricePerMinute = 0.05; //5 cent per minute
-            double price = pricePerMinute * minutes;
+            double price = pricePerMinute * minutes + 0.3;
             if (price < 0)
             {
-                return null;
+                return 0;
             }
-            return price.ToString();
+            Connection.Close();
+            return price;
         }
 
         private double MinutesDifference(long start, long end)

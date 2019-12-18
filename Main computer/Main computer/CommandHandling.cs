@@ -92,7 +92,7 @@ namespace Main_computer
             {
                 ReqVerificationKey();
             }
-            else if (Command.StartsWith("DB_CHECK_EXSISTING_SESSION_USER"))
+            else if (Command.StartsWith("DB_REQ_EXISTING_SESSION_USER"))
             {
                 CheckForExistingSessionUser();
             }
@@ -331,31 +331,16 @@ namespace Main_computer
         {
             string userid = Data[0];
             string verification_key = Database.GetVerificationKey(userid);
-            string price = Database.GetPrice(verification_key);
-            if (verification_key != null && price != null)
+            double price = Database.GetPrice(verification_key);
+            if (verification_key != null && price != 0)
             {
-                string send = $"ACK_REQ_PRICE:{userid}/{price};";
+                string send = $"ACK_REQ_PRICE:{userid}/{price.ToString("#.##")};";
                 SendMessageToSocket(send);
             }
             else
             {
                 string send = $"NACK_REQ_PRICE:{userid};";
                 SendMessageToSocket(send);
-            }
-        }
-
-        private void BikeStandPaid_withUserID()
-        {
-            string verification_key = Data[0];
-            string userid = Data[1];
-            string stand_id = Database.GetStandID_linkedToKey(verification_key);
-            if (stand_id != null)
-            {
-                if (Database.UserPaidForBikeStand(verification_key, userid))
-                {
-                    string send = $"unlockBicycleStand";
-                    SendMessageToSerialPort(send);
-                }
             }
         }
 
@@ -377,7 +362,7 @@ namespace Main_computer
 
         private List<LockProcedure> ClearAllInstancesForStand(List<LockProcedure> instances, string standId_ToDelete)
         {
-            foreach (LockProcedure lp in instances)
+            foreach (LockProcedure lp in instances.ToList())
             {
                 if (lp.StandID == standId_ToDelete)
                 {
@@ -435,12 +420,12 @@ namespace Main_computer
             }
             if (found != null)
             {
-                string send = $"ACK_CHECK_EXSISTING_SESSION_USER:{userid}/{found.StandID}/{found.DateTime.ToString("hh_mm_ss_dd_MM_yyyy")};";
+                string send = $"ACK_REQ_EXSISTING_SESSION_USER:{userid}/{found.StandID}/{found.DateTime.ToString("hh_mm_ss_dd_MM_yyyy")};";
                 SendMessageToSocket(send);
             }
             else
             {
-                string send = $"NACK_CHECK_EXISTING_SESSION_USER:{userid};";
+                string send = $"NACK_REQ_EXISTING_SESSION_USER:{userid};";
                 SendMessageToSocket(send);
             }
         }
