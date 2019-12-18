@@ -374,7 +374,7 @@ namespace Main_computer
             Connection.Open();
             cmd.ExecuteNonQuery();
             MySqlDataReader reader = cmd.ExecuteReader();
-            double minutes = 0;
+            double minutes;
             if (reader.HasRows)
             {
                 reader.Read();
