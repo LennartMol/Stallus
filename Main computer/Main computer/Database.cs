@@ -408,5 +408,23 @@ namespace Main_computer
             Connection.Close();
             return stand_ids;
         }
+
+        public bool CheckIfUserPaid(string verification_key)
+        {
+            MySqlCommand cmd = Connection.CreateCommand();
+            cmd.CommandText = "SELECT `has_paid` FROM `sessions` WHERE verification_key = @1";
+            cmd.Parameters.AddWithValue("@1", verification_key);
+            Connection.Open();
+            bool hasUserPaid = false;
+            cmd.ExecuteNonQuery();
+            MySqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                reader.Read();
+                hasUserPaid = reader.GetBoolean(0);
+            }
+            Connection.Close();
+            return hasUserPaid;
+        }
     }
 }

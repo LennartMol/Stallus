@@ -96,6 +96,10 @@ namespace Main_computer
             {
                 CheckForExistingSessionUser();
             }
+            else if (Command.StartsWith("DB_REQ_IF_USER_PAID"))
+            {
+                CheckIfUserPaid();
+            }
         }
 
         private void SendMessageToSocket(string message)
@@ -426,6 +430,21 @@ namespace Main_computer
             else
             {
                 string send = $"NACK_REQ_EXISTING_SESSION_USER:{userid};";
+                SendMessageToSocket(send);
+            }
+        }
+        
+        private void CheckIfUserPaid()
+        {
+            string verification_key = Data[0];
+            if (Database.CheckIfUserPaid(verification_key))
+            {
+                string send = "ACK_USER_PAID;";
+                SendMessageToSocket(send);
+            }
+            else
+            {
+                string send = "NACK_USER_PAID;";
                 SendMessageToSocket(send);
             }
         }
